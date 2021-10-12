@@ -1,0 +1,84 @@
+<div class="sign-in-area pt-50 pb-70">
+  <br>
+    <div class="container">
+        <h3 class="mb-4">Quiz Answer Assessment - {{quizName}}</h3>
+        <div class="row mb-4">
+          <div class="col-sm-2">
+            <span class="font-weight-bold">Quiz Name</span>
+          </div>
+          <div class="col-sm-4">
+            {{quizName}}
+          </div>
+          <div class="col-sm-2">
+            <span class="font-weight-bold">Participant</span>
+          </div>
+          <div class="col-sm-4">
+            {{participant}}
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-sm-2" *ngIf="!isInternalMentor">
+            <span class="font-weight-bold">Company Name</span>
+          </div>
+          <div class="col-sm-4" *ngIf="!isInternalMentor">
+            {{companyName}}
+          </div>
+          <div class="col-sm-2">
+            <span class="font-weight-bold">Book Title</span>
+          </div>
+          <div class="col-sm-4">
+            {{bookTitle}}
+          </div>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 bg-y2">
+            <ng-container matColumnDef="questionName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Question
+                <mat-icon matTooltip="Click to copy the below text in the clipboard" fontSet="material-icons-outlined" style="margin-left: 5px;">info</mat-icon> </th>
+              <td mat-cell *matCellDef="let element" [matTooltip]="element.questionName" (click)="copyAnyText(element.questionName)">
+                <span [matTooltip]="element.questionName" (click)="copyAnyText(element.questionName)" style="cursor: pointer;">
+                  {{ (element.questionName.length>40)? (element.questionName | slice:0:40)+'...':(element.questionName) }}
+                </span>                 
+              </td>
+            </ng-container>
+      
+            <!-- Name Column -->
+            <ng-container matColumnDef="userAnswer">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> User Answer
+                <mat-icon matTooltip="Click to copy the below text in the clipboard" fontSet="material-icons-outlined" style="margin-left: 5px;">info</mat-icon> </th>
+              <td mat-cell *matCellDef="let element"> 
+                <span [matTooltip]="element.useranswer" (click)="copyAnyText(element.useranswer)" style="cursor: pointer;">
+                  {{ (element.useranswer.length>40)? (element.useranswer | slice:0:40)+'...':(element.useranswer) }}
+                </span>
+              </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="correctAnswer">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Correct Answer
+                <mat-icon matTooltip="Click to copy the below text in the clipboard" fontSet="material-icons-outlined" style="margin-left: 5px;">info</mat-icon> </th>
+              <td mat-cell *matCellDef="let element">
+                <span [matTooltip]="element.defaultanswer" (click)="copyAnyText(element.defaultanswer)" style="cursor: pointer;">
+                  {{ (element.defaultanswer.length>40)? (element.defaultanswer | slice:0:40)+'...':(element.defaultanswer) }}
+                </span>
+                
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="result">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Result </th>
+                <td mat-cell *matCellDef="let element" >
+                    <span *ngIf="element.useranswer !== element.defaultanswer" class="text-danger">
+                      Wrong Answer
+                    </span>
+                    <span *ngIf="element.useranswer === element.defaultanswer" class="text-success">
+                      Correct Answer
+                  </span>
+                </td>
+              </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          </table>
+          <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

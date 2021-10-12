@@ -1,0 +1,181 @@
+
+
+
+
+<div id="generic_price_table">
+	<section>
+		
+		<app-your-sensei-modal [openModal]="paymentmode" (messageEvent)="messageEvent($event)" [showCloseButton]="IsPmntCmtd==false" modalHeading="{{modelHeading}}">
+			<ngx-paypal *ngIf="IsPmntCmtd==false"  [config]="payPalConfig"></ngx-paypal>
+			<div *ngIf="IsPmntCmtd==true">
+				<h3>
+					Payment confirmation 
+				</h3>
+				<h6 style="font-weight: 100;">
+					Your transaction has been completed successfully! 
+					<br>Transaction ID: <span style="color: #3b7bbf;font-weight: 600;">{{TransactionID}}</span>
+				</h6>
+				<h6  style="font-weight: 100;">Please note transaction Id for future reference.</h6>
+				<h1 class="text-center" style="color: green;"><i style="margin-right:10px" class="fa fa-check" aria-hidden="true"></i>Thank You!</h1>
+				<div *ngIf="newPlanID!=planid" class="col-md-12">
+					<span style="color: red;">Logged-out in {{timeLeft}} seconds!</span>
+					<a class="default-btn" style="text-align: center;float:right;" 
+				mat-raised-button (click)="logout()"
+				>Back to Login </a>
+				</div>
+				<div *ngIf="newPlanID==planid" class="col-md-12">
+					<a class="default-btn" style="text-align: center;float:right;" 
+				mat-raised-button (click)="close($event)"
+				>Close </a>
+				</div>
+				</div>
+		</app-your-sensei-modal>
+		<div class="container">
+			<h3>Subscription</h3>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<!--PRICE HEADING START-->
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th colspan="7">Your current plan <span *ngIf="subscriptionExpired">is <span
+											style="color: #fba311">EXPIRED</span></span>
+											<span *ngIf="subscriptionExpired==false">will be <span
+												style="color: #fba311">expired 
+												<span *ngIf="leftDaysToExpired>0">in {{leftDaysToExpired}} days.</span>
+												<span *ngIf="1>leftDaysToExpired">today.</span> </span></span>
+									<button *ngIf="8>leftDaysToExpired" class="default-btn" style="float: right!important" mat-raised-button
+										(click)="subscribePlan(planid, numberOfDays, !isChangePlan,price)">
+										<mat-icon>autorenew</mat-icon> Renew
+									</button>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>Plan</th>
+								<th>Price</th>
+								<th *ngIf="!individual">Employees</th>
+								<th *ngIf="!individual">External Mentors</th>
+								<th>Expiry Date</th>
+								<th width="40%">Features Allowed</th>
+							</tr>
+							<tr>
+								<td>{{planName}}</td>
+								<td>$ {{price | number : '1.2-2'}} /{{numberOfDays}} Days</td>
+								<td *ngIf="!individual">{{numberOfEmployees}}</td>
+								<td *ngIf="!individual">{{numberOfExternalMentors}}</td>
+								<td>{{subscriptionExpirydate == '0001-01-01T00:00:00Z' ? '' : subscriptionExpirydate |
+									date:'MM/dd/yyyy'}}</td>
+								<td>{{featuresAllowed}}</td>
+							</tr>
+
+						</tbody>
+					</table>
+					<!--//PRICE HEADING END-->
+				</div>
+			</div>
+
+			<!--BLOCK ROW START-->
+			<div class="row">
+				<div class="col-md-4" *ngFor="let plan of planList">
+
+					<!--PRICE CONTENT START-->
+					<div class="generic_content active clearfix">
+
+						<!--HEAD PRICE DETAIL START-->
+						<div class="generic_head_price clearfix">
+
+							<!--HEAD CONTENT START-->
+							<div class="generic_head_content clearfix">
+
+								<!--HEAD START-->
+								<div class="head_bg"></div>
+								<div class="head">
+									<span>{{plan.planName}}</span>
+								</div>
+								<!--//HEAD END-->
+
+							</div>
+							<!--//HEAD CONTENT END-->
+
+							<!--PRICE START-->
+							<div class="generic_price_tag clearfix">
+								<span class="price">
+									<span class="sign">$</span>
+									<span class="currency">{{plan.price.toString().split('.')[0]}}</span>
+									<span class="cent">.{{plan.price.toString().includes('.') ?
+										plan.price.toString().split('.')[1] : '00'}}</span>
+									<span class="month">/{{plan.numberOfDays}} Days</span>
+								</span>
+							</div>
+							<!--//PRICE END-->
+
+						</div>
+						<!--//HEAD PRICE DETAIL END-->
+
+						<!--FEATURE LIST START-->
+						<div class="generic_feature_list">
+							<ul>
+								<li *ngFor="let feature of plan.featuresAllowedList">
+									<!-- <span class="material-icons-outlined">
+										done
+									</span> -->
+									<i class="fa fa-check"></i>
+									 {{feature === 'Employee' ? plan.numberOfEmployees + ' Employee' : feature
+									=== 'External Mentor' ? plan.numberOfExternalMentors + ' External Mentor' :
+									feature}}
+								</li>
+							</ul>
+						</div>
+						<!--//FEATURE LIST END-->
+
+						<!--BUTTON START-->
+						<div class="generic_price_btn clearfix">
+							<a (click)="subscribePlan(plan.id, plan.numberOfDays, isChangePlan,plan.price)"
+								style="cursor: pointer;">Subscribe </a>
+								
+							
+						</div>
+						<!--//BUTTON END-->
+
+					</div>
+					<!--//PRICE CONTENT END-->
+
+				</div>
+			</div>
+			<!--//BLOCK ROW END-->
+
+		</div>
+	</section>
+</div>
+
+<!-- <section class="pricing py-5 card-p-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4" *ngFor="let plan of planList">
+        <div class="card mb-5 mb-lg-0">
+          <div class="card-body">
+		  <label class="labl">
+		  <input type="radio" name="radioname" value="one_value" checked="checked"/>
+		  <div>
+				<h5 class="card-title text-muted text-uppercase text-center">{{plan.planName}}</h5>
+				<h6 class="card-price text-center">${{plan.price}}<span class="period">For {{plan.numberOfDays}} Days</span></h6>
+				<hr>
+				<ul class="fa-ul">
+				  <li *ngFor="let feature of plan.featuresAllowedArray"><span class="fa-li"><i class="fas fa-check"></i></span><strong style="text-transform: capitalize;">{{feature}}</strong></li>
+				  <li><span class="fa-li"><i class="fas fa-check"></i></span><strong style="text-transform: capitalize;">{{(plan.numberOfEmployees == '-1') ? (Unlimited) : (plan.numberOfEmployees)}} Employees</strong></li>
+				  <li><span class="fa-li"><i class="fas fa-check"></i></span><strong style="text-transform: capitalize;">{{ (plan.numberOfExternalMentors == '-1') ? (Unlimited) : (plan.numberOfExternalMentors) }} Mentors</strong></li>
+				</ul>
+				<a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
+			</div>
+			</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: white">Please Wait. </p>
+</ngx-spinner>

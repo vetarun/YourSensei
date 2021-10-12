@@ -1,0 +1,175 @@
+<div class="sign-in-area pt-50 pb-70">
+  <div class="container">
+    <div class="row pt-45">
+      <div class="col-lg-12">
+        <div class="user-all-form">
+          <div class="contact-form">
+            <div class="section-title text-center">
+              <span>Library</span>
+              <h2>{{buttonname}} a Book!</h2>
+            </div>
+            <form id="contactForm" #bookform="ngForm">
+              <div class="row">
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Title</span>
+                    <input type="text" class="form-control" required="" [(ngModel)]="BookModel.Title" #Title="ngModel"
+                      name="title" id="title" placeholder="Title">
+                    <p *ngIf="btnclick==true && Title.valid==false" style="color: red;font-size: 12px;">Title is
+                      required!</p>
+                  </div>
+                </div>
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Sub Title</span>
+                    <input type="text" class="form-control" [(ngModel)]="BookModel.SubTitle" #subTitle="ngModel"
+                      name="subTitle" id="subTitle" placeholder="Sub Title">
+
+                  </div>
+                </div>
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Author</span>
+                    <input type="text" class="form-control" required="" [(ngModel)]="BookModel.Author" #Author="ngModel"
+                      name="author" id="author" placeholder="Author">
+                    <p *ngIf="btnclick==true && Author.valid==false" style="color: red;font-size: 12px;">Author is
+                      required!</p>
+                  </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <span style="color: gray;">Publisher</span>
+                    <input type="email" class="form-control" [(ngModel)]="BookModel.Publisher" name="publisher"
+                      id="publisher" placeholder="Publisher">
+                  </div>
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Book Category</span>
+                    <select class="form-control" [(ngModel)]="BookModel.Category" required #Category="ngModel"
+                      name="Category" id="Category">
+                      <option>Select Category</option>
+                      <option *ngFor="let cate of bookcategorylist" value="{{cate.id}}">{{cate.category}}</option>
+                    </select>
+                    <p *ngIf="btnclick==true && Category.valid==false" style="color: red;font-size: 12px;">Category is
+                      required!</p>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Year</span>
+                    <input class="form-control" type="number" min="0" [(ngModel)]="BookModel.Year" oninput="validity.valid||(value='')" name="year" id="year" placeholder="Year">
+                  </div>
+                </div>
+
+                <div class="col-lg-6" *ngIf="companyadmin || individual">
+                  <div class="form-group">
+                    <span style="color: gray;">Select Parent Book</span>
+                    <select class="form-control" id="parentBookId" name="parentBookId"
+                      [(ngModel)]="BookModel.parentBookId">
+                      <option disabled>Select Book</option>
+                      <option *ngFor="let book of globalBooks" value={{book.id}}>
+
+                        {{book.title}}
+                      </option>
+                    </select>
+
+                  </div>
+                </div>
+                <div class="col-lg-6" >
+                  <div class="form-group">
+                    <span style="color: gray;">Track Category</span>
+                    <select class="form-control" id="trackCategory" name="trackCategory"
+                      [(ngModel)]="BookModel.TrackCategory">
+                      <option disabled>Select Category</option>
+                      <option value='O' >Operations</option>
+                        <option value='F' >Finance</option>
+                        <option value='L'>Logistics</option>
+                        <option value='PD'>Projects/Development</option>
+                        <option value='SM'>Sales and Marketing</option>
+                        <option value='P'>People</option>
+                        <option value='S'>Strategy</option>
+                    </select>
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <div class="custom-file">
+                      <label for="file">Choose Cover Image</label>
+                      <input type="file" id="file" style="margin-left: 10px;"
+                        (change)="handleCoverImageInput($event.target.files)" *ngIf="bookimage==undefined">
+                    </div>
+
+                    <div *ngIf="bookimage!=undefined">
+                      <img [src]="bookimage" style="height: 50px; width: 60px; margin-left: 10px;"/>
+                      <button class="btn btn-danger" style="margin-left: 10px;" (click)="removeimage()">remove</button>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <div class="custom-file">
+                      <label for="file">Upload Book File</label>
+                      <input type="file" style="margin-left: 10px;" accept=".pdf" name="UploadBook" id="UploadBook"
+                        (change)="handleBookInput($event.target.files)">
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+
+
+
+                <!-- 
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <div class="custom-file">
+                      <input type="file" id="file" class="custom-file-input" name="UploadBook" id="UploadBook" accept=".pdf">
+                      <label class="custom-file-label" for="customFile">Upload Book</label>
+                    </div>
+
+                    <img *ngIf="BookModel.UploadBook" src="{{BookModel.UploadBook}}" class="text-center"
+                      style="width: 100px;height:120px;padding: 10px;">
+                  </div>
+                </div> -->
+
+
+
+                <div class="col-lg-6">
+                  <button type="submit" class="default-btn disabled" (click)="Addbook(bookform)"
+                    style="pointer-events: all; cursor: pointer;">
+                    {{buttonname}}
+                  </button>
+                </div>
+
+
+
+
+                <div class="col-lg-6">
+                  <p class="account-desc m-0 text-right">
+                    <a class="back-btn" [routerLink]="['/Admin/library']" *ngIf="usertypeid=='4ba19173-94cd-4222-af7c-60c91d446f8e'">Back
+                      to Library</a>
+                    <a class="back-btn" [routerLink]="['/Main/library']" *ngIf="usertypeid!='4ba19173-94cd-4222-af7c-60c91d446f8e'">Back
+                      to Library</a>
+                  </p>
+                </div>
+              </div>
+            </form>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

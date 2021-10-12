@@ -1,0 +1,173 @@
+<div class="sign-in-area pt-50 pb-70">
+    <div class="container">
+      <div class="row pt-45">
+        <div class="col-lg-12">
+          <div class="user-all-form">
+            <div class="contact-form">
+              <div class="section-title text-center">
+                <span>Subscription</span>
+                <h2>{{buttonname}} a Subscription Plan!</h2>
+              </div>
+              <form id="SubscriptionPlanForm" #planform="ngForm">
+                <div class="row">
+                  <div class="col-lg-12 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Plan Name</span>
+                      <input style="margin-left: 30px;" type="checkbox" *ngIf="!isTrailPlan" 
+                          [(ngModel)]="planModel.isTrialPlan" 
+                          name="IsTrialPlan" 
+                          id="IsTrialPlan" [disabled]="buttonname=='Update'"
+                          >
+                          <span style="color: gray;padding-left: 10px;" *ngIf="!isTrailPlan" >Is Trial Plan</span>
+                      <input type="text" class="form-control" 
+                      required="" 
+                      [(ngModel)]="planModel.planName" 
+                      #Name="ngModel"
+                      name="Name" id="Name" placeholder="Plan Name">
+                      <p *ngIf="btnclick==true && Name.valid==false"
+                      style="color: red;font-size: 12px;">
+                      Plan name is required!</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Description </span>
+                      <input type="text" class="form-control" 
+                      [(ngModel)]="planModel.description" 
+                      #Description="ngModel"
+                      required
+                      name="Description" id="Description" placeholder="Description">
+                      <p *ngIf="btnclick==true && Description.valid==false" 
+                      style="color: red;font-size: 12px;">
+                      Description is required!</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Number Of Days</span>
+                      <span class="float-right" style="color: gray;font-weight: bolder;padding-right: 10px;margin-left: 30px;">
+                        <input type="checkbox" [checked]="planModel.numberOfDays==1825" 
+                        (change)="makePlanUnlimited($event,'day')" name="isUnlimitedDays"> 
+                        Is Unlimited Days
+                      </span>
+                      <input type="number" class="form-control" 
+                      [disabled]="planModel.numberOfDays==1825"
+                      required="" 
+                      [(ngModel)]="planModel.numberOfDays" 
+                      #NumberOfDays="ngModel"
+                      name="NumberOfDays" id="NumberOfDays" 
+                      placeholder="Number Of Days">
+                     
+                      <p *ngIf="btnclick==true && NumberOfDays.errors?.required==true" 
+                      style="color: red;font-size: 12px;">
+                      Number of days is required!</p>
+                    </div>
+                  </div>
+  
+  
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <span style="color: gray;">Number Of Employees</span>
+                      <span class="float-right" style="color: gray;font-weight: bolder;padding-right: 10px;margin-left: 30px;">
+                        <input type="checkbox" 
+                        [checked]="planModel.numberOfEmployees==10000" 
+                        (change)="makePlanUnlimited($event,'employee')" 
+                        name="isUnlimitedEmployee"> Is Unlimited Employee</span>
+                      <input type="number" class="form-control" 
+                      [disabled]="planModel.numberOfEmployees==10000"
+                      [(ngModel)]="planModel.numberOfEmployees" 
+                      name="NumberOfEmployees"
+                      #NumberOfEmployees="ngModel"
+                      required
+                      id="NumberOfEmployees" placeholder="Number Of Employees">
+                      
+                      <p *ngIf="btnclick==true && NumberOfEmployees.errors?.required==true" 
+                      style="color: red;font-size: 12px;">
+                      Number of employees is required!</p>
+                    </div>
+                  </div>
+  
+                  <div class="col-lg-6 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Number Of External Mentors</span>
+                      <span class="float-right" style="color: gray;font-weight: bolder;padding-right: 10px;margin-left: 30px;">
+                        <input type="checkbox" 
+                        [checked]="planModel.numberOfExternalMentors==1000" 
+                        (change)="makePlanUnlimited($event,'mentor')" name="isUnlimitedExternalMentors"> 
+                        Is Unlimited External Mentors
+                      </span>
+                      <input type="number" class="form-control" 
+                      [disabled]="planModel.numberOfExternalMentors==1000"
+                      [(ngModel)]="planModel.numberOfExternalMentors" 
+                      required 
+                      #NumberOfExternalMentors="ngModel"
+                      name="NumberOfExternalMentors"
+                       id="NumberOfExternalMentors">                       
+   
+                      <p *ngIf="btnclick==true && NumberOfExternalMentors.errors?.required==true" 
+                      style="color: red;font-size: 12px;">Number of external mentors is required!</p>
+                    </div>
+                  </div>
+  
+                  <div class="col-lg-6 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Price</span>
+                      <input class="form-control" 
+                      [(ngModel)]="planModel.price" 
+                      name="Price" 
+                      id="Price" 
+                      required
+                      #Price="ngModel"
+                      placeholder="Price"
+                      (keypress)="commonService.acceptNumericOnly(planModel.price,$event)">
+                      <p *ngIf="btnclick==true && Price.valid==false" 
+                      style="color: red;font-size: 12px;">
+                      Price is required!</p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Allowed Features </span>
+                      <br>
+                      <div>
+                        <label class="col-sm-6" *ngFor="let alwf of featuresAllowed" 
+                      style="padding-right: 10px;">
+                        <input type="checkbox"  [checked]="alwf.isSelect"
+                      name="{{alwf.key}}" 
+                      id="{{alwf.key}}" (change)="ChooseFeatureAllowed($event,alwf.key)">
+                      {{alwf.value}}
+                      </label>
+                      </div>
+                      <p *ngIf="btnclick==true && planModel.featuresAllowed==','" 
+                      style="color: red;font-size: 12px;">Please select at least one feature!</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <button type="submit" class="default-btn disabled" (click)="Addplan(planform)"
+                      style="pointer-events: all; cursor: pointer;">
+                      {{buttonname}}
+                    </button>
+                  </div>
+  
+  
+  
+  
+                  <div class="col-lg-6">
+                    <p class="account-desc m-0 text-right">
+                      <a class="back-btn" [routerLink]="['/Admin/subscription-plan']">
+                        Back to Plan List</a>
+                     
+                    </p>
+                  </div>
+                </div>
+              </form>
+  
+  
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

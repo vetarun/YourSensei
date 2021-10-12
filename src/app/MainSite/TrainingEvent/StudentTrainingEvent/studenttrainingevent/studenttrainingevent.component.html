@@ -1,0 +1,384 @@
+<!-- edit modal -->
+<ng-template #testcredit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{modalData.StudentName}} - CI Credits</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <b>Time (Hr):</b>
+        <input type="text" class="form-control" [(ngModel)]="modalData.Time" id="Time" name="Time" #Time="ngModel">
+      </div>
+      <div class="col-sm-6">
+        <b>Test:</b>
+        <input type="text" class="form-control" [(ngModel)]="modalData.Test" id="test" name="test" #test="ngModel">
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-sm-12">
+        <b>CI Credits:</b>
+        <p>{{(modalData.Time * modalData.Test)/100}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="updateTestAndTime()">Update</button>
+  </div>
+
+</ng-template>
+<!-- edit modal -->
+<section class="section-b-space p-t-0 ratio_asos">
+  <div class="">
+    <div class="row0">
+
+      <div class="col p-0">
+        <div class="theme-tab">
+
+          <div class="tabset " style="text-align: center;">
+            <!-- Tab 1 -->
+            <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
+            <label for="tab1">Event Details</label>
+
+            <!-- Tab 2 -->
+            <input type="radio" name="tabset" id="tab3" aria-controls="rauchbier" *ngIf="!hideCommTab">
+            <label *ngIf="(isA3Event || isKaizenEvent) && !hideCommTab" for="tab3">{{eventFormat}} Communication</label>
+            <!-- <label *ngIf="isKaizenEvent && !hideCommTab" for="tab3">Kaizen Communication</label> -->
+
+
+
+            <div class="tab-panels text-left">
+              <section id="marzen" class="tab-panel pt-5">
+                <div class="sign-in-area pt-50 pb-70">
+                  <br>
+                  <div class="container">
+                    <h3 class="mb-4">Training Event - {{trainingEvent.eventsname}}</h3>
+                    <div class="row mb-4">
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Training Event Name</span>
+                      </div>
+                      <div class="col-sm-6">
+                        {{trainingEvent.eventsname}}
+                      </div>
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Format</span>
+                      </div>
+                      <div class="col-sm-2">
+                        {{trainingEvent.trainingFormatName}}
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Responsible Trainer</span>
+                      </div>
+                      <div class="col-sm-2">
+                        {{trainingEvent.responsibleTrainerName}}
+                      </div>
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Location</span>
+                      </div>
+                      <div class="col-sm-2">
+                        {{trainingEvent.location}}
+                      </div>
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Instructor</span>
+                      </div>
+                      <div class="col-sm-2">
+                        {{trainingEvent.instructorName}}
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Training Notes</span>
+                      </div>
+                      <div class="col-sm-10">
+                        {{trainingEvent.trainingnotes}}
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Scheduled Date</span>
+                      </div>
+                      <div class="col-sm-2">
+                        {{trainingEvent.startdate | date:'MM/dd/yyyy'}}
+                      </div>
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Duration</span>
+                      </div>
+                      <div class="col-sm-2">
+                        {{trainingEvent.duration}} hours
+                      </div>
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Closed Date</span>
+                      </div>
+                      <div class="col-sm-2">
+                        {{trainingEvent.closedDate | date:'MM/dd/yyyy'}}
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-sm-2">
+                        <span class="font-weight-bold">Closing Notes</span>
+                      </div>
+                      <div class="col-sm-10">
+                        {{removeTags(trainingEvent.closingNote)}}
+                      </div>
+                    </div>
+                    <div *ngIf="isA3Event || isKaizenEvent">
+                      <div class="alert alert-warning" *ngIf="isA3Event">
+                        <!-- <p><strong>Note:</strong> We have noticed that there are some changes in the existing books by administrator. Would you like to accept those changes to reflect in your list?</p> -->
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <label class="font-weight-bold">Background
+                            </label>
+                            <p>{{A3model.background}}
+
+
+                            </p>
+                          </div>
+
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Proposal</span>
+                            <p>{{A3model.proposal}}</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Current Condition</span>
+                            <p>{{A3model.currentCondition}}</p>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">plan</span>
+                            <p>{{A3model.plan}}</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Analyses</span>
+                            <p>{{A3model.analyses}}</p>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">FollowUp</span>
+                            <p>{{A3model.followUp}}</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Goal</span>
+                            <p>{{A3model.goal}}</p>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Dollar Value</span>
+                            <p>{{A3model.dollarImpacted}}</p>
+                          </div>
+                        </div>
+
+
+
+
+
+                      </div>
+
+                      <div class="alert alert-warning" *ngIf="isKaizenEvent">
+                        <!-- <p><strong>Note:</strong> We have noticed that there are some changes in the existing books by administrator. Would you like to accept those changes to reflect in your list?</p> -->
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <label class="font-weight-bold">Define The Problem
+                            </label>
+                            <p>{{Kaizenmodel.defineTheProblem}}
+
+
+                            </p>
+                          </div>
+
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Implementation Plan</span>
+                            <p>{{Kaizenmodel.implementationPlan}}</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Current Condition</span>
+                            <p>{{Kaizenmodel.currentCondition}}</p>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">plan</span>
+                            <p>{{Kaizenmodel.actionItemTimeline}}</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Analysis</span>
+                            <p>{{Kaizenmodel.analysis}}</p>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Follow Up</span>
+                            <p>{{Kaizenmodel.followUp}}</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Goal</span>
+                            <p>{{Kaizenmodel.goal}}</p>
+                          </div>
+                          <div class="col-sm-6">
+                            <span class="font-weight-bold">Dollar Value</span>
+                            <p>{{Kaizenmodel.dollarImpacted}}</p>
+                          </div>
+                        </div>
+
+
+
+
+
+                      </div>
+
+
+                    </div>
+
+
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 bg-y2">
+                      <ng-container matColumnDef="studentName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Student
+                          Name </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.employeeName }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="time">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Time (Hr)
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.time }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="test">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Test (%)
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{element.test}}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="ciCredits">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> CI Credits
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{element.ciCredits}}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;">Action </th>
+                        <td mat-cell *matCellDef="let element">
+                          <a href="javascript:void(0)" mat-icon-button
+                            (click)="editTestAndCredit(testcredit,element.employeeName,
+                                                element.time,element.test,element.ciCredits,element.trainingEventAttendeeID,element.empId)">
+                            <mat-icon matTooltip="Edit Test & Credit" fontSet="material-icons-outlined">edit</mat-icon>
+                          </a>
+
+                        </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons>
+                    </mat-paginator>
+                    <div class="row">
+                      <div class="col-md-7">
+                        <button type="submit" style="margin-top: 15px;float: right;" (click)="Approve()"
+                          class="default-btn learn-btn-2"
+                          *ngIf="(isA3Event || isKaizenEvent)  && (mentor || isInternalMentor) && (this.trainingEvent.status == 'Submitted')">
+                          Approve
+                        </button>
+                        <button type="submit" style="margin-top: 15px;float: right;" (click)="Approve()"
+                          class="default-btn learn-btn-2"
+                          *ngIf="(isA3Event || isKaizenEvent)  && (isDollarApprover) && (this.trainingEvent.status == 'Pending Approval')">
+                          Approve
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </section>
+
+              <section id="rauchbier" class="tab-panel pt-5">
+
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="panel-body">
+                        <ul class="chat" *ngFor="let forms of A3CommModel">
+                          <li class="left clearfix" *ngIf="userid != forms.sentBy">
+
+                            <span class="message-initials-left pull-left" [matTooltip]="forms.messageSender">
+                              {{getInitialCharacter(forms.messageSender)}}
+                            </span>
+
+                            <div class="chat-body clearfix">
+                              <p>
+                                {{forms.message}}
+                              </p>
+                            </div>
+                          </li>
+                          <li class="right demo clearfix" *ngIf="userid == forms.sentBy"><span
+                              class="message-initials-right pull-right" [matTooltip]="forms.messageSender">
+                              {{getInitialCharacter(forms.messageSender)}}
+                            </span>
+                            <div class="chat-body pull-right clearfix">
+                              <p>
+                                {{forms.message}}
+                              </p>
+                            </div>
+                          </li>
+
+                        </ul>
+                      </div>
+                      <div class="panel-footer">
+                        <div class="input-group">
+                          <input id="btn-input" type="text" [(ngModel)]="message"
+                            class="form-control input-sm message-textfield" placeholder="Type your message here..." />
+                          <span class="input-group-btn message-span"
+                            *ngIf="(isA3Event ||isKaizenEvent) && (mentor || isInternalMentor) && (this.trainingEvent.status == 'Submitted' || this.trainingEvent.status == 'Scheduled' )">
+                            <button class="btn btn-warning btn-sm message-button" (click)="savechat()" id="btn-chat">
+                              Send</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </section>
+
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

@@ -1,0 +1,87 @@
+
+<div class="sign-in-area pt-50 pb-70">
+    <br>      
+           <div class="container">
+             <h3>External Mentor List</h3>
+             <div class="row mb-3">
+              <div class="search-div col-sm-10">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <mat-form-field appearance="none" floatLabel="never" class="search-form-field form-control">
+                      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+                      <button (click)="cleartext()" *ngIf="searchKey" matSuffix mat-icon-button aria-label="Clear">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2 " style="text-align:right!important" *ngIf="numberOfMentors>exsitingNumberOfMentors">
+                <button class="pull-right default-btn" (click)="addmentor()" mat-raised-button>
+                  <mat-icon>add</mat-icon> Add New Mentor
+                </button>
+              </div>
+            </div>
+              <!-- <div  class="search-div"> 
+               <mat-form-field appearance="none" floatLabel="never" style="height: 45px;" class="search-form-field">
+                 <input matInput [(ngModel)]="searchKey" style="margin-top: -20px;padding: 8px;border: 1px solid black;"  placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+                 <button *ngIf="searchKey" mat-button matSuffix mat-icon-button aria-label="Clear">
+                  <mat-icon (click)="cleartext()">close</mat-icon> 
+                </button>
+                </mat-form-field>
+              
+               <button style="margin-top: 5px;height: 44px;" class="pull-right btn-primary" (click)="addmentor()"  mat-raised-button>
+                 <mat-icon>add</mat-icon> Add Mentor
+               </button>
+             </div> -->
+               <div>
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 bg-y2" > 
+
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Email Address </th>
+                        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                      </ng-container>
+                    
+                  <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> First Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                  </ng-container>       
+                  
+                  <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Last Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                  </ng-container>
+                  
+
+                  <ng-container matColumnDef="phone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;">Contact Number </th>
+                    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                  </ng-container>           
+                           
+
+                  <ng-container matColumnDef="isActive">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Is Active </th>
+                    <td mat-cell *matCellDef="let element"> 
+                     {{element.isActive}} </td>
+                  </ng-container>
+    
+                
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Action </th>
+                    <td mat-cell *matCellDef="let element"> 
+                      <button mat-icon-button color="primary"  [routerLink]="['/Main/add-mentor',element.id]" >
+                      <mat-icon>edit</mat-icon></button> 
+                      <button mat-icon-button color="warn" (click)="DeleteMentor(element.id)"><mat-icon>delete_outline</mat-icon></button> 
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  
+                </table>
+                <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator> 
+                                 
+               </div> 
+           
+           </div>
+    </div>
+    

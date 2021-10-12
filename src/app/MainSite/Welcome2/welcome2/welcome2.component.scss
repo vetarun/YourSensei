@@ -1,0 +1,38 @@
+#myVideo {
+    width: 100%; 
+  }
+  .video-container {height: 100%;width: 100%;position: fixed;}
+  
+  .content {position: absolute;bottom: 10%;right: 3%;}
+  .content p i {
+    font-size: 30px;
+    margin-right: 5px;
+    margin-top: 5px;
+    color: #febf00;
+}
+/*** .content {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);}***/
+  .content span a {color: #fff;}
+/**********/
+  .request-loader {
+    width: 200px;
+    background: rgb(0 0 0 / 50%);
+    border-radius: 5px;
+}
+
+.request-loader img {
+    width: 50px;
+    margin-right: 5px;
+}
+
+.request-loader p {
+    float: left;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+.request-loader a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+}

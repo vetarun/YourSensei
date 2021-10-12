@@ -1,0 +1,97 @@
+
+<div class="sign-in-area pt-50 pb-70">
+    <br>    
+    <h3>Approval List</h3>   
+
+    <mat-tab-group [selectedIndex]="selected.value"
+    (selectedTabChange)="ApprovalType($event)">
+    <mat-tab *ngFor="let tab of tabs; let index = index" (click)="addTab()" [label]="tab"></mat-tab> 
+    </mat-tab-group>        
+    
+           <div class="container">
+
+                <div  class="search-div">
+               <mat-form-field appearance="none" floatLabel="never" style="height: 45px;" class="search-form-field">
+                 <input matInput [(ngModel)]="searchKey" style="margin-top: -20px;padding: 8px; border: 1px solid black;"  placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+                 <button *ngIf="searchKey" mat-button matSuffix mat-icon-button aria-label="Clear">
+                  <mat-icon (click)="cleartext()">close</mat-icon> 
+                </button>
+                </mat-form-field>             
+              
+             </div>
+               <div>
+
+                <!-- <div class="col-lg-1"> <input type="checkbox"
+                  (change)="checkall($event.target.checked)"> Select</div> -->
+                
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >    
+                  <ng-container matColumnDef="checked">
+
+                    <!-- <mat-header-cell *matHeaderCellDef>All</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                      <mat-checkbox (change)="showOptions($event,element.id)" [(ngModel)]="element.checked"></mat-checkbox>
+                    </mat-cell> -->
+
+
+                    <th mat-header-cell *matHeaderCellDef>
+                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                      </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : showOptions($event,element.id)"
+                                    [checked]="selection.isSelected(row)">
+                      </mat-checkbox>
+                    </td>
+
+
+
+
+                  </ng-container>
+                         
+                  
+                  <ng-container matColumnDef="firstname">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> First Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+                  </ng-container>
+                   <!-- Position Column -->
+                   <ng-container matColumnDef="lastname">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Last Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+                  </ng-container>
+                
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Email Address</th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                  </ng-container>
+                
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="contact1">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;">Contact Number</th>
+                    <td mat-cell *matCellDef="let element"> {{element.contact1}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="companyname">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Company Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.companyname}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  
+               
+                </table>
+
+                <button *ngIf="ischeckboxshow" mat-button class="margtop default-btn" (click)="acceptApproval(test)">Accept</button>
+                <button *ngIf="ischeckboxshow" mat-button class="margtop default-btn" style="margin-left: 25px;" (click)="rejectApproval(test)">Reject</button>
+
+                <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator> 
+                                 
+               </div>
+           
+           </div>
+    </div>
+    

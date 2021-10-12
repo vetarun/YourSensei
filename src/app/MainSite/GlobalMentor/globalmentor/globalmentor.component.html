@@ -1,0 +1,208 @@
+<div class="sidebar-modal">
+    <div class="sidebar-modal-inner">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <img src="assets/img/logo.png" alt="Image" width="160px">
+        </div>
+        <span class="close-btn sidebar-modal-close-btn">
+          <i class="bx bx-x"></i>
+        </span>
+      </div>
+      <div class="sidebar-about">
+        <div class="title">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+            incididunt ut tur incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+          </p>
+        </div>
+      </div>
+      <div class="contact-us">
+        <h2>Contact Us</h2>
+        <ul>
+          <li>
+            <i class='bx bx-current-location'></i>
+            Address: 6th Floor, Barbosa , Sydney
+          </li>
+          <li>
+            <i class='bx bx-mail-send'></i>
+            <a href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#80e8e5ececefc0e6e9eee5e3aee3efed"><span
+                class="__cf_email__" data-cfemail="2048454c4c4f6046494e45430e434f4d">[email&#160;protected]</span></a>
+            <a href="#">Skype: example</a>
+          </li>
+          <li>
+            <i class='bx bx-phone-call'></i>
+            <a href="tel:+612-831-713-80"> +612-831-713-80</a>
+            <a href="tel:+612-831-345-70"> +612-831-345-70</a>
+          </li>
+        </ul>
+      </div>
+      <div class="sidebar-instagram-feed">
+        <h2>Instagram</h2>
+        <ul>
+          <li>
+            <a href="#">
+              <img src="assets/img/instagram/instagram1.jpg" alt="image">
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="assets/img/instagram/instagram2.jpg" alt="image">
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="assets/img/instagram/instagram3.jpg" alt="image">
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="assets/img/instagram/instagram4.jpg" alt="image">
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="assets/img/instagram/instagram5.jpg" alt="image">
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="assets/img/instagram/instagram6.jpg" alt="image">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="sidebar-follow-us">
+        <h2>Follow Us</h2>
+        <ul class="social-wrap">
+          <li>
+            <a href="#" target="_blank">
+              <i class="bx bxl-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <i class="bx bxl-instagram"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <i class="bx bxl-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <i class="bx bxl-youtube"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  
+   <div class="sign-in-area pt-50 pb-70">
+    <div class="container">
+      <div class="row pt-45">
+        <div class="col-lg-12">
+          <div class="user-all-form">
+            <div class="contact-form">
+              <div class="section-title text-center">
+                <span>Mentor</span>
+                <h2>{{header}} Global Mentor</h2>
+              </div>
+              <form  #globalmentorForms="ngForm">
+                <div class="row">  
+  
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <span style="color: gray;">First Name</span>
+                      <input type="text" class="form-control" id="fname" placeholder="First Name"
+                        [(ngModel)]="model.firstName" name="firstName" required #FirstName="ngModel">
+                      <div *ngIf="FirstName.invalid && submitclick">
+                        <p *ngIf="FirstName.errors.required" class="error-message">
+                          First name is required.
+                        </p>
+                      </div>
+  
+                    </div>
+  
+                  </div>
+  
+                  <div class="col-lg-6 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Last Name</span>
+                      <input type="text" required class="form-control" id="lname" placeholder="Last Name"
+                        [(ngModel)]="model.lastName" name="lastName" required #LastName="ngModel">
+                      <div *ngIf="LastName.invalid && submitclick">
+                        <p *ngIf="LastName.errors.required" class="error-message">
+                          Last name is required.
+                        </p>
+                      </div>
+  
+                    </div>
+                  </div> 
+  
+  
+                  <div class="col-lg-12 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Email</span>
+                      <input type="text" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                        class="form-control" id="email" placeholder="Email" [(ngModel)]="model.email" name="email"
+                        required #Emails="ngModel" [disabled]="disableEmail">
+                      <div *ngIf="Emails.invalid && submitclick">
+                        <p *ngIf="Emails.errors.required" class="error-message">
+                          Email is required.
+                        </p>
+                        <p *ngIf="Emails.errors && Emails.errors.pattern" class="error-message">
+                          Email not valid.
+                        </p>
+                      </div>
+  
+                    </div>
+                  </div>
+  
+                  <div class="col-lg-6 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Contact</span>
+                      <input type="text" required 
+                        class="form-control" id="Phone" placeholder="Contact"
+                        [(ngModel)]="model.phone" name="phone" required #Phone="ngModel">
+                      <div *ngIf="Phone.invalid && submitclick">
+                        <p *ngIf="Phone.errors.required" class="error-message">
+                          Contact number is required.
+                        </p>  
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 ">
+                    <div class="form-group">
+                        <span style="color: gray;">Gender</span>
+                        <br>                   
+                  <input type="radio" required value="male" id="genderr" name="gender" [(ngModel)]="model.gender" #gender="ngModel"> Male
+                  <input type="radio" required value="female" id="genderr" name="gender" [(ngModel)]="model.gender" #gender="ngModel"> Female
+                </div>
+                </div>
+
+                    <div class="col-lg-6">
+                        <button (click)="SaveGlobalMentor(globalmentorForms)" class="default-btn">{{buttonname}}
+                         <!-- Submit -->
+                        </button>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <p class="account-desc m-0 text-right">
+                          <a class="back-btn" [routerLink]="['/Admin/global-mentorlist']">Back to Global Mentor List</a>
+                        </p>
+                      </div>
+  
+                  </div>
+  
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

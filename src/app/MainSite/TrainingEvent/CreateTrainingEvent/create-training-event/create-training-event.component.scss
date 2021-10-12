@@ -1,0 +1,196 @@
+.tabset > input[type="radio"] {
+  position: absolute;
+  left: -200vw;
+}
+
+.tabset .tab-panel {
+  display: none;
+}
+
+.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
+.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
+.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
+.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
+.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
+.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
+  display: block;
+}
+
+
+.tabset > label {
+  position: relative;
+  display: inline-block;
+  padding: 15px;
+  border-bottom: 0;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 17px;
+margin-right: -4px;
+}
+
+.tabset > label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 4px;
+}
+
+.tabset > label:hover,
+.tabset > input:focus + label {
+  color: #ff4c3b;
+}
+
+.tabset > label:hover::after,
+.tabset > input:focus + label::after,
+.tabset > input:checked + label::after {
+  background: #ab8402;
+}
+
+.tabset > input:checked + label {
+  border-color: #ccc;
+  border-bottom: 1px solid #fff;
+  margin-bottom: 4px;
+  background: #e5c350;
+}
+
+.tab-panel {
+  padding: 25px;
+  border-top: 4px solid #ccc;
+  margin-top: -8px;
+}
+@media only screen and (max-width: 767px) {
+
+
+  .product-list {
+      flex-direction: column;
+  }
+  
+  .product-list .col-sm-4 {flex: 0 0 50%;max-width: inherit;}
+  .tabset > label {
+      padding: 8px 8px 15px;
+      font-size: 14px;
+  }
+
+
+}  
+.text-left{
+  text-align: left!important;
+}
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #B3A9A9;
+    padding: 10px;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 65px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 20px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: auto;
+    *height: 550px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+.message-initials-right{
+  width: 50px;
+  height: 50px;
+  background-color: #fa6f57;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 100%;
+  color: white;
+  font-size: 25px;
+}
+
+.message-initials-left{
+  width: 50px;
+  height: 50px;
+  background-color: #55c1e7;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 100%;
+  color: white;
+  font-size: 25px;
+  float: left;
+}
+
+.message-textfield{
+  height: 40px;
+  width: 90%;
+  font-size: 14px;
+}
+
+.message-span{
+  width: 10%;
+  display: block;
+  float: right;
+}
+
+.message-button{
+  height: 40px;
+  display: block;
+  width: 100%;
+  font-size: 14px;
+}
+.chat-body.clearfix {
+  padding-top: 10px;
+}
+.panel-footer {
+  margin-top: 25px;
+}
+
+span.message-initials-right.pull-right {
+  float: right;
+}
+
+.chat-body.pull-right.clearfix {
+  text-align: right;
+  padding-right: 43px;
+}

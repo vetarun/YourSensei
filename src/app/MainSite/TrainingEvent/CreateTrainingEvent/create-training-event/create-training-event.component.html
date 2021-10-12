@@ -1,0 +1,814 @@
+<section class="section-b-space p-t-0 ratio_asos">
+    <div class="">
+        <div class="row0">
+
+            <div class="col p-0">
+                <div class="theme-tab">
+
+                    <div class="tabset " style="text-align: center;">
+                        <!-- Tab 1 -->
+                        <input type="radio" name="tabset" id="tab1" aria-controls="marzen"
+                            [checked]="Heading == 'Add' &&  ActiveSelectionTab==false|| Heading == 'Update' &&  ActiveSelectionTab==false">
+                        <label for="tab1">Event</label>
+                        <!-- Tab for A3 -->
+                        <input type="radio" *ngIf="Heading=='Update' && showa3tab" name="tabset" id="tab2"
+                            aria-controls="A3tool" [checked]="ActiveSA3Tab">
+                        <label for="tab2" *ngIf="Heading=='Update' && showa3tab">A3 Tool</label>
+                        <!-- Tab for A3 -->
+                        <input type="radio" *ngIf="Heading=='Update' && showKiazenTab" name="tabset" id="tab5"
+                            aria-controls="Kaizentool" [checked]="ActiveKaizenTab">
+                        <label for="tab5" *ngIf="Heading=='Update' && showKiazenTab">Kaizen Tool</label>
+                        <!-- Tab 2 -->
+                        <input type="radio" *ngIf="Heading=='Update'" name="tabset" id="tab3" aria-controls="rauchbier"
+                            [checked]="ActiveSelectionTab">
+                        <label for="tab3" *ngIf="Heading=='Update'">Attendee</label>
+                        <!-- Tab 3 -->
+                        <input type="radio" *ngIf="Heading=='Update'" name="tabset" id="tab4" aria-controls="dunkles"
+                            [checked]="closeEvenetTabActive">
+                        <label for="tab4" *ngIf="Heading=='Update'">Close Event</label>
+
+                        <!-- Tab 4 -->
+
+                        <input type="radio"
+                            *ngIf="Heading=='Update' && (showa3tab|| showKiazenTab)  && userid == BookModel.responsibletrainer&& A3CommModel.length "
+                            name="tabset" id="tab6" aria-controls="chatroom">
+                        <label for="tab6"
+                            *ngIf="Heading=='Update' && (showa3tab|| showKiazenTab)  && userid == BookModel.responsibletrainer && A3CommModel.length">{{commtabname}} Comminication</label>
+                        
+
+
+                        <div class="tab-panels text-left">
+                            <section id="marzen" class="tab-panel pt-5">
+                                <div class="sign-in-area pt-50 pb-70">
+                                    <div class="container">
+                                        <div class="row pt-45">
+                                            <div class="col-lg-12">
+                                                <div class="user-all-form">
+                                                    <div class="contact-form">
+                                                        <form id="contactForm" #eventform="ngForm">
+                                                            <div class="row">
+
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">Responsible
+                                                                            Trainer/Lead</span>
+                                                                        <input type="text" class="form-control"
+                                                                            required="" disabled
+                                                                            [(ngModel)]="responsibletrainerName"
+                                                                            #responsibletrainer="ngModel"
+                                                                            id="responsibletrainer"
+                                                                            name="responsibletrainer"
+                                                                            placeholder="Responsible Trainer/Lead">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12">
+                                                                    <span style="color: gray;font-size:14px;">Training
+                                                                        Format</span>
+                                                                    <div class="form-group">
+                                                                        <select name="trainingformat"
+                                                                            class="form-control"
+                                                                            [(ngModel)]="BookModel.trainingformat"
+                                                                            (change)="formatChange()" required
+                                                                            #trainingformat="ngModel">
+                                                                            <option *ngFor="let forms of eventFormat"
+                                                                                [value]="forms.id"
+                                                                                class="nav-select level1">
+                                                                                {{forms.name}} </option>
+
+                                                                        </select>
+                                                                        <p *ngIf="btnclick==true && trainingformat.valid==false"
+                                                                            style="color: red;font-size: 12px;">Training
+                                                                            format is required!</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">Training
+                                                                            Event Name</span>
+                                                                        <input type="text" class="form-control"
+                                                                            required=""
+                                                                            [(ngModel)]="BookModel.eventsname"
+                                                                            #eventsname="ngModel" name="eventsname"
+                                                                            id="eventsname"
+                                                                            placeholder="Training Event Name">
+                                                                        <p *ngIf="btnclick==true && eventsname.valid==false"
+                                                                            style="color: red;font-size: 12px;">Training
+                                                                            Events name is required!</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">Location</span>
+                                                                        <input type="text" class="form-control"
+                                                                            required="" [(ngModel)]="BookModel.location"
+                                                                            #location="ngModel" name="location"
+                                                                            id="location" placeholder="Location">
+                                                                        <p *ngIf="btnclick==true && location.valid==false"
+                                                                            style="color: red;font-size: 12px;">Location
+                                                                            is required!</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">Duration
+                                                                            (hrs)
+                                                                        </span>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-5">
+                                                                                <input class="form-control"
+                                                                                    min="0"
+                                                                                    oninput="validity.valid||(value='')"
+                                                                                    type="number" required
+                                                                                    [(ngModel)]="BookModel.duration"
+                                                                                    #Duration="ngModel" name="duration"
+                                                                                    id="duration">
+                                                                            </div>
+                                                                        </div>
+                                                                        <p *ngIf="btnclick==true && Duration.valid==false"
+                                                                            style="padding-left: 10px;font-size: 12px;color:red;">
+                                                                            Please enter valid
+                                                                            Duration!</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">Instructor</span>
+                                                                        <select name="instructor" class="form-control"
+                                                                            [(ngModel)]="BookModel.instructor" required
+                                                                            #instructor="ngModel">
+                                                                            <option *ngFor="let forms of empList"
+                                                                                [value]="forms.id"
+                                                                                class="nav-select level1">
+                                                                                {{forms.firstName}} {{forms.lastName}}
+                                                                            </option>
+
+                                                                        </select>
+                                                                        <p *ngIf="btnclick==true && instructor.valid==false"
+                                                                            style="color: red;font-size: 12px;">
+                                                                            instructor is required!</p>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12">
+                                                                    <span style="color: gray;font-size:14px;">Scheduled
+                                                                        Date</span>
+                                                                    <div class="form-group">
+                                                                        <input type="date"
+                                                                            class="form-control datepicker"
+                                                                            [(ngModel)]="BookModel.startdate"
+                                                                            name="startdate" id="startdate"
+                                                                            #startdate="ngModel" required
+                                                                            [min]="todayDate" placeholder="mm/dd/yyyy">
+                                                                        <p *ngIf="btnclick==true && startdate.valid==false"
+                                                                            style="color: red;font-size: 12px;">
+                                                                            Scheduled
+                                                                            date is required!</p>
+                                                                        <!-- <p *ngIf="btnclick==true && IsStartEndDateValid==false && startdate.valid==true"
+                                                                            style="color: red;font-size: 12px;">Start
+                                                                            date should less than end date!
+                                                                        </p> -->
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="col-lg-12">
+                                                                    <span style="color: gray;font-size:14px;">Training
+                                                                        Description</span>
+                                                                    <div class="form-group">
+                                                                        <textarea
+                                                                            [(ngModel)]="BookModel.trainingdescription"
+                                                                            #trainingdescription="ngModel"
+                                                                            id="trainingdescription"
+                                                                            name="trainingdescription" maxlength="300"
+                                                                            class="form-control" rows="4"></textarea>
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12">
+                                                                    <span style="color: gray;font-size:14px;">Training
+                                                                        Notes</span>
+                                                                    <div class="form-group">
+                                                                        <textarea [(ngModel)]="BookModel.trainingnotes"
+                                                                            #trainingnotes="ngModel" id="trainingnotes"
+                                                                            name="trainingnotes" maxlength="300"
+                                                                            class="form-control" rows="4"
+                                                                            required></textarea>
+                                                                        <p *ngIf="btnclick==true && trainingnotes.valid==false"
+                                                                            style="color: red;font-size: 12px;">
+                                                                            Training Notes are required!</p>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-lg-12 text-center"
+                                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+                                                                    <button type="submit" class="default-btn"
+                                                                        (click)="CreateEvent(eventform)"
+                                                                        style="pointer-events: all; cursor: pointer;">
+                                                                        {{buttontext}}
+                                                                    </button>
+
+                                                                </div>
+
+                                                                <div class="col-12 " style="text-align: center;">
+                                                                    <p class="account-desc">
+                                                                        <a [routerLink]="['/Main/event-list']">Back to
+                                                                            event List</a>
+                                                                    </p>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section id="A3tool" class="tab-panel pt-5" *ngIf="Heading=='Update' && showa3tab">
+                                <div class="sign-in-area pt-50 pb-70">
+                                    <div class="container">
+                                        <div class="row pt-45">
+                                            <div class="col-lg-12">
+                                                <div class="user-all-form">
+                                                    <div class="contact-form">
+                                                        <form id="A3Form" #A3Form="ngForm">
+                                                            <h2 style="text-align: center;">A3 Project Title:
+                                                                {{BookModel.eventsname}}</h2>
+                                                            <div class="row mt-5">
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">1) Background
+                                                                        </span>
+                                                                        <div class="row">
+                                                                            <textarea rows="5" cols="5"
+                                                                            tabindex="1"
+                                                                                class="form-control"
+                                                                                [(ngModel)]="A3model.background"
+                                                                                #Background="ngModel" name="background"
+                                                                                id="background"
+                                                                                placeholder="Why are you talking about it? What is the business case? What business problem are you trying to solve or analyze? Be very concise – communicate WHY you are addressing this issue."></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">5) Proposal</span>
+                                                                        <textarea rows="5" cols="5" 
+                                                                        class="form-control"
+                                                                        tabindex="5"
+                                                                            [(ngModel)]="A3model.proposal"
+                                                                            #Proposal="ngModel" name="proposal"
+                                                                            id="proposal"
+                                                                            placeholder="Your proposed countermeasures."></textarea>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">2) Current
+                                                                            Condition
+                                                                        </span>
+                                                                        <div class="row">
+                                                                            <textarea rows="5" cols="5"
+                                                                                class="form-control"
+                                                                                tabindex="2"
+                                                                                [(ngModel)]="A3model.currentCondition"
+                                                                                #Condition="ngModel" name="condition"
+                                                                                id="condition"
+                                                                                placeholder="What is going on?  Use facts, date.  Be visual – use Pareto charts, pie charts, sketches.  Make the problem clear. "></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">6) Plan</span>
+                                                                        <textarea rows="5" cols="5" 
+                                                                        class="form-control"
+                                                                        tabindex="6"
+                                                                            [(ngModel)]="A3model.plan" #Plan="ngModel"
+                                                                            name="Plan" id="Plan"
+                                                                            placeholder="Timeline with who, what, when, where, and how."></textarea>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span style="color: gray;font-size:14px;">3) Goal
+                                                                        </span>
+                                                                        <div class="row">
+                                                                            <textarea rows="5" cols="5"
+                                                                                class="form-control"
+                                                                                tabindex="3"
+                                                                                [(ngModel)]="A3model.goal"
+                                                                                #Goal="ngModel" name="goal" id="goal"
+                                                                                placeholder="State the specific target(s).  State in measurable or identifiable terms."></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span style="color: gray;font-size:14px;">7) Follow
+                                                                            Up</span>
+                                                                        <textarea rows="5" cols="5"
+                                                                         class="form-control"
+                                                                         tabindex="7"
+                                                                            [(ngModel)]="A3model.followUp"
+                                                                            #Follow="ngModel" name="follow" id="follow"
+                                                                            placeholder="What issues or remaining problems can you anticipate?"></textarea>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">4) Analysis</span>
+                                                                        <textarea rows="5" cols="5" 
+                                                                        class="form-control"
+                                                                        tabindex="4"
+                                                                            [(ngModel)]="A3model.analyses"
+                                                                            #Analysis="ngModel" name="analysis"
+                                                                            id="analysis"
+                                                                            placeholder="Use the simplest problem-analysis tool that will suffice to find the root cause of the problem: Five whys; fishbone diagram, problem or process analysis tree, 7 QC tools (old or new), tools from the Six Sigma, Kepner-Tragoe, Shainen, Taguchi, TRIZ or other toolbox of your choice."></textarea>
+
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <span style="color: gray;font-size:14px;">8) $
+                                                                            Value
+
+                                                                        </span>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12">
+                                                                                <input class="form-control"
+                                                                                    type="number"
+                                                                                    tabindex="8"
+                                                                                    [(ngModel)]="A3model.dollarImpacted"
+                                                                                    #DollarValue="ngModel"
+                                                                                    name="duration" id="duration">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">9) Assigned
+                                                                            To</span>
+                                                                        <select name="instructor" 
+                                                                        class="form-control"
+                                                                        tabindex="9"
+                                                                            [(ngModel)]="A3model.assignedTo" required
+                                                                            #instructor="ngModel">
+                                                                            <option *ngFor="let forms of empListForA3"
+                                                                                [value]="forms.id"
+                                                                                class="nav-select level1">
+                                                                                {{forms.firstName}} {{forms.lastName}}
+                                                                            </option>
+
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12 text-center"
+                                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+
+                                                                    <a class="default-btn"
+                                                                        (click)="savea3form(A3Form)">Submit</a>
+
+                                                                </div>
+                                                                <div class="col-12 " style="text-align: center;">
+                                                                    <p class="account-desc">
+                                                                        <a [routerLink]="['/Main/event-list']">Back to
+                                                                            event List</a>
+                                                                    </p>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section id="Kaizentool" class="tab-panel pt-5" *ngIf="Heading=='Update' && showKiazenTab">
+                                <div class="sign-in-area pt-50 pb-70">
+                                    <div class="container">
+                                        <div class="row pt-45">
+                                            <div class="col-lg-12">
+                                                <div class="user-all-form">
+                                                    <div class="contact-form">
+                                                        <form id="KaizenForm" #KaizenForm="ngForm">
+                                                            <h2 style="text-align: center;">Kaizen Project Title:
+                                                                {{BookModel.eventsname}}</h2>
+                                                            <div class="row mt-5">
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">1) Identify Improvement Opportunity/Define the Problem
+                                                                        </span>
+                                                                        <div class="row">
+                                                                            <textarea rows="5" cols="5"
+                                                                                class="form-control" tabindex="1"
+                                                                                [(ngModel)]="Kaizenmodel.defineTheProblem"
+                                                                                #DefineTheProblem="ngModel" name="DefineTheProblem"
+                                                                                id="DefineTheProblem"
+                                                                                placeholder="Why are you talking about it? What is the business case, problem or opportunity you are trying to solve or analyze."></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">5) Implementation Plan</span>
+                                                                        <textarea rows="5" cols="5" class="form-control"
+                                                                        tabindex="5"
+                                                                            [(ngModel)]="Kaizenmodel.implementationPlan"
+                                                                            #ImplementationPlan="ngModel" name="implementationPlan"
+                                                                            id="implementationPlan"
+                                                                            placeholder="List your proposed countermeasures and chart the future reality"></textarea>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">2) Current
+                                                                            Condition
+                                                                        </span>
+                                                                        <div class="row">
+                                                                            <textarea tabindex="2" rows="5" cols="5"
+                                                                                class="form-control"
+                                                                                [(ngModel)]="Kaizenmodel.currentCondition"
+                                                                                #CurrentCondition="ngModel" name="currentCondition"
+                                                                                id="currentCondition"
+                                                                                placeholder="What are we doing today? Summarize the current reality or value stream with data of about the problem or opportunity. Make the problem or opportunity clear."></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">6) Action Item Timeline</span>
+                                                                        <textarea rows="5" cols="5" class="form-control"
+                                                                        tabindex="6"
+                                                                            [(ngModel)]="Kaizenmodel.actionItemTimeline" #ActionItemTimeline="ngModel"
+                                                                            name="actionItemTimeline" id="actionItemTimeline"
+                                                                            placeholder="Timeline with who, what, when, where and how"></textarea>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span style="color: gray;font-size:14px;">3) Goal
+                                                                        </span>
+                                                                        <div class="row">
+                                                                            <textarea rows="5" cols="5"
+                                                                                class="form-control"
+                                                                                tabindex="3"
+                                                                                [(ngModel)]="Kaizenmodel.goal"
+                                                                                #Goal="ngModel" name="goal" id="goal"
+                                                                                placeholder="State the specific target(s). State in measurable and identifiable terms."></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span style="color: gray;font-size:14px;">7) Follow
+                                                                            Up</span>
+                                                                        <textarea rows="5" cols="5" class="form-control"
+                                                                        tabindex="7"
+                                                                            [(ngModel)]="Kaizenmodel.followUp"
+                                                                            #FollowUp="ngModel" name="followUp" id="followUp"
+                                                                            placeholder="List dates and notes from follow-up"></textarea>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">4) Analysis</span>
+                                                                        <textarea rows="5" cols="5" class="form-control"
+                                                                        tabindex="4"
+                                                                            [(ngModel)]="Kaizenmodel.analysis"
+                                                                            #Analysis="ngModel" name="analysis"
+                                                                            id="analysis"
+                                                                            placeholder="Generate original ideas on how to best overcome the root causes or bridge to the opportunity. Five whys; fishbone diagram, problem or process analysis tree, 7 QC tools (old or new), tools from the Six Sigma, Kepner-Tragoe, Shainen, Taguchi, TRIZ or other toolbox of your choice."></textarea>
+
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <span style="color: gray;font-size:14px;">8) $
+                                                                            Value
+
+                                                                        </span>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12">
+                                                                                <input class="form-control"
+                                                                                    type="number"
+                                                                                    tabindex="8"
+                                                                                    [(ngModel)]="Kaizenmodel.dollarImpacted"
+                                                                                    #DollarValue="ngModel"
+                                                                                    name="duration" id="duration">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <span
+                                                                            style="color: gray;font-size:14px;">9) Assigned
+                                                                            To</span>
+                                                                        <select name="instructor" class="form-control"
+                                                                        tabindex="9"
+                                                                            [(ngModel)]="Kaizenmodel.assignedTo" required
+                                                                            #instructor="ngModel">
+                                                                            <option *ngFor="let forms of empList"
+                                                                                [value]="forms.id"
+                                                                                class="nav-select level1">
+                                                                                {{forms.firstName}} {{forms.lastName}}
+                                                                            </option>
+
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12 text-center"
+                                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+
+                                                                    <a class="default-btn"
+                                                                        (click)="savekaizenform(KaizenForm)">Submit</a>
+
+                                                                </div>
+                                                                <div class="col-12 " style="text-align: center;">
+                                                                    <p class="account-desc">
+                                                                        <a [routerLink]="['/Main/event-list']">Back to
+                                                                            event List</a>
+                                                                    </p>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section id="rauchbier" class="tab-panel pt-5">
+                                <h2 style="text-align: center;">Select Attendee</h2>
+                                <div class="sign-in-area pt-50 pb-70">
+                                    <br>
+                                    <div class="container" style="background-color: white;font-size: 15px;">
+
+                                        <div class="row"
+                                            style="border-bottom: silver 1px solid;color: gray;font-weight: bolder;">
+                                            <div class="col-lg-1 text-center"> <input type="checkbox"
+                                                    (change)="checkall($event.target.checked)"></div>
+                                            <div class="col-lg-4">Employee Name</div>
+                                            <!-- <div class="col-lg-3">Training Event</div>
+
+                                            <div class="col-lg-2">Duration</div>
+                                            <div class="col-lg-2">Date</div> -->
+                                        </div>
+                                        <div class="row" *ngFor="let attan of employeelist;let i=index"
+                                            style="border-bottom: silver 1px solid;color: gray;">
+                                            <div class="col-lg-1 text-center"><input type="checkbox"
+                                                    (change)="checkemployee($event.target.checked,i)"
+                                                    [checked]="attan.IsSelected"
+                                                    [disabled]="attan.empId == companydetails.employeeID || showa3tab && attan.empId == mentorID">
+                                            </div>
+                                            <div class="col-lg-4">{{attan.employeeName}}</div>
+                                            <!-- <div class="col-lg-3">{{attan.eventTrainingName}}</div>
+
+                                            <div class="col-lg-2">{{attan.duration}}</div>
+                                            <div class="col-lg-2">{{attan.plannedDate | date:dd/MM/yyyy}}</div> -->
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 " style="text-align: center;">
+                                                <button type="submit"
+                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'"
+                                                    (click)="SubmitList('attendee')" class="default-btn">
+                                                    Add Attendee
+                                                </button>
+                                            </div>
+
+                                            <div class="col-12 " style="text-align: center;">
+                                                <p class="account-desc">
+                                                    <a [routerLink]="['/Main/event-list']">Back to event List</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </section>
+                            <section id="dunkles" class="tab-panel pt-5">
+                                <div class="solutions-area pt-100 pb-70">
+                                    <div class="container">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-8">
+                                                <div class="solutions-content">
+                                                    <div class="section-title">
+
+                                                        <h2> Submit the list of
+                                                            attendee with actual hrs.</h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="sign-in-area pt-50 pb-70">
+                                    <br>
+                                    <div class="container" style="background-color: white;font-size: 15px;">
+
+                                        <div class="row"
+                                            style="border-bottom: silver 1px solid;color: gray;font-weight: bolder;">
+                                            <div class="col-lg-2">Scheduled Date</div>
+                                            <div class="col-lg-2">Employee Name</div>
+                                            <div class="col-lg-4">Training Event</div>
+                                            <div class="col-lg-1">Time(Hr)</div>
+                                            <div class="col-lg-1">Test(%)</div>
+                                            <div class="col-lg-2"><span class="pull-right">CI Credits</span></div>
+
+                                        </div>
+                                        <div class="row" *ngFor="let attan of employeelistforcreditlog;let i=index"
+                                            style="border-bottom: silver 1px solid;color: gray;">
+                                            <div class="col-lg-2">{{attan.scheduleDate | date:dd/MM/yyyy}}</div>
+                                            <div class="col-lg-2">{{attan.employeeName}}</div>
+                                            <div class="col-lg-4">{{attan.eventTrainingName}}</div>
+                                            <div class="col-lg-1"><input type="number" id="{{'logtime-'+i}}"
+                                                    (input)="CalculateCICredits(i,$event.target.value,'Time')"
+                                                    value="{{attan.Time}}"
+                                                    style="height: 25px;width: 80px;padding: 5px;"></div>
+                                            <div class="col-lg-1"><input type="number"
+                                                    (input)="CalculateCICredits(i,$event.target.value,'Test')"
+                                                    value="{{attan.Test}}"
+                                                    style="height: 25px;width: 80px;padding: 5px;"></div>
+                                            <div class="col-lg-2">
+                                                <input class="pull-right" type="number" value="{{attan.CICredits}}"
+                                                    style="height: 25px;width: 70px;padding: 5px;" readonly>
+                                            </div>
+
+
+                                        </div>
+                                        <br>
+                                        <form id="contactForm" #closeeventform="ngForm">
+                                            <div class="row">
+
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-12 control-label" for="catText"
+                                                            style="text-align: center;">Close Event Notes
+                                                        </label>
+                                                        <div class="container" style="width: 80%; margin-bottom: 10px;">
+                                                            <angular-editor [placeholder]="'Enter text here...'"
+                                                                [config]="editorConfig"
+                                                                [(ngModel)]="BookModel.closingNote" name="closingNote"
+                                                                #closingEvent="ngModel" required>
+                                                            </angular-editor>
+                                                            <p *ngIf="btnclick==true && closingEvent.valid==false"
+                                                                style="color: red;font-size: 12px;">Closing Note is
+                                                                required!
+                                                            </p>
+                                                        </div>
+                                                        <div class="row">
+
+
+                                                            <!-- <div class="col-lg-6 col-md-6" style="text-align: center;">
+                                                                <button type="submit" class="default-btn" *ngIf="!BookModel.isClosed || BookModel.status != 'Pending Approval'"
+                                                                    (click)="SubmitList('credit')">
+                                                                    Submit Logs
+                                                                </button>
+                                                            </div> -->
+                                                            <div class="col-lg-12 text-center"
+                                                                *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+                                                                <button type="submit" class="default-btn"
+                                                                    (click)="CloseEvent(closeeventform)">
+                                                                    {{logButtonText}}
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-12 " style="text-align: center;">
+                                                                <p class="account-desc">
+                                                                    <a [routerLink]="['/Main/event-list']">Back to event
+                                                                        List</a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </section>
+                            <section id="chatroom" class="tab-panel pt-5"
+                                *ngIf="Heading=='Update' && (showa3tab || showKiazenTab) && userid == BookModel.responsibletrainer && A3CommModel.length">
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="panel-body">
+                                                <ul class="chat" *ngFor="let forms of A3CommModel">
+                                                    <li class="left clearfix" *ngIf="userid != forms.sentBy"><span
+                                                            class="message-initials-left pull-left" [matTooltip]="forms.messageSender">
+                                                            {{getInitialCharacter(forms.messageSender)}}
+                                                        </span>
+                                                        <div class="chat-body clearfix">
+                                                            <p>
+                                                                {{forms.message}}
+                                                            </p>
+                                                        </div>
+                                                    </li>
+                                                    <li class="right clearfix" *ngIf="userid == forms.sentBy"><span
+                                                            class="message-initials-right pull-right" [matTooltip]="forms.messageSender">
+                                                            {{getInitialCharacter(forms.messageSender)}}
+                                                        </span>
+                                                        <div class="chat-body pull-right clearfix">
+                                                            <p>
+                                                                {{forms.message}}
+                                                            </p>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <div class="input-group">
+                                                    <input id="btn-input" type="text" [(ngModel)]="message"
+                                                        class="form-control input-sm message-textfield"
+                                                        placeholder="Type your message here..." />
+                                                    <span class="input-group-btn message-span" *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+                                                        <button class="btn btn-warning btn-sm message-button" (click)="savechat()"
+                                                            id="btn-chat">
+                                                            Send</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </section>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <p style="color: white">Please Wait. </p>
+</ngx-spinner>
+<!-- Tab product end -->

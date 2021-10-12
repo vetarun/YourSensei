@@ -1,0 +1,500 @@
+ <!-- <div class="Header">
+    <div class="container" style="position: relative;">
+      <div class="row">
+          <ul class="Menu -horizontal -alignRight">
+            <li *ngIf="!Islogedin">
+                <a
+                    style="background-color: transparent;color: white;border: none;font-family: 'Poppins', sans-serif;font-size: 14px;">
+                    <span (click)="login()"> <i class="fas fa-sign-in-alt"></i> SignIn</span>
+                    <span style="color: #fba311; margin: 0 10px;">/</span>
+                    <span (click)="signup()"><i class="fas fa-user-plus"></i> SignUp</span>
+                </a>
+            </li>
+              <li class="-hasSubmenu -noChevron">
+                  <a class="profiles" (click)="ShowAccount(visibleclass)" *ngIf="Islogedin"  data-icon="person">
+                      <i class="fa fa-user"></i> {{username}}</a>
+                  <ul class="{{visibleclass}} accountprofile">
+                    <li *ngIf="!isSubscriptionExpire"><a (click)="userprofile()">Profile</a></li>
+                    <li *ngIf="!isSubscriptionExpire || companyadmin || individual"><a (click)="resetpassword()" >Change Password</a></li>
+                     
+                      <li class="-hasSubmenu">
+                          <a (click)="showAccountSubmenu(AccountClass)" >Account</a>
+                          <ul class="{{AccountClass}}">
+                            <li *ngIf="companyadmin || individual"><a (click)="subscription()">Subscription</a></li>
+                            <li><a (click)="paymentSetting()" style="cursor: pointer;">Manage Cards</a></li>
+                              
+                          </ul>
+                      </li>
+                      <li><a (click)="logout()" style="cursor: pointer;">logout</a></li>
+                  </ul>
+              </li>
+          </ul>
+         </div>
+    </div>
+  </div>  -->
+  
+
+  <header class="top-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <div class="header-left">
+                   
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="header-right">
+
+                    <div class="language">
+                        <ul>
+                            <li *ngIf="!Islogedin">
+                                <a
+                                    style="background-color: transparent;color: white;border: none;font-size: 14px;">
+                                    <span (click)="login()"> <i class="fas fa-sign-in-alt"></i> SignIn</span>
+                                    <span style="color: #fba311; margin: 0 10px;">/</span>
+                                    <span (click)="signup()"><i class="fas fa-user-plus"></i> SignUp</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a *ngIf="Islogedin">
+                                    <i class="far fa-user language-icon">
+                                        
+                                    </i>
+                                    <span style="padding-right: 10px;color:#fba311 !important">{{username}}</span>
+                                    <span><i class="fas fa-chevron-down" style="color: #fba311 !important;"></i></span>
+                                    
+                                </a>
+                                <ul style="min-width: 210px;">
+                                    <li *ngIf="!isSubscriptionExpire || companyadmin || individual"><a (click)="resetpassword()" >Change Password</a></li>
+                                    <li class="submenu"><a>
+                                        Account
+                                        <i style="margin-top: 2px;" class="fas fa-chevron-right"></i>
+                                    </a>
+                                    <ul  id="submenus">
+                                        <li *ngIf="!isSubscriptionExpire"><a (click)="userprofile()">Profile</a></li>
+                                        <li *ngIf="companyadmin && getfeaturePermission(FeaturesAllowedEnum.companyprofile)">
+                                            <a (click)="companyProfile()" style="cursor: pointer;">Company Profile</a>
+                                        </li>
+                                        <li *ngIf="companyadmin || individual"><a (click)="subscription()">Subscription</a></li>
+                                        <li *ngIf="companyadmin || individual"><a  (click)="paymentSetting()" style="cursor: pointer;">Manage Cards</a></li>                                        
+                                    </ul></li>
+                                    <li><a (click)="logout()" style="cursor: pointer;">logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header> 
+
+<div class="navbar-area" *ngIf="!Islogedin">
+
+    <div class="mobile-nav">
+        <a href="index.html" class="logo">
+            <img src="assets/img/logo.jpg" alt="Logo">
+        </a>
+    </div>
+
+    <div class="main-nav">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light ">
+                <a class="navbar-brand">
+                    <img src="assets/img/logo.jpg" alt="Logo" width="200px">
+                </a>
+                <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-auto">
+                        <li class="nav-item">
+                            <a [routerLink]="['/Main']" class="nav-link active boldmenu">
+                                Home
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a [routerLink]="['/Main/home']" class="nav-link active">
+                                Home2
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link boldmenu">
+                                About Us
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link boldmenu">
+                                Case Study
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link boldmenu">
+                                News
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="side-nav-responsive">
+        <div class="container">
+            <div class="dot-menu">
+                <div class="circle-inner">
+                    <div class="circle circle-one"></div>
+                    <div class="circle circle-two"></div>
+                    <div class="circle circle-three"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="side-nav-inner">
+                    <div class="side-nav justify-content-center align-items-center">
+                        <div class="side-item">
+                            <div class="option-item">
+                                <div class="menu-icon d-in-line">
+                                    <a href="#" class="burger-menu menu-icon-two">
+                                        <i class='flaticon-menu'></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="side-item">
+                            <!-- <div class="option-item">
+    <i class='search-btn bx bx-search'></i>
+    <i class='close-btn bx bx-x'></i>
+    <div class="search-overlay search-popup">
+    <div class='search-box'>
+    <form class="search-form">
+    <input class="search-input" name="search" placeholder="Search" type="text">
+    <button class="search-button" type="submit">
+    <i class="bx bx-search"></i>
+    </button>
+    </form>
+    </div>
+    </div>
+    </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="navbar-area" *ngIf="Islogedin">
+
+    <div class="mobile-nav">
+        <a [routerLink]="['/Main']" class="logo">
+            <img src="assets/img/logo.jpg" alt="Logo">
+        </a>
+    </div>
+
+    <div class="main-nav">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light ">
+                <a class="navbar-brand" [routerLink]="['/Main']">
+                    <img src="assets/img/logo.jpg" alt="Logo" width="200px">
+                </a>
+                <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-auto">
+                        <li class="nav-item">
+                            <a [routerLink]="['/Main']" class="nav-link active boldmenu">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="mentor">
+                            <a [routerLink]="['/Main/home']" class="nav-link boldmenu">
+                                Dashboard
+                            </a>
+                        </li>
+                       
+                        <li class="nav-item" *ngIf="!isSubscriptionExpire && getfeaturePermission(FeaturesAllowedEnum.tool)">                            
+                            <a class="nav-link boldmenu" >
+                                Tools
+                                <i class='bx bx-chevron-down' *ngIf="companyuser || companyadmin || individual"></i>
+                            </a>
+                            <ul class="dropdown-menu" >
+                                <li class="nav-item" *ngIf="companyuser || companyadmin || individual">
+                                    <a [routerLink]="['/Main/create-event']" [queryParams]="{eventformat:'6f9f04cc-198e-479c-a93f-6c3c0a359194'}" class="nav-link boldmenu">
+                                       A3 Diagram
+                                    </a>
+                                </li>
+                                
+                                <li class="nav-item" >
+                                    <a [routerLink]="['/Main/create-event']" [queryParams]="{eventformat:'5518993a-efc0-4ad0-bcd7-beaea42cc2ce'}" class="nav-link boldmenu">
+                                       Kaizen Event
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" *ngIf="companyuser || companyadmin || individual"  >
+                                    <a [routerLink]="['/Main/kaizen-board']"  class="nav-link boldmenu">
+                                       Kaizen Board
+                                    </a>
+                                </li>
+                                <li *ngIf="isDollarApprover">
+                                    <!-- <i class="fas fa-user-graduate"></i> -->
+                                    <a [routerLink]="['/Main/a3-training-event-list']" 
+                                    (click)="closerightmenu()"  
+                                    [queryParams]="{eventformat:'6f9f04cc-198e-479c-a93f-6c3c0a359194'}" class="boldmenu">A3 Training Event
+                                        List</a>
+                                </li>
+                                <li *ngIf="isDollarApprover">
+                                    <!-- <i class="fas fa-user-graduate"></i> -->
+                                    <a [routerLink]="['/Main/Kaizen-training-event-list']" 
+                                    (click)="closerightmenu()" 
+                                    class="boldmenu"
+                                    [queryParams]="{eventformat: '5518993a-efc0-4ad0-bcd7-beaea42cc2ce'}">Kaizen Training Event
+                                        List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link boldmenu">
+                                360 evaluation
+
+                            </a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link boldmenu">
+                                My Money
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="(!isSubscriptionExpire && getfeaturePermission(FeaturesAllowedEnum.booklibrary)) || mentor">
+                            <!-- <a href="/#/library" class="nav-link"> -->
+                            <a [routerLink]="['/Main/library']" class="nav-link boldmenu" *ngIf="!mentor">
+                                Library
+                                <i class='bx bx-chevron-down'></i>
+                            </a>
+                            <a [routerLink]="['/Main/studentlibrary']" class="nav-link boldmenu" *ngIf="mentor">
+                                Library
+                                <i class='bx bx-chevron-down'></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item" *ngIf="companyadmin || individual">
+                                    <a [routerLink]="['/Main/add-book']" class="nav-link boldmenu">
+                                        Add Book
+                                    </a>
+                                </li>
+                                <!-- <li class="nav-item" *ngIf="companyadmin || individual">
+                                    <a [routerLink]="['/Main/track']" class="nav-link boldmenu">
+                                        Track
+                                    </a>
+                                </li> -->
+                                <li class="nav-item" *ngIf="!mentor">
+                                    <a [routerLink]="['/Main/library']" class="nav-link boldmenu">
+                                        Book List
+                                    </a>
+                                </li>
+                                <li *ngIf="mentor || isInternalMentor">
+                                    <a [routerLink]="['/Main/bookread']" class="boldmenu">Book Read</a>
+                                </li>
+                                <li class="nav-item" *ngIf="mentor">
+                                    <a [routerLink]="['/Main/studentlibrary']" class="nav-link boldmenu">
+                                        Student Book List
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <div class="others-options d-flex align-items-center" *ngIf="!isSubscriptionExpire">
+
+                        <div class="option-item">
+                            <div class="menu-icon d-in-line">
+                                <a class="burger-menu menu-icon-two">
+                                    <i class='flaticon-menu' (click)="openrightmenu()"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="side-nav-responsive">
+        <div class="container">
+            <div class="dot-menu">
+                <div class="circle-inner">
+                    <div class="circle circle-one"></div>
+                    <div class="circle circle-two"></div>
+                    <div class="circle circle-three"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="side-nav-inner">
+                    <div class="side-nav justify-content-center align-items-center">
+                        <div class="side-item">
+                            <div class="option-item">
+                                <div class="menu-icon d-in-line">
+                                    <a href="#" class="burger-menu menu-icon-two">
+                                        <i class='flaticon-menu'></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="side-item">
+                            <div class="option-item">
+                                <i class='search-btn bx bx-search'></i>
+                                <i class='close-btn bx bx-x'></i>
+                                <div class="search-overlay search-popup">
+                                    <div class='search-box'>
+                                        <form class="search-form">
+                                            <input class="search-input" name="search" placeholder="Search" type="text">
+                                            <button class="search-button" type="submit">
+                                                <i class="bx bx-search"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="sidebar-modal" [ngClass]="{'active':isopenrightmenu==true}" *ngIf="!isSubscriptionExpire">
+    <div class="sidebar-modal-inner">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="assets/img/logo.png" alt="Image" width="160px">
+            </div>
+            <span class="close-btn sidebar-modal-close-btn">
+                <i class="bx bx-x" (click)="closerightmenu()"></i>
+            </span>
+        </div>
+
+        <div class="contact-us">
+            <ul>
+                <li >
+                    <i class="fas fa-tachometer-alt"></i>
+                    <a [routerLink]="['/Main/dashboard']" (click)="closerightmenu()">Dashboard</a>
+                </li>
+                <div class="nested-menu" *ngIf="companyadmin && getfeaturePermission(FeaturesAllowedEnum.externalmentor)">
+                    <a class="list-group-item" (click)="addExpandClass('pages')">
+                        <i class="fa fa-plus"></i>&nbsp;
+                        <span>External Mentor</span>
+                    </a>
+                    <li class="nested" [class.expand]="showMenu === 'pages'">
+                        <ul class="submenu">
+                            <li *ngIf="companyadmin">
+                                <i class="fas fa-user-plus"></i>
+                                <a [routerLink]="['/Main/add-mentor']" (click)="closerightmenu()">Add External
+                                    Mentor</a>
+                            </li>
+                            <li *ngIf="companyadmin">
+                                <i class="fas fa-address-card"></i>
+                                <a [routerLink]="['/Main/external-mentorlist']" (click)="closerightmenu()">External
+                                    Mentor List</a>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+
+
+
+                <li *ngIf="companyadmin && getfeaturePermission(FeaturesAllowedEnum.companysetting)">
+                    <i class="fas fa-building"></i>
+                    <a [routerLink]="['/Main/companysetting']" (click)="closerightmenu()">Company Setting</a>
+                </li>
+               
+                <div class="nested-menu" *ngIf="companyadmin && getfeaturePermission(FeaturesAllowedEnum.employee)" >
+                    <a class="list-group-item" (click)="addExpandClass('employee')">
+                        <i class="fa fa-plus"></i>&nbsp;
+                        <span>Employees</span>
+                    </a>
+                    <li class="nested" [class.expand]="showMenu === 'employee'">
+                        <ul class="submenu">
+                            <li *ngIf="companyadmin">
+                                <i class="fas fa-user-plus"></i>
+                                <a [routerLink]="['/Main/add-employee']" (click)="closerightmenu()">Add Employee</a>
+                            </li>
+            
+                            <li *ngIf="companyadmin">
+                                <i class="fas fa-clipboard-list"></i>
+                                <a [routerLink]="['/Main/employee-list']" (click)="closerightmenu()">Employee List</a>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="nested-menu" *ngIf="getfeaturePermission(FeaturesAllowedEnum.trainingevent) || mentor">
+                    <a class="list-group-item" (click)="addExpandClass('event')">
+                        <i class="fa fa-plus"></i>&nbsp;
+                        <span>Training Events</span>
+                    </a>
+                    <li class="nested" [class.expand]="showMenu === 'event'">
+                        <ul class="submenu">
+                            <li *ngIf="companyadmin || companyuser || individual">
+                                <i class="fas fa-calendar-day"></i>
+                                <a [routerLink]="['/Main/create-event']" (click)="closerightmenu()">Add Training Events</a>
+                            </li>
+                            <li *ngIf="companyadmin || companyuser || individual ">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <a [routerLink]="['/Main/event-list']" (click)="closerightmenu()">Training Event List</a>
+                            </li>
+                            <li *ngIf="mentor || isInternalMentor">
+                                <i class="fas fa-user-graduate"></i>
+                                <a [routerLink]="['/Main/studenteventlist']" (click)="closerightmenu()">Student Training Event
+                                    List</a>
+                            </li>
+                            <li *ngIf="isDollarApprover">
+                                <i class="fas fa-user-graduate"></i>
+                                <a [routerLink]="['/Main/a3-training-event-list']" (click)="closerightmenu()" [queryParams]="{eventformat:'6f9f04cc-198e-479c-a93f-6c3c0a359194'}">A3 Training Event
+                                    List</a>
+                            </li>
+                            <li *ngIf="isDollarApprover">
+                                <i class="fas fa-user-graduate"></i>
+                                <a [routerLink]="['/Main/Kaizen-training-event-list']" (click)="closerightmenu()" [queryParams]="{eventformat: '5518993a-efc0-4ad0-bcd7-beaea42cc2ce'}">Kaizen Training Event
+                                    List</a>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+               
+
+                <li *ngIf="companyadmin && getfeaturePermission(FeaturesAllowedEnum.creditlog)|| companyuser && getfeaturePermission(FeaturesAllowedEnum.creditlog) || individual && getfeaturePermission(FeaturesAllowedEnum.creditlog)">
+                    <i class="fas fa-credit-card"></i>
+                    <a [routerLink]="['/Main/credit-logs']" (click)="closerightmenu()">Credit Logs</a>
+                </li>
+                <div class="nested-menu" *ngIf="(!companyuser && getfeaturePermission(FeaturesAllowedEnum.quiz)) || mentor">
+                    <a class="list-group-item" (click)="addExpandClass('quiz')">
+                        <i class="fa fa-plus"></i>&nbsp;
+                        <span>Quiz</span>
+                    </a>
+                    <li class="nested" [class.expand]="showMenu === 'quiz'">
+                        <ul class="submenu">
+                            <li *ngIf="companyadmin  || individual">
+                                <i class="fas fa-plus-circle"></i>
+                                <a [routerLink]="['/Main/addquiz']" (click)="closerightmenu()">Add quiz</a>
+                            </li>
+                            <li *ngIf="companyadmin  || individual">
+                                <i class="fas fa-list-ol"></i>
+                                <a [routerLink]="['/Main/quiz']" (click)="closerightmenu()">Quiz List</a>
+                            </li>
+                            <li *ngIf="mentor || isInternalMentor">
+                                <i class="fas fa-question-circle"></i>
+                                <a [routerLink]="['/Main/quizanswerassessment']" (click)="closerightmenu()">Quiz Answer
+                                    Assessment</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    
+                </div>
+                <li *ngIf="isInternalMentor || companyadmin || companyuser || individual">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <a [routerLink]="['/Main/suggestedtrack']" (click)="closerightmenu()">Suggested Track</a>
+                </li>
+                <li *ngIf="mentor || isInternalMentor">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <a [routerLink]="['/Main/mentortracklist']" (click)="closerightmenu()">Students Track</a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+</div>

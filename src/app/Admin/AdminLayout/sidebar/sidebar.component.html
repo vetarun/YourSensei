@@ -1,0 +1,69 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group">
+        <a [routerLink]="['/Admin/dashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-tachometer-alt"></i>&nbsp;
+            <span>Dashboard</span>
+        </a>
+        <a  [routerLink]="['/Admin/global-mentor']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-user-plus"></i>&nbsp;
+            <span>Add Global Mentor</span>
+        </a>
+        <a [routerLink]="['/Admin/global-mentorlist']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-list-ol"></i>&nbsp;
+            <span>Global Mentor List</span>
+        </a>
+
+        <a [routerLink]="['/Admin/library']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-book-open"></i>&nbsp;
+            <span>Book List</span>
+        </a>
+
+        <a [routerLink]="['/Admin/credit-logs']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-credit-card"></i>&nbsp;
+            <span>Credit Logs</span>
+        </a>
+        <a [routerLink]="['/Admin/registeration']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-user-edit"></i>&nbsp;
+            <span>Registration</span>
+        </a>
+
+        <a [routerLink]="['/Admin/quiz']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-question"></i>&nbsp;
+            <span>Quiz</span>
+        </a>
+        <a [routerLink]="['/Admin/addquiz']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-edit"></i>&nbsp;
+            <span>Add Quiz</span>
+        </a>
+        <a [routerLink]="['/Admin/reviewinitialassessment']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-question"></i>&nbsp;
+            <span>Review Initial Assessment</span>
+        </a>
+        <a [routerLink]="['/Admin/subscription-plan']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-book-open"></i>&nbsp;
+            <span>Subscription Plan</span>
+        </a>
+        <a [routerLink]="['/Admin/subscription']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-book-open"></i>&nbsp;
+            <span>Subscriptions</span>
+        </a>
+        <a [routerLink]="['/Admin/belt-rules']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-book-open"></i>&nbsp;
+            <span>Belt Rules</span>
+        </a>
+        <a [routerLink]="['/Admin/userdetails']"  [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-book-open"></i>&nbsp;
+            <span>User Details</span>
+        </a>
+        
+        
+    
+
+       
+
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+        <span>Collapse Sidebar</span>
+    </div>
+</nav>

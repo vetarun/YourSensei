@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+.sidebar-modal.reset .sidebar-modal-inner {
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    overflow: auto;
+    height: auto;
+    
+    }
+
+    .sidebar-modal.reset .sidebar-header{
+        border-bottom: 1px solid #e5e5e5;
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-top: -20px;
+        margin-bottom: 0;
+        background: none;
+        padding: 0;
+        border: 0;
+    }
+
+    .sidebar-modal.reset span.close-btn.sidebar-modal-close-btn {
+        margin-right: 10px;
+        margin-top: 10px;
+        background: none !important;
+        color: #0000 !important;
+    }
+    
+    .sidebar-modal.reset i.bx.bx-x {
+        color: #000;
+        font-size: 25px;
+    }
+    .sidebar-modal.reset .sidebar-modal-inner .sign-in-area.pt-50.pb-70 {
+        padding-bottom: 0 !important;
+    }
+
+    body,div,h1,h2,h3,h4,h5,h6,span,label,li,ul,p,button,a{
+        font-family: sans-serif !important;
+    }

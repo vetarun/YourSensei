@@ -1,0 +1,231 @@
+<div class="container">
+  <div *ngIf="totalScore == 0">
+    <div class="col-lg-12" *ngFor="let o of lstquestion;let i =index">
+      <div class="user-all-form mt-5"  *ngIf="active==o.questionid">
+        <div class="contact-form" >
+          <div class="section-title text-center">
+
+            <h3>HOW DOES YOUR COMPANY'S PEOPLE DEVELOPMENT SYSTEM RATE?</h3>
+            <h5>TAKE THE PEOPLE DEVELOPMENT SELF-ASSESSMENT BELOW TO FIND OUT</h5>
+           
+          </div>
+
+
+        <div *ngIf="companydetails == undefined && quizDisabled">
+            <div class="section-title text-center">
+              <h2>Basic Details</h2>
+            
+            </div>
+            <form #empForms="ngForm">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <span style="color: gray;">First Name</span>
+                    <input type="text" class="form-control" id="fname" placeholder="First Name"
+                      [(ngModel)]="firstname" name="firstname" required #FirstName="ngModel">
+                    <div *ngIf="FirstName.invalid && submitclick">
+                      <p *ngIf="FirstName.errors.required" class="error-message">
+                        First name is required.
+                      </p>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Last Name</span>
+                    <input type="text" required class="form-control" id="lname" placeholder="Last Name"
+                      [(ngModel)]="lastname" name="lastname" required #LastName="ngModel">
+                    <div *ngIf="LastName.invalid && submitclick">
+                      <p *ngIf="LastName.errors.required" class="error-message">
+                        Last name is required.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Email</span>
+                    <input type="text" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                      class="form-control" id="email" placeholder="Email" [(ngModel)]="email" name="email" required
+                      #Emails="ngModel" [disabled]="disableEmail">
+                    <div *ngIf="Emails.invalid && submitclick">
+                      <p *ngIf="Emails.errors.required" class="error-message">
+                        Email is required.
+                      </p>
+                      <p *ngIf="Emails.errors && Emails.errors.pattern" class="error-message">
+                        Email not valid.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Phone</span>
+                    <input type="text" class="form-control" required [(ngModel)]="phone"
+                      #homePhone="ngModel" name="homePhone" placeholder="Home Phone">
+                    <p style="color:red;font-size: 13px;" *ngIf="btnclick==true && homePhone.valid==false">Home Phone
+                      is required!
+                    </p>
+                  </div>
+                </div>
+
+                <div  class="col-lg-12 text-center">
+                  
+                    <button (click)="startQuiz(empForms)" class="default-btn">
+                      Start Assessment
+                    </button>
+                  
+                </div>
+
+              </div>
+            </form>
+          
+          </div>
+          <div class="section-title text-center">
+
+            <h2>{{o.catname}}</h2>
+           
+          </div>
+
+          <div  class="row">
+            <h4 class="col-md-10" style="color: #5d6064;font-size: 16px;font-weight:500;">{{i+1}}).
+              {{o.question}}</h4>
+            <label class="col-md-2" style="font-weight: bold;font-size: 16px">{{i+1}} of
+              {{totalnoOFQues}}</label>
+          </div>
+
+
+          <div  >
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+              <mat-radio-button class="example-radio-button" [checked]="oo.id == queanswer"
+                *ngFor="let oo of o.questionoptions;let i =index" [value]="oo.id" [disabled]="quizDisabled"
+                (change)="changeanswer($event.value,o.questionid,i)" >
+                {{oo.optionValue}}
+
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="row">
+
+
+
+
+            <div class="col-sm-12 mt-30"  >
+
+              <div class="mt-3" style="text-align: right;">
+                <!-- <input type="button" [disabled]="prevbuttonDisabled" class="btn btn-primary btn-sm  btnmargin"
+                    value="Previous" (click)="previous(o.questionid,i-1)" /> -->
+                <input *ngIf="lstquestion[lstquestion.length-1].questionid>active" [disabled]="buttonDisabled"
+                  type="button" class="btn btn-primary btn-sm btnmargin m-l-5  " value="Next"
+                  (click)="next(o.questionid,i+1)" />
+                <span *ngIf="show">
+                  <!-- <input *ngIf="lstquestion[lstquestion.length-1].questionid==active && skipque.length!=0" type="button" class="btn btn-primary btn-sm  m-l-5  " value="Review later" (click)="reviewlater()" /> -->
+                  <input *ngIf="lstquestion[lstquestion.length-1].questionid==active" type="button"
+                    class="btn btn-primary btn-sm btnmargin m-l-5  " value="Submit" (click)="submit()" />
+                </span>
+              </div>
+
+              <div style="width:85%;text-align: center;margin: 0px;padding: 0px;position: relative;margin: auto;">
+                <div class="row" style="margin: 0px;padding: 0px;">        
+                  <div class="col-sm-4" style="padding: 0px;margin: 0px;">
+                    <div style="background-color: red;">
+                      <p style="text-align: center;margin-top: 3%;color: white">Score: 0 - 33%</p>
+                    </div>
+                    <div style="background-color: white;font-weight: bolder;">
+                    <p>Below average: Expected annual growth of -10% to 4% </p>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4" style="padding: 0px;margin: 0px;">
+                    <div style="background-color: yellow;">
+                      <p style="text-align: center;margin-top: 3%;color: green">Score: 34 - 66%</p>
+                    </div>
+                    <div style="background-color: white;font-weight: bolder;">
+                      <p>Average to Respectable: Expected annual growth of 5% to 10% </p>
+                      </div>
+                  </div>
+
+                  <div class="col-sm-4" style="padding: 0px;margin: 0px;">
+                    <div style="background-color: green;">
+                      <p style="text-align: center;margin-top: 3%;color: white;">Score: 67 - 100%</p>
+                    </div>
+                     <div style="background-color: white;font-weight: bolder;">
+                      <p>Good to World Class: Expected annual growth of 11% to 40%+ </p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- <div style="display: inline-block;"><input type="button" class="btn btn-primary btn-sm  m-l-5  " value="Save for later" (click)="saveforlater()" /></div> -->
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-12" *ngIf="thankU">
+    <div class="user-all-form mt-5">
+      <div class="contact-form">
+        <div class="section-title text-center">
+          <h2>Thank you so much for completing the assessment</h2>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <h4>Your total score is {{totalScore | number : '1.1-1'}} %</h4>
+          </div>
+          <div class="col-sm-4">
+            <input type="button" class="btn btn-primary btn-sm  btnmargin" style="float: right;" value="OK" (click)="resetAssessment()" />
+          </div>
+        </div>
+
+        <div style="width:85%;text-align: center;margin: 0px;padding: 0px;position: relative;margin: auto;">
+          <div class="row" style="margin: 0px;padding: 0px;">        
+            <div class="col-sm-4" style="padding: 0px;margin: 0px;">
+              <div style="background-color: red;">
+                <p style="text-align: center;margin-top: 3%;font-weight: bold;color: white">Score: 0 - 33%</p>
+              </div>
+              <div style="background-color: white;font-weight: bolder;">
+              <p>Below average: Expected annual growth of -10% to 4% </p>
+              </div>
+            </div>
+
+            <div class="col-sm-4" style="padding: 0px;margin: 0px;">
+              <div style="background-color: yellow;">
+                <p style="text-align: center;margin-top: 3%;color: green">Score: 34 - 66%</p>
+              </div>
+              <div style="background-color: white;font-weight: bolder;">
+                <p>Average to Respectable: Expected annual growth of 5% to 10% </p>
+                </div>
+            </div>
+
+            <div class="col-sm-4" style="padding: 0px;margin: 0px;">
+              <div style="background-color: green;">
+                <p style="text-align: center;margin-top: 3%;color: white;">Score: 67 - 100%</p>
+              </div>
+               <div style="background-color: white;font-weight: bolder;">
+                <p>Good to World Class: Expected annual growth of 11% to 40%+ </p>
+                </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- <div class="row">
+          <div class="col-sm-12">
+            <div class="mt-3" style="text-align: right; margin-right: 30px;">
+              
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

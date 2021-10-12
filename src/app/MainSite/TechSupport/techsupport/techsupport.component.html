@@ -1,0 +1,135 @@
+<div style="text-align: center;">
+  <h1>Let us know how we can help you?</h1>
+  <p>Please submit a case if you need product support.</p>
+</div>
+<div class="sign-in-area pt-50 pb-70">
+  <div class="container">
+    <div class="row pt-45">
+      <div class="col-lg-12">
+        <div class="user-all-form">
+          <div class="contact-form">
+           
+            <form #empForms="ngForm">
+              <div class="row">
+
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <span style="color: gray;">First Name</span>
+                    <input type="text" class="form-control" id="fname" placeholder="First Name"
+                      [(ngModel)]="model.firstName" name="firstName" required #FirstName="ngModel">
+                    <div *ngIf="FirstName.invalid && submitclick">
+                      <p *ngIf="FirstName.errors.required" class="error-message">
+                        First name is required.
+                      </p>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Last Name</span>
+                    <input type="text" required class="form-control" id="lname" placeholder="Last Name"
+                      [(ngModel)]="model.lastName" name="lastName" required #LastName="ngModel">
+                    <div *ngIf="LastName.invalid && submitclick">
+                      <p *ngIf="LastName.errors.required" class="error-message">
+                        Last name is required.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Email</span>
+                    <input type="text" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                      class="form-control" id="email" placeholder="Email" [(ngModel)]="model.email" name="email"
+                      required #Emails="ngModel" >
+                    <div *ngIf="Emails.invalid && submitclick">
+                      <p *ngIf="Emails.errors.required" class="error-message">
+                        Email is required.
+                      </p>
+                      <p *ngIf="Emails.errors && Emails.errors.pattern" class="error-message">
+                        Email not valid.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Phone</span>
+                    <input type="text" required class="form-control" id="phone" placeholder="Phone"
+                      [(ngModel)]="model.phone" name="phone" #phone="ngModel">
+
+
+                  </div>
+                </div>
+
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                    <span style="color: gray;">How can we help you?</span>
+                    <input type="text" required class="form-control" id="helpbox" placeholder="Help Box"
+                      [(ngModel)]="model.helpbox" name="helpbox" required #HelpBox="ngModel">
+
+                    <div *ngIf="HelpBox.invalid && submitclick">
+                      <p *ngIf="HelpBox.errors.required" class="error-message">
+                        Help Box is required.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+
+
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Additional Detail</span>
+
+                    <textarea rows="5" cols="5" class="form-control" [(ngModel)]="model.additional"
+                      #Description="ngModel" name="additional" id="additional" placeholder="Description"></textarea>
+
+
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="col-lg-12" style="text-align: center;">
+                  <button (click)="SendDetails(empForms)" class="default-btn">
+                    Send
+                  </button>
+                </div>
+
+
+
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

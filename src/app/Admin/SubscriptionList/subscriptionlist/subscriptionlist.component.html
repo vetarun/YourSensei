@@ -1,0 +1,75 @@
+<div class="sign-in-area pt-50 pb-70">
+    <br>
+    <div class="container">
+     
+  
+      <h3>Subscription</h3>
+  
+  
+      <div class="row mb-3">
+        <div class="search-div col-sm-12">
+            <div>
+                <mat-form-field appearance="none" floatLabel="never" class="search-form-field form-control search-form-field2">
+                    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off"
+                        (keyup)="applyFilter()">
+                    <button (click)="cleartext()" *ngIf="searchKey" matSuffix mat-icon-button aria-label="Clear">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+  
+  
+      <table class="tb-r" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  
+        <ng-container matColumnDef="subscriptionOwner">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Owner </th>
+          <td mat-cell *matCellDef="let element"> {{element.subscriptionOwner}} </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="planName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Plan </th>
+          <td mat-cell *matCellDef="let element"> {{element.planName}}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="purchasedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Purchased Date </th>
+          <td mat-cell *matCellDef="let element"> {{ (element.purchasedDate != '') ? (element.purchasedDate | date:'MM/dd/yyyy') : (element.purchasedDate) }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="purchasedBy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Purchased By </th>
+          <td mat-cell *matCellDef="let element"> {{element.purchasedBy}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="renewalDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Renewal Date </th>
+          <td mat-cell *matCellDef="let element"> {{ (element.renewalDate != '') ? (element.renewalDate | date:'MM/dd/yyyy') : (element.renewalDate) }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="activationDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Activation Date </th>
+          <td mat-cell *matCellDef="let element"> {{ (element.activationDate != '') ? (element.activationDate | date:'MM/dd/yyyy') : (element.activationDate) }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="expiryDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Expiry Date </th>
+          <td mat-cell *matCellDef="let element"> {{ (element.expiryDate != '') ? (element.expiryDate | date:'MM/dd/yyyy') : (element.expiryDate) }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="isExpired">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Expired </th>
+          <td mat-cell *matCellDef="let element"> {{element.isExpired}} </td>
+        </ng-container>
+        <tr class="bg-y" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      </table>
+      <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+  
+  
+  </div>

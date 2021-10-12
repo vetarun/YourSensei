@@ -1,0 +1,201 @@
+<div class="sign-in-area pt-50 pb-70">
+  <br>
+
+
+
+  <div class="container">
+    <h3>Credit Log List</h3>
+    <div>
+      <form *ngIf="superadminview">
+        <div class="row">
+          <div class="col-lg-2">
+            <label>Search by Company</label>
+          </div>
+          <div class=" col-lg-7">
+            <div class="form-group">
+
+              <select class="form-control" id="mentorId" name="mentorId" [(ngModel)]="companyid">
+                <option disabled>Select Company</option>
+                <option value="00000000-0000-0000-0000-000000000000">All</option>
+                <option *ngFor="let comp of companylist" value={{comp.id}}>
+                  {{comp.companyname}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-2 text-right">
+            <button style="margin-top: 2px;height: 40px;" class="pull-right btn-primary" (click)="searchbycompanyid()"
+              mat-raised-button>
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <div>
+      <form *ngIf="MentorsEmployee">
+        <div class="row" *ngIf="mentoremployeeslist.length">
+          <div class="col-lg-2">
+            <label>Search by Employee</label>
+          </div>
+          <div class="col-lg-8">
+            <div class="form-group">
+              <select class="form-control" id="searchuserid" name="searchuserid" [(ngModel)]="searchuserid">
+                <option disabled>Select Employee</option>
+                <option *ngFor="let mentor of mentoremployeeslist" value={{mentor.userID}}>
+                  {{mentor.firstName + " " + mentor.lastName}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-2 text-right">
+            <button class="pull-right default-btn" (click)="searchbyemployee()"
+              mat-raised-button>
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="search-div mb-3">
+      <mat-form-field appearance="none" floatLabel="never" class="search-form-field form-control search-form-field2">
+        <input matInput [(ngModel)]="searchKey"
+          placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+        <button (click)="Clearsearch()" *ngIf="searchKey" mat-button matSuffix mat-icon-button aria-label="Clear">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="isListAvailabe">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 bg-y2" multiTemplateDataRows>
+
+       
+        <ng-container matColumnDef="empCode" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;">Employee Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.empCode}} </td>
+        </ng-container>
+
+       
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> First Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+        <!-- Position Column -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Last Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="companyName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Company </th>
+          <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="event">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Event Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.event}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="awardedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Awarded Date
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.awardedDate | date:'dd/MM/yyyy'}} </td>
+          <!-- <td mat-cell *matCellDef="let element"> {{element.awardedDate | date:'mediumDate'}} </td> -->
+        </ng-container>
+
+        <ng-container matColumnDef="credit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Credits </th>
+          <td mat-cell *matCellDef="let element"> {{element.credit}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="sumOfLogs"
+          *ngIf="companydetails.userTypeName=='Company Admin' || companydetails.userTypeName=='Super Admin'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;">Sum Of Credits </th>
+          <td mat-cell *matCellDef="let element"> {{element.sumOfLogs}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action"
+          *ngIf="companydetails.userTypeName=='Company Admin' || companydetails.userTypeName=='Super Admin'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="detailsLogs(element)">
+              {{element.isExpanded ? 'Hide Log Detail':'View Log
+                        Detail'}}
+            </button>
+
+
+          </td>
+        </ng-container>
+        <!-- Template for details row -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+
+              <div class="row-2 student-element-detail"
+                  [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+                  <table mat-table [dataSource]="DetailLogdataSource" matSort class="out-tb-2">
+
+       
+                    
+            
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="companyName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Company </th>
+                      <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+                    </ng-container>
+            
+                    <ng-container matColumnDef="event">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Event Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.event}} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="awardedDate">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Awarded Date
+                      </th>
+                      <td mat-cell *matCellDef="let element"> {{element.awardedDate | date:'dd/MM/yyyy'}} </td>
+                      <!-- <td mat-cell *matCellDef="let element"> {{element.awardedDate | date:'mediumDate'}} </td> -->
+                    </ng-container>
+            
+                    <ng-container matColumnDef="credit">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Credits </th>
+                      <td mat-cell *matCellDef="let element"> {{element.credit}} </td>
+                    </ng-container>
+            
+            
+                   
+            
+                    
+                    
+                  <tr mat-header-row *matHeaderRowDef="DetailLogdisplayedColumns;sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: DetailLogdisplayedColumns;"
+                                class="student-element-row"></tr>
+            
+                  </table>
+              </div>
+
+          </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="student-element-row"></tr>
+      <!-- Extra row to show detail content column -->
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="student-detail-row"></tr>
+
+      </table>
+      <div class="row" *ngIf="superadminview==false && totallog != undefined">
+        <label class="pull-right" style="margin-left: 924px; margin-top: 20px; font-weight: bold;">Sum Of
+          Credit: {{totallog}}</label>
+      </div>
+
+      <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+    </div>
+    <div *ngIf="!isListAvailabe">
+      <h3>There is no credit logs </h3>
+    </div>
+  </div>
+</div>

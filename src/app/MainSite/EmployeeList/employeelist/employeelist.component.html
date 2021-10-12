@@ -1,0 +1,101 @@
+
+<div class="sign-in-area pt-50 pb-70">
+    <br>      
+           <div class="container">
+             <h3>Employee List</h3>
+             <div class="row mb-3">
+              <div class="search-div col-sm-10">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <mat-form-field appearance="none" floatLabel="never" class="search-form-field form-control">
+                      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+                      <button (click)="cleartext()" *ngIf="searchKey" matSuffix mat-icon-button aria-label="Clear">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2 " style="text-align:right!important" *ngIf="totalAllowedNoOfEmployee>exsitedNumberOfEmp">
+                <div class="row">
+                  <button class="pull-right default-btn" (click)="addemployee()" mat-raised-button>
+                    <mat-icon>add</mat-icon> Add New Employee
+                  </button>
+                </div>
+              </div>
+            </div>
+             <!-- <div  class="search-div">
+               <mat-form-field appearance="none" floatLabel="never" style="height: 45px;" class="search-form-field">
+                 <input matInput [(ngModel)]="searchKey" style="margin-top: -20px;padding: 8px; border: 1px solid black;"  placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+                 <button *ngIf="searchKey" mat-button matSuffix mat-icon-button aria-label="Clear">
+                  <mat-icon (click)="cleartext()">close</mat-icon> 
+                </button>
+                </mat-form-field>
+              
+               <button style="margin-top: 5px;height: 44px;" class="pull-right btn-primary" (click)="addemployee()"  mat-raised-button>
+                 <mat-icon>add</mat-icon> Add employee
+               </button>
+             </div> -->
+               <div>
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 bg-y2">                 
+                  
+                  <ng-container matColumnDef="employeeCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;">Emp Code </th>
+                    <td mat-cell *matCellDef="let element"> {{element.employeeCode}} </td>
+                  </ng-container>
+                
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> First Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                  </ng-container>
+                   <!-- Position Column -->
+                   <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Last Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                  </ng-container>
+                
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="roleId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Role </th>
+                    <td mat-cell *matCellDef="let element"> {{element.roleId}} </td>
+                  </ng-container>
+                
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="mentorId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Mentor Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.mentorId}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="credit">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Credits </th>
+                    <td mat-cell *matCellDef="let element"> {{element.credit}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="isActive">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Is Active </th>
+                    <td mat-cell *matCellDef="let element"> 
+                     {{element.isActive}} </td>
+                  </ng-container>
+    
+                
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Action </th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-icon-button color="primary"  [routerLink]="['/Main/add-employee',element.id]" >
+                        <mat-icon>edit</mat-icon>
+                      </button> 
+                      <button mat-icon-button color="warn" (click)="DeleteEmployee(element.id)"><mat-icon>delete_outline</mat-icon></button> 
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  
+                </table>
+                <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator> 
+                                 
+               </div>
+           
+           </div>
+    </div>
+    

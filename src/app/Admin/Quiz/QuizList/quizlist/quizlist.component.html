@@ -1,0 +1,145 @@
+<div class="sign-in-area pt-50 pb-70">
+    <br>
+    <div class="container">
+        <h3>Quiz List</h3>
+        <div class="row mb-3">
+            <div class="search-div col-sm-10">
+                <div>
+                    <mat-form-field appearance="none" floatLabel="never" class="search-form-field form-control search-form-field2">
+                        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off"
+                            (keyup)="applyFilter()">
+                        <button (click)="cleartext()" *ngIf="searchKey" matSuffix mat-icon-button aria-label="Clear">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="col-sm-2 " style="text-align:right!important" *ngIf="superadmin">
+                <button class="pull-right default-btn" [routerLink]="['/Admin/addquiz']" mat-raised-button>
+                    <mat-icon>add</mat-icon> Add new quiz
+                </button>
+            </div>
+            <div class="col-sm-2 " style="text-align:right!important" *ngIf="!superadmin">
+                <button class="pull-right default-btn" [routerLink]="['/Main/addquiz']" mat-raised-button>
+                    <mat-icon>add</mat-icon> Add new quiz
+                </button>
+            </div>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 bg-y2" multiTemplateDataRows>
+
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="quizname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Quiz Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.quizname}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="bookname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Book Name </th>
+                <td mat-cell *matCellDef="let element"> {{ element.bookname }}</td>
+            </ng-container>
+            <ng-container matColumnDef="ispublished">
+                <th mat-header-cell *matHeaderCellDef> Published </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-slide-toggle [checked]="element.ispublished" (change)="activeToggle($event,element.quizid)">
+                    </mat-slide-toggle>
+
+
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <a *ngIf="element.questionlist.length" mat-button
+                        (click)="getQuestionList(element)">{{element.isExpanded ? 'Hide Question List':'View Question
+                        List'}}</a> 
+
+                    <a mat-button href="javascript:void()" *ngIf="superadmin" [routerLink]="['/Admin/addquiz']"
+                        [queryParams]="{quizid:element.quizid}">Add Question</a>
+                    <a mat-button href="javascript:void()" *ngIf="!superadmin" [routerLink]="['/Main/addquiz']"
+                        [queryParams]="{quizid:element.quizid}">Add Question</a> 
+                        <a mat-button href="javascript:void()"  *ngIf="!superadmin">
+                            <mat-icon matTooltip="Edit" [routerLink]="['/Main/addquiz']" [queryParams]="{quizid:element.quizid,page:'edit-quiz'}">edit</mat-icon>
+                        </a>
+                        <a mat-button href="javascript:void()" *ngIf="superadmin">
+                            <mat-icon matTooltip="Edit" 
+                            [routerLink]="['/Admin/addquiz']" [queryParams]="{quizid:element.quizid,page:'edit-quiz'}">edit</mat-icon>
+                        </a>
+                        
+                 
+                     
+                    <a mat-button href="javascript:void()">
+                        <mat-icon matTooltip="Delete" (click)="DeleteQuiz(element.quizid)">delete_outline</mat-icon>
+                    </a>
+                </td>
+            </ng-container>
+            <!-- Template for details row -->
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+
+                    <div class="row out-tb student-element-detail"
+                        [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+                        <table mat-table [dataSource]="AnswerdataSource" matSort class="mat-elevation-z8">
+
+
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="questionName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;">
+                                    Question Name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.questionName}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="questionType">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; ">
+                                    Question Type </th>
+                                <td mat-cell *matCellDef="let element"> {{ element.questionType }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="correctAnswer">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; ">
+                                    Correct Answer </th>
+                                <td mat-cell *matCellDef="let element"> {{ element.correctAnswer }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;">
+                                    Action </th>
+                                <td mat-cell *matCellDef="let element">
+
+                                    <a mat-button href="javascript:void()" *ngIf="superadmin">
+                                        <mat-icon matTooltip="Edit" 
+                                            [routerLink]="['/Admin/addquiz']"
+                                            [queryParams]="{quizid:element.quizID,quesID:element.id}">edit</mat-icon>
+                                    </a>
+                                    <a mat-button href="javascript:void()" *ngIf="!superadmin">
+                                        <mat-icon matTooltip="Edit"  [routerLink]="['/Main/addquiz']"
+                                            [queryParams]="{quizid:element.quizID,quesID:element.id}">edit</mat-icon>
+                                    </a>
+                                 
+                                    <a mat-button href="javascript:void()">
+                                        <mat-icon matTooltip="Delete" (click)="DeleteQuestion(element.id)">
+                                            delete_outline</mat-icon>
+                                    </a>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedAnswerColumns;sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedAnswerColumns;"
+                                class="student-element-row"></tr>
+
+                        </table>
+                    </div>
+
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="student-element-row"></tr>
+            <!-- Extra row to show detail content column -->
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="student-detail-row"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

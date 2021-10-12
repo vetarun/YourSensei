@@ -1,0 +1,17 @@
+
+ <div class="container">
+    <div class="sidebar-modal reset"  [ngClass]="{'active':openModal==true}" >
+        <div class="sidebar-modal-inner" style="overflow: scroll !important;max-height:500px !important;">
+            <div class="sidebar-header rset">
+               
+                <span *ngIf="showCloseButton" class="close-btn sidebar-modal-close-btn">
+                    <i class="bx bx-x" (click)="close()"></i>
+                </span>
+            </div>
+            <h4 style="padding-top: 10px;">{{modalHeading}}</h4>
+            <hr>
+            <ng-content ></ng-content>
+        </div>
+    </div> 
+ </div>
+ 

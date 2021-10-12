@@ -1,0 +1,230 @@
+<div class="sidebar-modal">
+  <div class="sidebar-modal-inner">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <img src="assets/img/logo.png" alt="Image" width="160px">
+      </div>
+      <span class="close-btn sidebar-modal-close-btn">
+        <i class="bx bx-x"></i>
+      </span>
+    </div>
+    <div class="sidebar-about">
+      <div class="title">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut tur incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+        </p>
+      </div>
+    </div>
+    <div class="contact-us">
+      <h2>Contact Us</h2>
+      <ul>
+        <li>
+          <i class='bx bx-current-location'></i>
+          Address: 6th Floor, Barbosa , Sydney
+        </li>
+        <li>
+          <i class='bx bx-mail-send'></i>
+          <a href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#80e8e5ececefc0e6e9eee5e3aee3efed"><span
+              class="__cf_email__" data-cfemail="2048454c4c4f6046494e45430e434f4d">[email&#160;protected]</span></a>
+          <a href="#">Skype: example</a>
+        </li>
+        <li>
+          <i class='bx bx-phone-call'></i>
+          <a href="tel:+612-831-713-80"> +612-831-713-80</a>
+          <a href="tel:+612-831-345-70"> +612-831-345-70</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-instagram-feed">
+      <h2>Instagram</h2>
+      <ul>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram1.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram2.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram3.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram4.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram5.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram6.jpg" alt="image">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-follow-us">
+      <h2>Follow Us</h2>
+      <ul class="social-wrap">
+        <li>
+          <a href="#" target="_blank">
+            <i class="bx bxl-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#" target="_blank">
+            <i class="bx bxl-instagram"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#" target="_blank">
+            <i class="bx bxl-facebook"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#" target="_blank">
+            <i class="bx bxl-youtube"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="sign-in-area pt-50">
+  <div class="container">
+    <div class="row pt-45">
+      <div class="col-lg-12">
+        <div class="user-all-form">
+          <div class="contact-form">
+            <div class="section-title text-center">
+              <!-- <span>Company Setting</span> -->
+              <h2>Company Setting</h2>
+             
+            </div>
+            <form [formGroup]="CompanysettingForm" (ngSubmit)="formSubmit()">
+              <div class="row">
+                <!-- <div class="col-lg-12">
+  <div class="form-group">
+    <span style="color: gray;">Make Mentor Mandatory</span>
+    
+  <select class="form-control" name="settingname" formControlName="settingname">
+    <option disabled>Select Setting</option>
+    <option *ngFor="let acs of Allcustomsetting" value={{acs.id}}>
+      {{acs.settingName}}
+    </option> 
+        </select>
+  </div>
+  </div> -->
+
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <span style="color: gray;">Make Mentor Mandatory</span>
+
+                    <select class="form-control" name="ismentor" formControlName="ismentor">
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <span style="color: gray;">Global Average Book Rating</span>
+
+                    <select class="form-control" name="isaveragebookrating" formControlName="isaveragebookrating">
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <span style="color: gray;">Global Mentor</span>
+
+                    <select class="form-control" name="isglobalmentor" formControlName="isglobalmentor">
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <span style="color: gray;">Global Book Update</span>
+
+                    <select class="form-control" name="isglobalbookupdate" formControlName="isglobalbookupdate">
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <span style="color: gray;">$ Impact Approver</span>
+
+                    <select class="form-control" name="impactapprover" formControlName="impactapprover">
+                      <option *ngFor="let forms of empList" [value]="forms.id" class="nav-select level1">
+                        {{forms.firstName}} {{forms.lastName}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="col-lg-12">
+                  <button type="submit" class="default-btn">
+                    Save Company Setting
+                  </button>
+                </div>
+
+               
+
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="container">
+    <div class="row pt-45">
+      <div class="col-lg-12">
+        <div class="user-all-form">
+          <div class="contact-form">
+            <div class="section-title text-center">
+              <!-- <span>Company Setting</span> -->
+              <h2>Belt and Its Rules</h2>
+             
+            </div>
+            <form>
+              <div class="row">
+               <div class="col-12">
+                <app-beltrules>                  
+                </app-beltrules>
+               </div>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

@@ -1,0 +1,90 @@
+<div class="sign-in-area pt-50 pb-70">
+    <br>
+    <div class="container">
+     
+      <h3>UserDetails</h3>
+      <div>
+         <div [className]="searchBar_Width">
+          <div class="row">
+            <div class="col-sm-6" *ngIf="superadmin">
+             <form class="form-inline">
+                <label for="Company" class="col-sm-2">Company</label>
+                <select id="mentorId" name="mentorId" (change)="changecompany($event.target.value)" [(ngModel)]="companyid" class="form-control search-drop col-sm-6">
+                  <option disabled>Select Company</option>
+                  <option value="00000000-0000-0000-0000-000000000000">Individual</option>
+                  <option *ngFor="let comp of companylist" value={{comp.id}}>
+                    {{comp.companyname}}
+                  </option>
+                </select>
+                <button class="default-btn col-sm-3" (click)="searchbycompanyid(companyid)" mat-raised-button style="margin-left: 25px;">
+                  Search
+                </button>
+              </form>
+            </div>
+            <div class="col-sm-6">
+            <div [className]="search_width">
+              <mat-form-field appearance="none" floatLabel="never" class="search-form-field form-control">
+                <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+                <button (click)="cleartext()" *ngIf="searchKey" matSuffix mat-icon-button aria-label="Clear">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+          </div>
+        </div> 
+      <table class="tb-r" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table">
+  
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="firstname">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> First Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstname}}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="lastname">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Last Name </th>
+          <td mat-cell *matCellDef="let element"> {{ element.lastname  }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Comapny Name </th>
+          <td mat-cell *matCellDef="let element"> {{ element.company  }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="lastcreditearn">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Last Credit Earn </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastcreditearn}} </td>
+        </ng-container>
+     
+        <ng-container matColumnDef="totalcredit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Total Credit </th>
+          <td mat-cell *matCellDef="let element"> {{ element.totalcredit }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="totala3">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Total A3 </th>
+          <td mat-cell *matCellDef="let element"> {{ element.totala3 }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="totalkaizen">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Total Kaizen </th>
+          <td mat-cell *matCellDef="let element"> {{element.totalkaizen}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="beltname">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Belt Level </th>
+            <td mat-cell *matCellDef="let element"> {{element.beltname}} </td>
+          </ng-container>
+        <tr class="bg-y" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      </table>
+      <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+    </div>
+</div>

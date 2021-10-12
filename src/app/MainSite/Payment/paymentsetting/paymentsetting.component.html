@@ -1,0 +1,158 @@
+<div class="sign-in-area pt-50 pb-70">
+  <div class="container">
+    <div class="row pt-45">
+      <div class="col-lg-12">
+        <div class="user-all-form">
+          <div class="contact-form">
+            <div class="section-title text-center">
+              <span>Cards</span>
+              <h2>{{buttonname}} a Debit/Credit card!</h2>
+            </div>
+            <form id="paymentCardForm" #cardform="ngForm">
+              <div class="row">
+                <div class="col-lg-12 text-center">
+                  <div class="form-group">
+                    <span style="color: gray;">Card Type</span>
+                    <br>
+                    <input type="radio" name="cardType" id="debit" [checked]="cardModel.cardType===cardType.Debit"
+                      (change)="ChangeCardType(cardType.Debit)">
+                    <span style="color: gray;padding: 10px;">Debit</span>
+                    <input type="radio" style="margin-left: 30px;" required="" name="cardType" id="credit"
+                      [checked]="cardModel.cardType===cardType.Credit" (change)="ChangeCardType(cardType.Credit)">
+                    <span style="color: gray;padding: 10px">Credit</span>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <span style="color: gray;">Name On Card</span>
+                    <input type="text" class="form-control" required="" [(ngModel)]="cardModel.nameOnCard"
+                      #nameOnCard="ngModel" name="nameOnCard" id="nameOnCard" placeholder="Name On Card">
+
+                    <p *ngIf="btnclick==true && nameOnCard.errors?.required==true" style="color: red;font-size: 12px;">
+                      Name on card is required!</p>
+                  </div>
+                </div>
+                <!-- <div class="col-lg-6 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Card Number</span>
+                      <input type="text" class="form-control"
+                      maxlength="16" 
+                      required="" 
+                      [(ngModel)]="cardModel.cardNumber" 
+                      #cardNumber="ngModel"
+                      (keypress)="commonService.numberOnly($event)"
+                      name="cardNumber" id="cardNumber" placeholder="Card Number">
+                      <p *ngIf="btnclick==true && cardNumber.valid==false"
+                      style="color: red;font-size: 12px;">
+                      Card number is required!</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <span style="color: gray;">Valid Thru </span>
+                      <div class="row">
+                        <select class="form-control col-lg-3" style="margin-right: 10px;" name="month" [(ngModel)]="expirymonth" required #month="ngModel"
+                          >
+                          <option disabled>Select Month</option>
+                          <option value="01">01</option>
+                          <option value="02">02</option>
+                          <option value="03">03</option>
+                          <option value="04">04</option>
+                          <option value="05">05</option>
+                          <option value="06">06</option>
+                          <option value="07">07</option>
+                          <option value="08">08</option>
+                          <option value="09">09</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                        </select>
+                        
+                       
+                        <p *ngIf="btnclick==true && month.valid==false" style="color: red;font-size: 12px;">
+                          Month is required!</p>
+                      <span style="margin-top: 12px;">/</span>
+                     
+                        <select class="form-control col-lg-3" style="margin-left: 10px;" name="year" [(ngModel)]="expiryyear" required #year="ngModel">
+                          <option disabled>Select year</option>
+                          <option *ngFor="let year of years" value={{year}}>{{year}}</option>
+                          
+                        </select>
+                        
+                        
+                          <p *ngIf="btnclick==true && year.valid==false" style="color: red;font-size: 12px;">
+                            Year is required!</p>
+                          </div>
+                    </div>
+                  </div> -->
+
+                <div class="col-lg-6 ">
+                  <div class="form-group" style="position: relative;">
+                      <span style="color: gray;">Card Number 
+                        <input disabled style="color: gray; border: none; display: none;" [(ngModel)]="cardname" id="cardicon"  #cardicon="ngModel"  name="cardicon" value="{{ccNumber.resolvedScheme$ | async}}"/>
+                      </span>
+                    <span style=" position: absolute; right: 10px; top: 37px !important;">
+                    <i [ngClass]="{'fab fa-cc-visa fa-2x':cardname=='visa'}" style="float: right;"></i>
+                    <i [ngClass]="{'fab fa-cc-mastercard fa-2x':cardname=='mastercard'}" style="float: right;"></i>
+                    <i [ngClass]="{'fab fa-cc-amex fa-2x':cardname=='amex'}" style="float: right;"></i>
+                    <i [ngClass]="{'fab fa-cc-diners-club fa-2x':cardname=='dinersclub'}" style="float: right;"></i>
+                    </span>
+                    <input type="text" class="form-control"
+                    required="" 
+                    [(ngModel)]="cardModel.cardNumber" 
+                    #cardNumber="ngModel"
+                    (keypress)="getcardtype()"
+                    name="cardNumber" id="cardNumber"
+                    ccNumber #ccNumber="ccNumber">
+                    <p *ngIf="btnclick==true && cardNumber.valid==false"
+                    style="color: red;font-size: 12px;">
+                    Card number is required!</p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <span style="color: gray;">Valid Thru </span>
+                    <input type="text" class="form-control" 
+                    [(ngModel)]="cardModel.validThru"
+                    (keypress)="validatevalidThru($event)"
+                    autocomplete="cc-exp" ccExp 
+                    #validThru="ngModel"
+                    placeholder="MM/YYYY"
+                    required
+                    name="validThru" id="validThru">
+                    <p *ngIf="btnclick==true && validThru.errors?.required==true" 
+                    style="color: red;font-size: 12px;">
+                    Valid thru is required!</p>
+                    <p *ngIf="validtoday==true" 
+                    style="color: red;font-size: 12px;">
+                    {{validthrumessage}}</p>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <p class="account-desc m-0 text-right">
+                    <a class="back-btn" [routerLink]="['/Main/card-list']">
+                      Back to Card List</a>
+
+                  </p>
+                </div>
+
+                <div class="col-lg-6">
+                  <button type="submit" class="default-btn disabled" (click)="Addcard(cardform)"
+                    style="pointer-events: all; cursor: pointer;">
+                    {{buttonname}}
+                  </button>
+                </div>
+
+              </div>
+            </form>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

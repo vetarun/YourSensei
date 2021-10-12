@@ -1,0 +1,223 @@
+<div class="sign-in-area pt-50 pb-70">
+  <div class="container">
+    <div class="row pt-45">
+      <div class="col-lg-12">
+        <div class="user-all-form">
+          <div class="contact-form">
+            <div class="section-title text-center">
+              <form id="contactForm" #trackform="ngForm">
+                <input type="hidden" [(ngModel)]="BookModel.trackid">
+                <div class="col-sm-12">
+                  <!-- <div class="col-sm-12">
+                    <form class="row" style="margin-bottom: 35px; display: inline-block;">
+                        <input type="radio" name="optradio" *ngIf="!checked" style="margin-right: 10px;">
+                        <input type="radio" name="optradio" *ngIf="checked" style="margin-right: 10px;" checked>{{value}}
+                    </form>
+                    </div> -->
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <label>Track Name:</label>
+                    </div>
+                    <div class="col-sm-9">
+                      <input type="text" [(ngModel)]="BookModel.trackName" required="" #TrackName="ngModel"
+                        id="trackname" name="trackname" class="form-control">
+                      <p *ngIf="btnclick==true && TrackName.valid==false" style="color: red;font-size: 12px;">Track Name
+                        isrequired!</p>
+                      <p *ngIf="btnclick==true && duplicatetrackname==true" style="color: red;font-size: 12px;">This
+                        track name is already in use</p>
+                    </div>
+                  </div>
+                  <div class=" row">
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <label class="col-sm-12" style="margin-top: 65px;">Track Category</label>
+                        <div class="form-group col-sm-12">
+                          <select class="form-control" required (change)="changetrack($event.target.value, 1)"
+                            [(ngModel)]="BookModel.trackcat_1" id="trackCategory1" name="trackCategory1"
+                            style="margin-top: 40px;">
+                            <option value="" disabled>Select Category</option>
+                            <option value='O'>Operations</option>
+                            <option value='F'>Finance</option>
+                            <option value='L'>Logistics</option>
+                            <option value='PD'>Projects/Development</option>
+                            <option value='SM'>Sales and Marketing</option>
+                            <option value='P'>People</option>
+                            <option value='S'>Strategy</option>
+                          </select>
+                          <select class="form-control" (change)="changetrack($event.target.value, 2)"
+                            [(ngModel)]="BookModel.trackcat_2" id="trackCategory2" name="trackCategory2"
+                            style="margin-top: 40px;">
+                            <option value="" disabled>Select Category</option>
+                            <option value='O'>Operations</option>
+                            <option value='F'>Finance</option>
+                            <option value='L'>Logistics</option>
+                            <option value='PD'>Projects/Development</option>
+                            <option value='SM'>Sales and Marketing</option>
+                            <option value='P'>People</option>
+                            <option value='S'>Strategy</option>
+                          </select>
+                          <select class="form-control" (change)="changetrack($event.target.value, 3)"
+                            [(ngModel)]="BookModel.trackcat_3" id="trackCategory3" name="trackCategory3"
+                            style="margin-top: 40px;">
+                            <option value="" disabled>Select Category</option>
+                            <option value='O'>Operations</option>
+                            <option value='F'>Finance</option>
+                            <option value='L'>Logistics</option>
+                            <option value='PD'>Projects/Development</option>
+                            <option value='SM'>Sales and Marketing</option>
+                            <option value='P'>People</option>
+                            <option value='S'>Strategy</option>
+                          </select>
+                          <select class="form-control" (change)="changetrack($event.target.value, 4)"
+                            [(ngModel)]="BookModel.trackcat_4" id="trackCategory4" name="trackCategory4"
+                            style="margin-top: 40px;">
+                            <option value="" disabled>Select Category</option>
+                            <option value='O'>Operations</option>
+                            <option value='F'>Finance</option>
+                            <option value='L'>Logistics</option>
+                            <option value='PD'>Projects/Development</option>
+                            <option value='SM'>Sales and Marketing</option>
+                            <option value='P'>People</option>
+                            <option value='S'>Strategy</option>
+                          </select>
+                          <select class="form-control" (change)="changetrack($event.target.value, 5)"
+                            [(ngModel)]="BookModel.trackcat_5" id="trackCategory5" name="trackCategory5"
+                            style="margin-top: 40px;">
+                            <option disabled value="">Select Category</option>
+                            <option value='O'>Operations</option>
+                            <option value='F'>Finance</option>
+                            <option value='L'>Logistics</option>
+                            <option value='PD'>Projects/Development</option>
+                            <option value='SM'>Sales and Marketing</option>
+                            <option value='P'>People</option>
+                            <option value='S'>Strategy</option>
+                          </select>
+                          <select class="form-control" (change)="changetrack($event.target.value, 6)"
+                            [(ngModel)]="BookModel.trackcat_6" id="trackCategory6" name="trackCategory6"
+                            style="margin-top: 40px;">
+                            <option value="" disabled>Select Category</option>
+                            <option value='O'>Operations</option>
+                            <option value='F'>Finance</option>
+                            <option value='L'>Logistics</option>
+                            <option value='PD'>Projects/Development</option>
+                            <option value='SM'>Sales and Marketing</option>
+                            <option value='P'>People</option>
+                            <option value='S'>Strategy</option>
+                          </select>
+                          <select class="form-control" (change)="changetrack($event.target.value, 7)"
+                            [(ngModel)]="BookModel.trackcat_7" id="trackCategory7" name="trackCategory7"
+                            style="margin-top: 40px;">
+                            <option value="" disabled>Select Category</option>
+                            <option value='O'>Operations</option>
+                            <option value='F'>Finance</option>
+                            <option value='L'>Logistics</option>
+                            <option value='PD'>Projects/Development</option>
+                            <option value='SM'>Sales and Marketing</option>
+                            <option value='P'>People</option>
+                            <option value='S'>Strategy</option>
+                          </select>
+                          <!-- <label>Is Active</label> -->
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <label class="col-sm-12" style="margin-top: 65px;">Associated Books</label>
+                        <div class="form-group col-sm-12">
+                          <select class="form-control" id="booktrack1" (change)="selectbook($event.target.value, 1)"
+                            [(ngModel)]="BookModel.trackbook_1" name="booktrack1" style="margin-top: 40px;">
+                            <option value="" disabled>Select Book</option>
+                            <option *ngFor="let book of booklist_1" value="{{book.trackCategory}}">{{book.title}}
+                            </option>
+
+                          </select>
+                          <select class="form-control" id="booktrack2" (change)="selectbook($event.target.value, 2)"
+                            [(ngModel)]="BookModel.trackbook_2" name="booktrack2" style="margin-top: 40px;">
+                            <option value="" disabled>Select Book</option>
+                            <option *ngFor="let book of booklist_2" value="{{book.trackCategory}}">{{book.title}}
+                            </option>
+                          </select>
+                          <select class="form-control" id="booktrack3" (change)="selectbook($event.target.value, 3)"
+                            [(ngModel)]="BookModel.trackbook_3" name="booktrack3" style="margin-top: 40px;">
+                            <option value="" disabled>Select Book</option>
+                            <option *ngFor="let book of booklist_3" value="{{book.trackCategory}}">{{book.title}}
+                            </option>
+                          </select>
+                          <select class="form-control" id="booktrack4" (change)="selectbook($event.target.value, 4)"
+                            [(ngModel)]="BookModel.trackbook_4" name="booktrack4" style="margin-top: 40px;">
+                            <option value="" disabled>Select Book</option>
+                            <option *ngFor="let book of booklist_4" value="{{book.trackCategory}}">{{book.title}}
+                            </option>
+                          </select>
+                          <select class="form-control" id="booktrack5" (change)="selectbook($event.target.value, 5)"
+                            [(ngModel)]="BookModel.trackbook_5" name="booktrack5" style="margin-top: 40px;">
+                            <option value="" disabled>Select Book</option>
+                            <option *ngFor="let book of booklist_5" value="{{book.trackCategory}}">{{book.title}}
+                            </option>
+                          </select>
+                          <select class="form-control" id="booktrack6" (change)="selectbook($event.target.value, 6)"
+                            [(ngModel)]="BookModel.trackbook_6" name="booktrack6" style="margin-top: 40px;">
+                            <option value="" disabled>Select Book</option>
+                            <option *ngFor="let book of booklist_6" value="{{book.trackCategory}}">{{book.title}}
+                            </option>
+                          </select>
+                          <select class="form-control" id="booktrack7" (change)="selectbook($event.target.value, 7)"
+                            [(ngModel)]="BookModel.trackbook_7" name="booktrac71" style="margin-top: 40px;">
+                            <option value="" disabled>Select Book</option>
+                            <option *ngFor="let book of booklist_7" value="{{book.trackCategory}}">{{book.title}}
+                            </option>
+                          </select>
+                          <div>
+                            <!-- <label>Is Default</label> -->
+                            <!-- <input class="roundcheckbox" type="checkbox" checked> -->
+                            <!-- <label class="switch">Is Default
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <p *ngIf="btnclick==true && trackvalidation" style="color: red;font-size: 12px;">You must select
+                        atleast one track!</p>
+                      <p *ngIf="btnclick==true && duplicatebook" style="color: red;font-size: 12px;">You have
+                        selected the same book of a track category for multiple times. Please select another book!</p>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <button type="submit" *ngIf="!addcustom && trackid==null" class="default-btn disabled" (click)="AddTrackCategory(trackform)"
+                          style="pointer-events: all; cursor: pointer;">
+                          {{buttonname}}
+                        </button>
+                        <button  type="submit" *ngIf="!addcustom && trackid!=null" class="default-btn disabled" (click)="AddAsCustom(trackform)"
+                            style="pointer-events: all; cursor: pointer; float: left;">
+                            Add as custom
+                          </button>
+                          <div *ngIf="addcustom">
+                            <button type="submit" class="default-btn disabled" (click)="AddAsCustom(trackform)"
+                              style="pointer-events: all; cursor: pointer;">
+                              Add as custom
+                            </button>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <button type="submit" *ngIf="!addcustom && trackid!=null" class="default-btn disabled" (click)="AddTrackCategory(trackform)"
+                          style="pointer-events: all; cursor: pointer;">
+                          {{buttonname}}
+                        </button>
+                          <a class="back-btn" style="margin-left: 28%;" [routerLink]="['/Main/suggestedtrack']">Back to
+                            Track List</a>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

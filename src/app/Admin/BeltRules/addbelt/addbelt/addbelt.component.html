@@ -1,0 +1,141 @@
+<div class="sign-in-area pt-50 pb-70">
+    <div class="container">
+      <div class="row pt-45">
+        <div class="col-lg-12">
+          <div class="user-all-form">
+            <div class="contact-form">
+              <div class="section-title text-center">
+                <span>Belt Rules</span>
+                <h2>{{buttonname}} a Belt and Its Rules!</h2>
+              </div>
+              <form id="SubscriptionPlanForm" #beltform="ngForm">
+                <div class="row" style="border: whitesmoke 1px solid;padding-top: 10px;border-left: skyblue solid 10px;">
+                    <div class="col-lg-12" style="border-bottom: whitesmoke 1px solid;">
+                    <h6>Belt Name and Appearance</h6>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                      <span style="color: gray;">Belt Name</span>
+                      <input type="text" class="form-control" 
+                      required="" 
+                      [(ngModel)]="beltModel.beltName" 
+                      #Name="ngModel"
+                      name="Name" id="Name" placeholder="Belt Name">
+                      <p *ngIf="btnclick==true && Name.valid==false"
+                      style="color: red;font-size: 12px;">
+                      Belt name is required!</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <span style="color: gray;">Belt Color </span>
+                      <input type="color" id="favcolor" 
+                      name="favcolor" title="Pick a belt color"
+                      #beltColor="ngModel"
+                      required
+                       [(ngModel)]="beltModel.beltColor"
+                       value="{{beltModel.beltColor}}">
+
+                      <input type="text" class="form-control" 
+                      [(ngModel)]="beltModel.beltColor"                       
+                      #beltColor="ngModel"
+                      required
+                      disabled
+                      value="{{beltModel.beltColor}}"
+                      [ngStyle]="{'background-color':beltModel.beltColor}"
+                      name="beltColor" id="beltColor" placeholder="Belt Color">
+                      <p *ngIf="btnclick==true && beltColor.errors?.required==false" 
+                      style="color: red;font-size: 12px;">
+                      Belt color is required!</p>
+                    </div>
+                  </div>
+                 
+                  </div>
+                  <div class="row" style="border: whitesmoke 1px solid;padding-top: 10px;border-left: skyblue solid 10px;margin-top: 10px;">
+                    <div class="col-lg-12" style="border-bottom: whitesmoke 1px solid;">
+                        <h6>Set Rules to the Belt</h6>
+                        </div>
+                  <div class="col-lg-6 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Total Credit</span>
+                     
+                      <input type="number" class="form-control" 
+                      required="" 
+                      [(ngModel)]="beltModel.totalCredit" 
+                      #totalCredit="ngModel"
+                      name="totalCredit" id="totalCredit" 
+                      placeholder="Total Credit"
+                      (keypress)="commonService.acceptNumericOnly(beltModel.totalCredit,$event)">
+                    
+                      <p *ngIf="btnclick==true && totalCredit.errors?.required==true" 
+                      style="color: red;font-size: 12px;">
+                      Total credit is required!</p>
+                      
+                    </div>
+                  </div>
+  
+  
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <span style="color: gray;">Total A3</span>
+                      <input type="number" class="form-control" 
+                      [(ngModel)]="beltModel.totalA3" 
+                      name="totalA3"
+                      #totalA3="ngModel"
+                      required
+                      (keypress)="commonService.numberOnly($event)"
+                      id="totalA3" placeholder="Total A3">
+                      
+                      <p *ngIf="btnclick==true && totalA3.errors?.required==true" 
+                      style="color: red;font-size: 12px;">
+                      Total A3 is required!</p>
+                    </div>
+                  </div>
+  
+                  <div class="col-lg-6 ">
+                    <div class="form-group">
+                      <span style="color: gray;">Total Kaizen</span>
+                      <input type="number" class="form-control" 
+                      [(ngModel)]="beltModel.totalKaizen" 
+                      required 
+                      placeholder="Total Kaizen"
+                      #totalKaizen="ngModel"
+                      name="totalKaizen"
+                      (keypress)="commonService.numberOnly($event)"
+                       id="totalKaizen">                       
+   
+                      <p *ngIf="btnclick==true && totalKaizen.errors?.required==true" 
+                      style="color: red;font-size: 12px;">Total kaizen is required!</p>
+                    </div>
+                  </div>
+  
+                    
+                </div>
+                <div class="row" style="margin-top: 20px;">
+                    
+                  <div class="col-lg-6">
+                    <button type="submit" class="default-btn disabled" (click)="AddBelt(beltform)"
+                      style="pointer-events: all; cursor: pointer;">
+                      {{buttonname}}
+                    </button>
+                  </div>
+  
+                  <div class="col-lg-6">
+                    <p class="account-desc m-0 text-right">
+                      <a class="back-btn" (click)="back()">
+                        {{backButtonText}}</a>
+                     
+                    </p>
+                  </div>
+                </div>
+              </form>
+  
+  
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

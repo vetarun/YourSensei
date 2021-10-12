@@ -1,0 +1,197 @@
+<div class="sign-in-area pt-50 pb-70">
+    <div class="container">
+        <div class="row pt-45">
+            <div class="col-lg-12">
+                <div class="user-all-form">
+                    <div class="contact-form">
+                        <div class="section-title text-center">
+                            <span>Quiz</span>
+                            <h2>{{headerText}}</h2>
+                        </div>
+                        <form id="quizForm" #quizform="ngForm" *ngIf="showQuizForm">
+                            <div class="row">
+                              <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <span style="color: gray;">Name</span>
+                                    <input type="text" class="form-control" required [(ngModel)]="QuizModel.quizName" #QuizName="ngModel"
+                                        name="quizName" id="quizName" placeholder="Name">
+                                    <p *ngIf="btnQuizClick==true && QuizName.valid==false" style="color: red;font-size: 12px;">Name is
+                                        required!</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                  <div class="form-group">
+                                      <span style="color: gray;">Description</span>
+                                      <textarea rows="5" cols="5" class="form-control" [(ngModel)]="QuizModel.description" #Description="ngModel"
+                                          name="description" id="description" placeholder="Description"></textarea>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <span style="color: gray;">Book</span>
+                                        <select class="form-control" name="book" [(ngModel)]="QuizModel.bookID" required #BookID="ngModel" [disabled]="enableBookList">
+                                            <option disabled>Select Book</option>
+                                            <option *ngFor="let book of bookList" value="{{book.id}}">{{book.title}}</option>
+                                        </select>
+                                        <p *ngIf="btnQuizClick==true && BookID.valid==false" style="color: red;font-size: 12px;">Book is
+                                            required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <span style="color: gray;">Quiz Instructions</span>
+                                        <!-- <select class="form-control" name="book" [(ngModel)]="QuizModel.bookID" required #BookID="ngModel" [disabled]="enableBookList">
+                                            <option disabled>Select Book</option>
+                                            <option *ngFor="let book of bookList" value="{{book.id}}">{{book.title}}</option>
+                                        </select> -->
+                                        <angular-editor [placeholder]="'Enter text here...'"
+                                            [config]="editorConfig" [(ngModel)]="QuizModel.instructions"
+                                            name="Instructions" #Instructions="ngModel" required>
+                                        </angular-editor>
+                                        <p *ngIf="btnQuizClick==true && Instructions.valid==false" style="color: red;font-size: 12px;">Quiz Instructions are
+                                            required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="default-btn disabled" (click)="addQuiz(quizform)"
+                                      style="pointer-events: all; cursor: pointer;">
+                                      {{buttonname}}
+                                    </button>
+                                </div>
+                                <div class="col-lg-6" *ngIf="from==undefined && superadmin">
+                                    <p class="account-desc m-0 text-right">
+                                      <a class="back-btn" [routerLink]="['/Admin/quiz']">Back to Quiz</a>
+                                    </p>
+                                </div>
+                                <div class="col-lg-6" *ngIf="from==undefined && !superadmin">
+                                    <p class="account-desc m-0 text-right">
+                                      <a class="back-btn" [routerLink]="['/Main/quiz']">Back to Quiz</a>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                        </form>
+                        <form id="questionForm" #questionform="ngForm" *ngIf="showQuestionForm">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <span style="color: gray;">Question Type</span>
+                                        <select class="form-control" name="questionType" [(ngModel)]="QuestionModel.questionType" required #QuestionType="ngModel" (change)="questionTypeChange()">
+                                            <option disabled>Select Question Type</option>
+                                            <option>Subjective</option>
+                                            <option>Yes/No</option>
+                                            <option>Multiple Choice Question</option>
+                                        </select>
+                                        <p *ngIf="btnQuestionClick==true && QuestionType.valid==false" style="color: red;font-size: 12px;">Question Type is
+                                            required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <span style="color: gray;">Question</span>
+                                        <input type="text" class="form-control" required="" [(ngModel)]="QuestionModel.questionName" #QuestionName="ngModel"
+                                            name="questionName" id="questionName" placeholder="Question">
+                                        <p *ngIf="btnQuestionClick==true && QuestionName.valid==false" style="color: red;font-size: 12px;">Question is
+                                            required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" *ngIf="showOptionRowOne">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <span style="color: gray;">Option 1</span>
+                                        <input type="text" class="form-control" required="" [(ngModel)]="QuestionModel.option1" #Option1="ngModel"
+                                            name="option1" id="option1" placeholder="Option 1" (change)="changeanswer($event.target.value,1)">
+                                        <p *ngIf="btnQuestionClick==true && Option1.valid==false" style="color: red;font-size: 12px;">Option 1 is
+                                            required!</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <span style="color: gray;">Option 2</span>
+                                        <input type="text" class="form-control" required="" [(ngModel)]="QuestionModel.option2" #Option2="ngModel"
+                                            name="option2" id="option2" placeholder="Option 2" (change)="changeanswer($event.target.value,2)">
+                                        <p *ngIf="btnQuestionClick==true && Option2.valid==false" style="color: red;font-size: 12px;">Option 2 is
+                                            required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="showOptionRowTwo">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <span style="color: gray;">Option 3</span>
+                                        <input type="text" class="form-control" required="" [(ngModel)]="QuestionModel.option3" #Option3="ngModel"
+                                            name="option3" id="option3" placeholder="Option 3" (change)="changeanswer($event.target.value,3)">
+                                        <p *ngIf="btnQuestionClick==true && Option3.valid==false" style="color: red;font-size: 12px;">Option 3 is
+                                            required!</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <span style="color: gray;">Option 4</span>
+                                        <input type="text" class="form-control" required="" [(ngModel)]="QuestionModel.option4" #Option4="ngModel"
+                                            name="option4" id="option4" placeholder="Option 4" (change)="changeanswer($event.target.value,4)">
+                                        <p *ngIf="btnQuestionClick==true && Option4.valid==false" style="color: red;font-size: 12px;">Option 4 is
+                                            required!</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <span style="color: gray;">Correct Answer</span>
+                                        <select class="form-control" *ngIf="showOptionRowOne || showOptionRowTwo" name="correctAnswer" [(ngModel)]="QuestionModel.correctAnswer" required #CorrectAnswer="ngModel" >
+                                            <option disabled>Select Correct Option</option>
+                                            <option *ngFor="let book of optList" value="{{book.value}}">{{book.value}}</option>
+                                        </select>
+                                        <input type="text" *ngIf="!showOptionRowOne && !showOptionRowTwo" class="form-control" required="" [(ngModel)]="QuestionModel.correctAnswer" #CorrectAnswer="ngModel"
+                                            name="correctAnswer" id="correctAnswer" placeholder="Correct Answer">
+                                        <p *ngIf="btnQuestionClick==true && CorrectAnswer.valid==false" style="color: red;font-size: 12px;">Correct Answer is
+                                            required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 10px;">
+                                <div [className]="createbtnwidth">
+                                    <button type="submit" class="default-btn disabled" (click)="addQuestion(questionform)"
+                                    style="pointer-events: all; cursor: pointer;">
+                                    {{quesID!=0? "Update":  "Create"}}
+                                    </button>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-align: right" *ngIf="quesIdList.length">
+                                    <button type="submit" class="default-btn disabled" (click)="publishquiz()"
+                                    style="pointer-events: all; cursor: pointer;">
+                                     Publish
+                                    </button>
+                                </div>
+                            </div>
+                           
+                            <div class="col-sm-12" *ngIf="from==undefined && superadmin">
+                                <p class="account-desc">
+                                  <a [routerLink]="['/Admin/quiz']">Back to Quiz</a>
+                                </p>
+                            </div>
+                            <div class="col-sm-12" *ngIf="from==undefined && !superadmin">
+                                <p class="account-desc">
+                                  <a [routerLink]="['/Main/quiz']">Back to Quiz</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

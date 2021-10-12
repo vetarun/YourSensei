@@ -1,0 +1,311 @@
+<div class="sidebar-modal">
+  <div class="sidebar-modal-inner">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <img src="assets/img/logo.png" alt="Image" width="160px">
+      </div>
+      <span class="close-btn sidebar-modal-close-btn">
+        <i class="bx bx-x"></i>
+      </span>
+    </div>
+    <div class="sidebar-about">
+      <div class="title">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut tur incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+        </p>
+      </div>
+    </div>
+    <div class="contact-us">
+      <h2>Contact Us</h2>
+      <ul>
+        <li>
+          <i class='bx bx-current-location'></i>
+          Address: 6th Floor, Barbosa , Sydney
+        </li>
+        <li>
+          <i class='bx bx-mail-send'></i>
+          <a href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#80e8e5ececefc0e6e9eee5e3aee3efed"><span
+              class="__cf_email__" data-cfemail="2048454c4c4f6046494e45430e434f4d">[email&#160;protected]</span></a>
+          <a href="#">Skype: example</a>
+        </li>
+        <li>
+          <i class='bx bx-phone-call'></i>
+          <a href="tel:+612-831-713-80"> +612-831-713-80</a>
+          <a href="tel:+612-831-345-70"> +612-831-345-70</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-instagram-feed">
+      <h2>Instagram</h2>
+      <ul>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram1.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram2.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram3.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram4.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram5.jpg" alt="image">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="assets/img/instagram/instagram6.jpg" alt="image">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-follow-us">
+      <h2>Follow Us</h2>
+      <ul class="social-wrap">
+        <li>
+          <a href="#" target="_blank">
+            <i class="bx bxl-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#" target="_blank">
+            <i class="bx bxl-instagram"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#" target="_blank">
+            <i class="bx bxl-facebook"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#" target="_blank">
+            <i class="bx bxl-youtube"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="sign-in-area pt-50 pb-70">
+  <div class="container">
+    <div class="row pt-45">
+      <div class="col-lg-12">
+        <div class="user-all-form">
+          <div class="contact-form">
+            <div class="section-title text-center">
+              <span>Employee</span>
+              <h2>{{header}}</h2>
+            </div>
+            <form  #empForms="ngForm">
+              <div class="row">
+
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <span style="color: gray;">First Name</span>
+                    <input type="text" class="form-control" id="fname" placeholder="First Name"
+                      [(ngModel)]="model.firstName" name="firstName" required #FirstName="ngModel">
+                    <div *ngIf="FirstName.invalid && submitclick">
+                      <p *ngIf="FirstName.errors.required" class="error-message">
+                        First name is required.
+                      </p>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Last Name</span>
+                    <input type="text" required class="form-control" id="lname" placeholder="Last Name"
+                      [(ngModel)]="model.lastName" name="lastName" required #LastName="ngModel">
+                    <div *ngIf="LastName.invalid && submitclick">
+                      <p *ngIf="LastName.errors.required" class="error-message">
+                        Last name is required.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Email</span>
+                    <input type="text" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                      class="form-control" id="email" placeholder="Email" [(ngModel)]="model.email" name="email"
+                      required #Emails="ngModel" [disabled]="disableEmail">
+                    <div *ngIf="Emails.invalid && submitclick">
+                      <p *ngIf="Emails.errors.required" class="error-message">
+                        Email is required.
+                      </p>
+                      <p *ngIf="Emails.errors && Emails.errors.pattern" class="error-message">
+                        Email not valid.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Employee Code</span>
+                    <input type="text" required 
+                      class="form-control" id="EmployeeCode" placeholder="Employee Code"
+                      [(ngModel)]="model.employeeCode" name="employeeCode" required #EmployeeCode="ngModel">
+                    <div *ngIf="EmployeeCode.invalid && submitclick">
+                      <p *ngIf="EmployeeCode.errors.required" class="error-message">
+                        Employee Code is required.
+                      </p>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Initial Credit</span>
+                    <input type="number" name="credit" [(ngModel)]="model.credit" class="form-control"
+                      placeholder="Initial Credit">
+                  </div>
+                </div>
+
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                    <span style="color: gray;">Select Role</span>
+                    <select class="form-control" name="roleId" [(ngModel)]="model.roleId" required #Role="ngModel" (change)="roleChange()">
+                      <option disabled>Select Role</option>
+                      <option *ngFor="let role of AllRole" value={{role.roleId}}>
+                        {{role.roleName}}
+                      </option>
+                    </select>
+
+                    <div *ngIf="Role.invalid && submitclick">
+                      <p *ngIf="Role.errors.required" class="error-message">
+                        Role is required.
+                      </p>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12" *ngIf="showOtherRole">
+                  <div class="form-group">
+                    <span style="color: gray;">Specify Role</span>
+                    <input type="text" name="specifyRole" [(ngModel)]="model.otherRole" class="form-control" [required]="showOtherRole" #OtherRole="ngModel"
+                      placeholder="Specify Role">
+
+                    <div *ngIf="OtherRole.invalid && submitclick">
+                      <p *ngIf="OtherRole.errors.required" class="error-message">
+                        Role is required.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                  <div class="col-lg-12">
+                    <div class="form-group" >
+                      <span style="color: gray;">Select Mentor</span>
+                      <select class="form-control" id="mentorId" name="mentorId" [(ngModel)]="model.mentorId" [required]="IsMentorRequired"
+                        #MentorId="ngModel">
+                        <option disabled>Select Mentor</option>
+                        <!-- <option *ngFor="let mentor of AllMentor" value={{mentor.id}}> -->
+                        <option *ngFor="let mentor of AllMentor" value={{mentor.id}}>
+                          <!-- {{mentor.firstName}} {{mentor.lastName}} -->
+                          {{mentor.employeeName}}
+                        </option>
+                      </select>
+                      
+
+                      <div *ngIf="MentorId.invalid && submitclick ">
+                        <p *ngIf="MentorId.errors.required" class="error-message">
+                          Mentor  is required.
+                        </p>
+
+                      </div>
+
+                    </div>                    
+                  </div>
+
+
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <span style="color: gray;">User Category</span>
+                      <select class="form-control" name="usercategory" [(ngModel)]="model.userCategory" required #usercategory="ngModel">
+                        <option value="99f9aeb1-9be6-4e82-8671-ca3df4df16cb">Admin</option>
+                        <option value="5c37cf64-f617-4399-bb68-645b0c3969a2">User</option>
+                      </select>
+                      <div *ngIf="usercategory.invalid && submitclick ">
+                        <p *ngIf="usercategory.errors.required" class="error-message">
+                          User Category  is required.
+                        </p>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+
+                  <div *ngIf="intempid != null" class="col-lg-12">
+                    <div class="form-group">
+                      <span style="color: gray;">Status</span>
+
+                      <select class="form-control" name="isActive" [(ngModel)]="model.isActive">
+                        <option value="true">Active</option>
+                        <option value="false">InActive</option>
+                      </select>
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="col-lg-12 form-condition">
+                    <div class="agree-label">
+                      <input type="checkbox" id="chb1" name="isMentor" [(ngModel)]="model.isMentor" 
+                        >
+                      <label for="chb1">
+                        Is Mentor
+                      </label>
+                     
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <button (click)="SaveEmployee(empForms)" class="default-btn">
+                      {{buttonname}}
+                    </button>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <p class="account-desc m-0 text-right">
+                      <a class="back-btn" [routerLink]="['/Main/employee-list']">Back to Employee List</a>
+                    </p>
+                  </div>
+
+                </div>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

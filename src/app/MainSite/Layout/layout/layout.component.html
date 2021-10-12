@@ -1,0 +1,25 @@
+<app-header></app-header>
+<router-outlet>
+  <ng-template #template let-modal>
+    
+      <app-resetpassword></app-resetpassword>
+   
+
+
+  </ng-template>
+  <!--     
+  <div class="sidebar-modal reset" [ngClass]="{'active':isInitialPassword==true}">
+    <div class="sidebar-modal-inner">
+        <div class="sidebar-header rset">
+           
+            <span *ngIf="!isInitialPassword" class="close-btn sidebar-modal-close-btn">
+                <i class="bx bx-x"></i>
+            </span>
+        </div>
+        <app-resetpassword></app-resetpassword>
+
+    </div>
+</div> -->
+</router-outlet>
+
+<app-footer></app-footer>
