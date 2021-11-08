@@ -260,10 +260,11 @@ optionObj.value = value
 var isOptionAlredyExist = this.optList.filter(x=>x.id == optionNumver)
 if( isOptionAlredyExist.length == 0){
   this.optList.push(optionObj)
-
 }
 else{
-  isOptionAlredyExist.value = value
+  isOptionAlredyExist.value = value;
+  this.optList[optionNumver-1].id = optionNumver;
+  this.optList[optionNumver-1].value = value;
 }
   }
 
