@@ -151,7 +151,7 @@ export class CreateTrainingEventComponent implements OnInit {
     })
 
     this.GetEventFormat()
-debugger
+   debugger
     if (this.eventId != undefined && this.eventId != null) {
 
       this.GetEventById(this.eventId)
@@ -492,7 +492,7 @@ debugger
   }
   GetEventById(id) {
     this.TrainEventService.GetEventById(id).subscribe(res => {
-debugger
+ debugger
       this.BookModel = res
 
       this.BookModel.trainingformat = res.trainingformat

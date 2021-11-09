@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MaterialModule } from '../../../../Shared/modules/material.module';
 import { TrainingEventService } from '../../../../Shared/Services/training-event.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-studenttrainingevent',
@@ -14,6 +15,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class StudenttrainingeventComponent implements OnInit {
 
+  companyDetails : any = [];
+  ActiveSelectionTab: boolean = false;
   trainingEventID: any;
   trainingEvent: any = {};
   dataSource: MatTableDataSource<any>;
@@ -25,6 +28,9 @@ export class StudenttrainingeventComponent implements OnInit {
   isA3Event: boolean;
   isKaizenEvent: boolean;
   loggedInUserDetails: any;
+  mentoremail: any;
+  mentorname: string;
+  eventId
   isApprovedByMentor: boolean = false;
   modalData: any = {}
   isInternalMentor: boolean = false
@@ -38,12 +44,63 @@ export class StudenttrainingeventComponent implements OnInit {
   A3CommModel: any = [];
   hideCommTab: boolean = false;
   eventFormat: string;
-  constructor(private _router: Router, private trainingEventService: TrainingEventService, private activatedRoute: ActivatedRoute,
+  constructor(private TrainEventService: TrainingEventService,private SpinnerService: NgxSpinnerService,private _router: Router, private trainingEventService: TrainingEventService, private activatedRoute: ActivatedRoute,
     private materialModule: MaterialModule, private toaster: ToastrService,
     private modalService: NgbModal, private spinnerService: NgxSpinnerService) { }
 
+    savea3form(form: NgForm) {
+      debugger;
+      console.log('a3 form data', form);
+      if (!form.invalid) {
+        this.A3model.userid = this.userid
+        this.A3model.mentorEmail = this.mentoremail
+        this.A3model.mentorName = this.mentorname
+        this.A3model.trainingEventID = this.trainingEventID
+        this.SpinnerService.show()
+        this.TrainEventService.SaveA3FormFields(this.A3model).subscribe(res => {
+          if (res.code == 200) {
+            this.SpinnerService.hide()
+            this.toaster.success(res.message);
+            this.getA3formdata()
+            this.ActiveSelectionTab = true
+          }
+          else if (res.code == 404) {
+            this.SpinnerService.hide()
+            this.toaster.error(res.message);
+          }
+        })
+      }
+    }
+
+    savekaizenform(form: NgForm) {
+      console.log('kaizen form data', form);
+      if (!form.invalid) {
+        this.Kaizenmodel.userid = this.userid
+        this.Kaizenmodel.mentorEmail = this.mentoremail
+        this.Kaizenmodel.mentorName = this.mentorname
+        this.Kaizenmodel.trainingEventID = this.trainingEventID
+        this.SpinnerService.show()
+        this.TrainEventService.SaveKaizenFormFields(this.Kaizenmodel).subscribe(res => {
+          if (res.code == 200) {
+            this.SpinnerService.hide()
+            this.toaster.success(res.message);
+            this.getKaizenformdata()
+            this.ActiveSelectionTab = true
+  
+          }
+          else if (res.code == 404) {
+            this.SpinnerService.hide()
+            this.toaster.error(res.message);
+          }
+        })
+      }
+    }
+
   ngOnInit() {
-    this.loggedInUserDetails = JSON.parse(localStorage.getItem("companyDetails"))
+
+    this.loggedInUserDetails = JSON.parse(localStorage.getItem("companyDetails"));
+    this.mentorname = this.loggedInUserDetails.name;
+    this.mentoremail = this.loggedInUserDetails.email;
     if (this.loggedInUserDetails == undefined || this.loggedInUserDetails == null) {
       this._router.navigate(['/Main/login'], { queryParams: { 'redirectURL': this._router.url } });
     }
@@ -93,7 +150,6 @@ export class StudenttrainingeventComponent implements OnInit {
       else{
         this.hideCommTab = false;
       }
-      console.log(this.trainingEvent.trainingformat);
     });
   }
   getA3formdata() {

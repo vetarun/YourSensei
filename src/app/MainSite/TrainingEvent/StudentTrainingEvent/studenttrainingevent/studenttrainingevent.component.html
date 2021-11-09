@@ -43,12 +43,17 @@
             <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
             <label for="tab1">Event Details</label>
 
+
+            <!-- Tab 3 -->
+            <input type="radio" name="tabset" id="tab4" aria-controls="dunkles" *ngIf="this.eventFormat==='Kaizen' || this.eventFormat==='A3'">
+            <label for="tab4" *ngIf="this.eventFormat==='Kaizen'">Kaizen Tool</label>
+            <label for="tab4" *ngIf="this.eventFormat==='A3'">A3 Tool</label>
+
             <!-- Tab 2 -->
             <input type="radio" name="tabset" id="tab3" aria-controls="rauchbier" *ngIf="!hideCommTab">
             <label *ngIf="(isA3Event || isKaizenEvent) && !hideCommTab" for="tab3">{{eventFormat}} Communication</label>
             <!-- <label *ngIf="isKaizenEvent && !hideCommTab" for="tab3">Kaizen Communication</label> -->
-
-
+             
 
             <div class="tab-panels text-left">
               <section id="marzen" class="tab-panel pt-5">
@@ -126,9 +131,9 @@
                         {{removeTags(trainingEvent.closingNote)}}
                       </div>
                     </div>
-                    <div *ngIf="isA3Event || isKaizenEvent">
+                    <!-- <div *ngIf="isA3Event || isKaizenEvent">
                       <div class="alert alert-warning" *ngIf="isA3Event">
-                        <!-- <p><strong>Note:</strong> We have noticed that there are some changes in the existing books by administrator. Would you like to accept those changes to reflect in your list?</p> -->
+                       
 
                         <div class="row">
                           <div class="col-sm-6">
@@ -185,7 +190,6 @@
                       </div>
 
                       <div class="alert alert-warning" *ngIf="isKaizenEvent">
-                        <!-- <p><strong>Note:</strong> We have noticed that there are some changes in the existing books by administrator. Would you like to accept those changes to reflect in your list?</p> -->
 
                         <div class="row">
                           <div class="col-sm-6">
@@ -243,8 +247,8 @@
 
 
                     </div>
-
-
+ -->
+ <br>
                     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 bg-y2">
                       <ng-container matColumnDef="studentName">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Student
@@ -313,6 +317,315 @@
 
                   </div>
                 </div>
+              </section>
+
+              <section id="dunkles" class="tab-panel pt-5">
+
+                  <div class="sign-in-area pt-50 pb-70" *ngIf="this.eventFormat==='Kaizen'">
+                      <div class="container">
+                          <div class="row pt-45">
+                              <div class="col-lg-12">
+                                  <div class="user-all-form">
+                                      <div class="contact-form">
+                                          <form id="KaizenForm" #KaizenForm="ngForm">
+                                              <h2 style="text-align: center;">Edit Details</h2>
+                                              <div class="row mt-5">
+
+                                                  <div class="col-lg-6">
+                                                      <div class="form-group">
+                                                          <span
+                                                              style="color: gray;font-size:14px;">1) Identify Improvement Opportunity/Define the Problem
+                                                          </span>
+                                                          <div class="row">
+                                                              <textarea rows="5" cols="5"
+                                                                  class="form-control" tabindex="1"
+                                                                  [(ngModel)]="Kaizenmodel.defineTheProblem"
+                                                                  #DefineTheProblem="ngModel" name="DefineTheProblem"
+                                                                  id="DefineTheProblem"
+                                                                  placeholder="Why are you talking about it? What is the business case, problem or opportunity you are trying to solve or analyze."></textarea>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-lg-6">
+                                                      <div class="form-group">
+                                                          <span
+                                                              style="color: gray;font-size:14px;">5) Implementation Plan</span>
+                                                          <textarea rows="5" cols="5" class="form-control"
+                                                          tabindex="5"
+                                                              [(ngModel)]="Kaizenmodel.implementationPlan"
+                                                              #ImplementationPlan="ngModel" name="implementationPlan"
+                                                              id="implementationPlan"
+                                                              placeholder="List your proposed countermeasures and chart the future reality"></textarea>
+
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-lg-6">
+                                                      <div class="form-group">
+                                                          <span
+                                                              style="color: gray;font-size:14px;">2) Current
+                                                              Condition
+                                                          </span>
+                                                          <div class="row">
+                                                              <textarea tabindex="2" rows="5" cols="5"
+                                                                  class="form-control"
+                                                                  [(ngModel)]="Kaizenmodel.currentCondition"
+                                                                  #CurrentCondition="ngModel" name="currentCondition"
+                                                                  id="currentCondition"
+                                                                  placeholder="What are we doing today? Summarize the current reality or value stream with data of about the problem or opportunity. Make the problem or opportunity clear."></textarea>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <span
+                                                            style="color: gray;font-size:14px;">6) Action Item Timeline</span>
+                                                        <textarea rows="5" cols="5" class="form-control"
+                                                        tabindex="6"
+                                                            [(ngModel)]="Kaizenmodel.actionItemTimeline" #ActionItemTimeline="ngModel"
+                                                            name="actionItemTimeline" id="actionItemTimeline"
+                                                            placeholder="Timeline with who, what, when, where and how"></textarea>
+
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="col-lg-6">
+                                                      <div class="form-group">
+                                                          <span style="color: gray;font-size:14px;">3) Goal
+                                                          </span>
+                                                          <div class="row">
+                                                              <textarea rows="5" cols="5"
+                                                                  class="form-control"
+                                                                  tabindex="3"
+                                                                  [(ngModel)]="Kaizenmodel.goal"
+                                                                  #Goal="ngModel" name="goal" id="goal"
+                                                                  placeholder="State the specific target(s). State in measurable and identifiable terms."></textarea>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-lg-6">
+                                                      <div class="form-group">
+                                                          <span style="color: gray;font-size:14px;">7) Follow
+                                                              Up</span>
+                                                          <textarea rows="5" cols="5" class="form-control"
+                                                          tabindex="7"
+                                                              [(ngModel)]="Kaizenmodel.followUp"
+                                                              #FollowUp="ngModel" name="followUp" id="followUp"
+                                                              placeholder="List dates and notes from follow-up"></textarea>
+
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-lg-12">
+                                                      <div class="form-group">
+                                                          <span
+                                                              style="color: gray;font-size:14px;">4) Analysis</span>
+                                                          <textarea rows="5" cols="5" class="form-control"
+                                                          tabindex="4"
+                                                              [(ngModel)]="Kaizenmodel.analysis"
+                                                              #Analysis="ngModel" name="analysis"
+                                                              id="analysis"
+                                                              placeholder="Generate original ideas on how to best overcome the root causes or bridge to the opportunity. Five whys; fishbone diagram, problem or process analysis tree, 7 QC tools (old or new), tools from the Six Sigma, Kepner-Tragoe, Shainen, Taguchi, TRIZ or other toolbox of your choice."></textarea>
+
+
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-sm-6">
+                                                      <div class="form-group">
+                                                          <span style="color: gray;font-size:14px;">8) $
+                                                              Value
+
+                                                          </span>
+                                                          <div class="row">
+                                                              <div class="col-lg-12">
+                                                                  <input class="form-control"
+                                                                      type="number"
+                                                                      tabindex="8"
+                                                                      [(ngModel)]="Kaizenmodel.dollarImpacted"
+                                                                      #DollarValue="ngModel"
+                                                                      name="duration" id="duration">
+                                                              </div>
+                                                          </div>
+                                                      </div>
+
+                                                  </div>
+
+                                                  <div class="col-lg-12 text-center">
+                                                   
+                                                      <a class="default-btn"
+                                                          (click)="savekaizenform(KaizenForm)">Submit</a>
+  
+                                                  </div>
+
+
+                                              </div>
+                                          </form>
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+
+                  <div class="sign-in-area pt-50 pb-70" *ngIf="this.eventFormat==='A3'">
+                    <div class="container">
+                        <div class="row pt-45">
+                            <div class="col-lg-12">
+                                <div class="user-all-form">
+                                    <div class="contact-form">
+                                        <form id="A3Form" #A3Form="ngForm">
+                                            <h2 style="text-align: center;">Edit Details</h2>
+                                            <div class="row mt-5">
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <span
+                                                            style="color: gray;font-size:14px;">1) Background
+                                                        </span>
+                                                        <div class="row">
+                                                            <textarea rows="5" cols="5"
+                                                            tabindex="1"
+                                                                class="form-control"
+                                                                [(ngModel)]="A3model.background"
+                                                                #Background="ngModel" name="background"
+                                                                id="background"
+                                                                placeholder="Why are you talking about it? What is the business case? What business problem are you trying to solve or analyze? Be very concise – communicate WHY you are addressing this issue."></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <span
+                                                            style="color: gray;font-size:14px;">5) Proposal</span>
+                                                        <textarea rows="5" cols="5" 
+                                                        class="form-control"
+                                                        tabindex="5"
+                                                            [(ngModel)]="A3model.proposal"
+                                                            #Proposal="ngModel" name="proposal"
+                                                            id="proposal"
+                                                            placeholder="Your proposed countermeasures."></textarea>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <span
+                                                            style="color: gray;font-size:14px;">2) Current
+                                                            Condition
+                                                        </span>
+                                                        <div class="row">
+                                                            <textarea rows="5" cols="5"
+                                                                class="form-control"
+                                                                tabindex="2"
+                                                                [(ngModel)]="A3model.currentCondition"
+                                                                #Condition="ngModel" name="condition"
+                                                                id="condition"
+                                                                placeholder="What is going on?  Use facts, date.  Be visual – use Pareto charts, pie charts, sketches.  Make the problem clear. "></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <span
+                                                            style="color: gray;font-size:14px;">6) Plan</span>
+                                                        <textarea rows="5" cols="5" 
+                                                        class="form-control"
+                                                        tabindex="6"
+                                                            [(ngModel)]="A3model.plan" #Plan="ngModel"
+                                                            name="Plan" id="Plan"
+                                                            placeholder="Timeline with who, what, when, where, and how."></textarea>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <span style="color: gray;font-size:14px;">3) Goal
+                                                        </span>
+                                                        <div class="row">
+                                                            <textarea rows="5" cols="5"
+                                                                class="form-control"
+                                                                tabindex="3"
+                                                                [(ngModel)]="A3model.goal"
+                                                                #Goal="ngModel" name="goal" id="goal"
+                                                                placeholder="State the specific target(s).  State in measurable or identifiable terms."></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <span style="color: gray;font-size:14px;">7) Follow
+                                                            Up</span>
+                                                        <textarea rows="5" cols="5"
+                                                         class="form-control"
+                                                         tabindex="7"
+                                                            [(ngModel)]="A3model.followUp"
+                                                            #Follow="ngModel" name="follow" id="follow"
+                                                            placeholder="What issues or remaining problems can you anticipate?"></textarea>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <span
+                                                            style="color: gray;font-size:14px;">4) Analysis</span>
+                                                        <textarea rows="5" cols="5" 
+                                                        class="form-control"
+                                                        tabindex="4"
+                                                            [(ngModel)]="A3model.analyses"
+                                                            #Analysis="ngModel" name="analysis"
+                                                            id="analysis"
+                                                            placeholder="Use the simplest problem-analysis tool that will suffice to find the root cause of the problem: Five whys; fishbone diagram, problem or process analysis tree, 7 QC tools (old or new), tools from the Six Sigma, Kepner-Tragoe, Shainen, Taguchi, TRIZ or other toolbox of your choice."></textarea>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <span style="color: gray;font-size:14px;">8) $
+                                                            Value
+
+                                                        </span>
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <input class="form-control"
+                                                                    type="number"
+                                                                    tabindex="8"
+                                                                    [(ngModel)]="A3model.dollarImpacted"
+                                                                    #DollarValue="ngModel"
+                                                                    name="duration" id="duration">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                
+                                                <div class="col-lg-12 text-center">
+                                                 
+                                                    <a class="default-btn"
+                                                        (click)="savea3form(A3Form)">Submit</a>
+
+                                                </div>
+                                               
+
+
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+
               </section>
 
               <section id="rauchbier" class="tab-panel pt-5">
