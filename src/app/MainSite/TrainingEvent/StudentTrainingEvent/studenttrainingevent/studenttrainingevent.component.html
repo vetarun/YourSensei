@@ -416,7 +416,7 @@
                                                       </div>
                                                   </div>
 
-                                                  <div class="col-lg-12">
+                                                  <div class="col-lg-6">
                                                       <div class="form-group">
                                                           <span
                                                               style="color: gray;font-size:14px;">4) Analysis</span>
@@ -453,9 +453,18 @@
 
                                                   <div class="col-lg-12 text-center">
                                                    
-                                                      <a class="default-btn"
-                                                          (click)="savekaizenform(KaizenForm)">Submit</a>
-  
+                                                      <!-- <a class="default-btn"
+                                                          (click)="savekaizenform(KaizenForm)">Submit</a> -->
+                                                        <button type="submit" style="margin-top: 15px;float: right;" (click)="savekaizenform(KaizenForm)"
+                                                          class="default-btn learn-btn-2"
+                                                          *ngIf="(isKaizenEvent)  && (isDollarApprover) && (this.trainingEvent.status == 'Pending Approval')">
+                                                          Submit
+                                                        </button>
+                                                        <button type="submit" style="margin-top: 15px;float: right;" (click)="savekaizenform(KaizenForm)"
+                                                           class="default-btn learn-btn-2"
+                                                           *ngIf="(isKaizenEvent)  && (mentor || isInternalMentor) && (this.trainingEvent.status == 'Submitted')">
+                                                            Submit
+                                                        </button>
                                                   </div>
 
 
@@ -570,7 +579,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <span
                                                             style="color: gray;font-size:14px;">4) Analysis</span>
@@ -608,8 +617,18 @@
                                                 
                                                 <div class="col-lg-12 text-center">
                                                  
-                                                    <a class="default-btn"
-                                                        (click)="savea3form(A3Form)">Submit</a>
+                                                    <!-- <a class="default-btn"
+                                                        (click)="savea3form(A3Form)">Submit</a> -->
+                                                        <button type="submit" style="margin-top: 15px;float: right;" (click)="savea3form(A3Form)"
+                                                        class="default-btn learn-btn-2"
+                                                        *ngIf="(isA3Event)  && (isDollarApprover) && (this.trainingEvent.status == 'Pending Approval')">
+                                                        Submit
+                                                      </button>
+                                                      <button type="submit" style="margin-top: 15px;float: right;" (click)="savea3form(A3Form)"
+                                                         class="default-btn learn-btn-2"
+                                                         *ngIf="(isA3Event)  && (mentor || isInternalMentor) && (this.trainingEvent.status == 'Submitted')">
+                                                          Submit
+                                                      </button>    
 
                                                 </div>
                                                
