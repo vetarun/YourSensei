@@ -340,8 +340,8 @@ export class CreateTrainingEventComponent implements OnInit {
           'employeeName': res[i].employeeName, 'Time': res[i].time, 'Test': res[i].test
         })
       }
-
-
+      console.log('Employee list', this.employeelist);
+debugger
 
     })
   }
@@ -556,6 +556,7 @@ export class CreateTrainingEventComponent implements OnInit {
   checkemployee(e, index) {
 
     this.employeelist[index].IsSelected = e
+    console.log('employee list',this.employeelist)
   }
 
   SubmitList(tab) {
