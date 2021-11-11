@@ -83,7 +83,7 @@ export class AddbeltComponent implements OnInit {
           }
           
           this.beltModel.isIndividual=this.isIndividual
-          debugger
+       
           this.dashboardService.AddUpdateBeltRules(this.beltModel).subscribe
           (res=>{
             if(res.code==200){

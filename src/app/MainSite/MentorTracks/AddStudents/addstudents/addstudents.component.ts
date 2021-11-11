@@ -153,7 +153,7 @@ export class AddstudentsComponent implements OnInit {
     this.GetStudents();
   }
   GetStudents() {
-    debugger
+
     this.employeeService.GetEmployeeByMentorID(this.mentorID).subscribe(res => {
       this.employeeList = []
       this.employeeList = res;
@@ -161,7 +161,7 @@ export class AddstudentsComponent implements OnInit {
   }
 
   SelecteStudent(e) {
-    debugger
+
     this.value = e
     if (e != null) {
       this.userid = e;
@@ -177,7 +177,7 @@ export class AddstudentsComponent implements OnInit {
 
 
   changetrack(e, type) {
-    debugger
+  
     this.value = e
     if (e != null) {
       this.bookService.GetBookByTrack(e, this.userid, this.companyid, this.individual).subscribe(res => {
@@ -256,7 +256,7 @@ export class AddstudentsComponent implements OnInit {
   }
 
   AddTrackCategory(form: NgForm) {
-    debugger
+
     this.btnclick = true
     this.SpinnerService.show()
     var trackbooklist = "";
@@ -324,13 +324,13 @@ export class AddstudentsComponent implements OnInit {
   }
 
   GetTrackCategoryById(id) {
-    debugger;
+  
     this.trackcategoryId = id;
     this.bookService.GetTrackCategoryById(id).subscribe(res => {
 
 
       console.log(res)
-      debugger;
+  
       this.BookModel.trackName = res.trackName;
       let all_category = res.categorySequesnce.split(",");
       for (let i = 0; i < all_category.length; i++) {
@@ -394,7 +394,7 @@ export class AddstudentsComponent implements OnInit {
   }
 
   AddAsCustom(form: NgForm) {
-    debugger;
+
     this.btnclick = true
     this.addascustom = true;
     this.trackvalidation = false;
@@ -428,7 +428,7 @@ export class AddstudentsComponent implements OnInit {
     if (trackbooklist == "" || trackbooklist == null || trackbooklist == undefined) {
       this.trackvalidation = true;
     }
-    debugger
+
     this.bookService.GetTrackList(this.userid, this.companyid, this.individual).subscribe(res => {
       this.duplicatetrackname = false;
       res = res.filter(x => (this.trackid != null || x.trackid == this.trackid))

@@ -40,7 +40,7 @@ dataSource: MatTableDataSource<any>;
   constructor(private SpinnerService: NgxSpinnerService,private empservice:EmployeeService,private bookService:BookService,private toaster:ToastrService, private _router: Router) { }
 
   ngOnInit() {
-    debugger
+
     this.companydetails = JSON.parse(localStorage.getItem("companyDetails"))
     this.userid = this.companydetails.userId;
     this.companyid = this.companydetails.companyId
@@ -78,7 +78,7 @@ this.SpinnerService.show();
      
      for(var i=0;i<value.categorySequesnce.length;i++){
       value.categorySequesnce[i].bookinitials = value.categorySequesnce[i].bookinitials.split("-")[0] +  value.categorySequesnce[i].bookinitials.split("-")[1]
-      debugger
+
 
      }
     });

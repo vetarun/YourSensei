@@ -147,7 +147,6 @@ export class TrackComponent implements OnInit {
 
 
   changetrack(e, type) {
-    debugger
     this.value = e
     if (e != null) {
       this.bookService.GetBookByTrack(e, this.userid, this.companyid, this.individual).subscribe(res => {
@@ -226,7 +225,7 @@ export class TrackComponent implements OnInit {
   }
 
   AddTrackCategory(form: NgForm) {
-    debugger
+
     this.btnclick = true
     this.SpinnerService.show()
     var trackbooklist = "";
@@ -364,7 +363,7 @@ export class TrackComponent implements OnInit {
   }
 
   AddAsCustom(form: NgForm) {
-    debugger;
+ 
     this.btnclick = true;
     this.addascustom = true;
     this.trackvalidation = false;
@@ -406,7 +405,7 @@ export class TrackComponent implements OnInit {
         if (trackbooklist == "" || trackbooklist == null || trackbooklist == undefined) {
           this.trackvalidation = true;
         }
-        debugger
+
         this.bookService.GetTrackList(this.userid,this.companyid,this.individual).subscribe(res=>{
           this.duplicatetrackname = false;
           res = res.filter(x => (this.trackid != null || x.trackid == this.trackid))

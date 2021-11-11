@@ -17,7 +17,7 @@ export class YourSenseiModalComponent implements OnInit {
     
   }
 close(){
-  debugger
+
 //this.openModal=false
 this.messageEvent.emit(false)
 }

@@ -135,7 +135,7 @@ export class PaymentsettingComponent implements OnInit {
   }
 
   getcardtype(){
-    debugger;
+
     this.cardname=(<HTMLInputElement>document.getElementById("cardicon")).value
   } 
 }

@@ -54,7 +54,6 @@ export class TrainingEventListComponent implements OnInit {
   getEvents() {
     
     this.TrainEventService.GetEvent(this.CompanyId,this.userDetailID,this.individual).subscribe(res => {
-      console.log(res)
 
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;

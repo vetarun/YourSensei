@@ -83,7 +83,7 @@ export class SubscriptionComponent implements OnInit {
   getPlansList() {    
     this.subscriptionService.GetSubscriptionPlans(0).subscribe(res => {
       console.log(res)
-      debugger
+
       if (res != null || res != undefined || res.length > 0) {
         this.planList = res;
         let index = this.planList.findIndex(x => x.isTrialPlan === true);
@@ -225,7 +225,6 @@ export class SubscriptionComponent implements OnInit {
       },
       onClientAuthorization: (data) => {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-        //debugger 
         var mypurchase_units=[]
         mypurchase_units.push(data.purchase_units[0])
         var pay=[]

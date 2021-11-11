@@ -214,7 +214,7 @@ uploadBookFileToActivity() {
   }
 
   GetBookById(id){
-    debugger;
+
 
     this.getbookid= id;
     this.bookService.GetBookById(id).subscribe(res=>{
@@ -226,7 +226,6 @@ uploadBookFileToActivity() {
       this.BookModel.Author=res.author
       this.BookModel.SubTitle=res.subTitle
       this.BookModel.Publisher=res.publisher
-      debugger
       this.BookModel.TrackCategory = res.trackCategory.split('-')[0]
       this.BookModel.Year=res.year
       this.BookModel.CoverImageUrl=res.coverImageUrl

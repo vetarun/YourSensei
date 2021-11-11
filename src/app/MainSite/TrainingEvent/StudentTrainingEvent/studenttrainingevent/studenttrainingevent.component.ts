@@ -49,7 +49,7 @@ export class StudenttrainingeventComponent implements OnInit {
     private modalService: NgbModal, private spinnerService: NgxSpinnerService) { }
 
     savea3form(form: NgForm) {
-      debugger;
+
       console.log('a3 form data', form);
       if (!form.invalid) {
         this.A3model.userid = this.userid
@@ -121,6 +121,7 @@ export class StudenttrainingeventComponent implements OnInit {
   }
 
   getEventByID() {
+    debugger;
     this.trainingEventService.GetEventById(this.trainingEventID).subscribe(res => {
       this.trainingEvent = res;
       if (this.trainingEvent.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194") {
@@ -162,7 +163,7 @@ export class StudenttrainingeventComponent implements OnInit {
     })
   }
   getKaizenformdata() {
-    debugger;
+
     this.trainingEventService.GetKaizenFormDataById(this.trainingEventID).subscribe(res => {
 
       if (res != null) {

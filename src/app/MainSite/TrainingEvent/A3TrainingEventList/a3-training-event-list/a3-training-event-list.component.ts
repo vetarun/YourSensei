@@ -88,7 +88,7 @@ export class A3TrainingEventListComponent implements OnInit {
 
 
   GetA3TrainingEventsByCompanyID(){
-    debugger;
+
     this.trainingEventService.GetA3TrainingEventsByCompanyID(this.companyID, true).subscribe(res => {
       res.forEach(element => {
         if(this.trainingEventList !== null){
@@ -110,7 +110,7 @@ export class A3TrainingEventListComponent implements OnInit {
 
 
   GetKaizenTrainingEventsByCompanyID(){
-    debugger
+
     this.kaizenList = true;
     this.trainingEventService.GetKaizenTrainingEventsByCompanyID(this.companyID, true).subscribe(res => {
       res.forEach(element => {

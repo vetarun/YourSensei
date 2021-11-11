@@ -615,13 +615,15 @@
                                         </div>
                                         <div class="row" *ngFor="let attan of employeelist;let i=index"
                                             style="border-bottom: silver 1px solid;color: gray;">
-                                            <div class="col-lg-1 text-center"><input type="checkbox"
+                                            <div class="col-lg-1 text-center">
+                                                    <input type="checkbox"
                                                     (change)="checkemployee($event.target.checked,i)"
                                                     [checked]="attan.IsSelected"
                                                     [disabled]="attan.empId == companydetails.employeeID || showa3tab && attan.empId == mentorID">
                                             </div>
                                             
                                             <div class="col-lg-4">{{attan.employeeName}}</div>
+                                            
                                             
                                             <!-- <div class="col-lg-3">{{attan.eventTrainingName}}</div>
 

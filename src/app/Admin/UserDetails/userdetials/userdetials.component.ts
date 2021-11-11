@@ -88,7 +88,7 @@ export class UserdetialsComponent implements OnInit {
 
   getuserdetails(companyId) {
     this.dataSource = new MatTableDataSource();
-    debugger;
+
     this.authenticationService.GetUserDetails(companyId).subscribe(res => {
       this.dataSource = new MatTableDataSource(res);
      // this.dataSource.data = res;

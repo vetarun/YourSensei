@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
   constructor(private DashboardService: DashboardService) { }
 
   ngOnInit() {
-    debugger
+
     this.companydetails = JSON.parse(localStorage.getItem("companyDetails"))
     this.userid = this.companydetails.userId;
     this.employeeid = this.companydetails.employeeID
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
 
 
   GetCreditStandings() {
-    debugger
+
     if(this.userTypeId.toUpperCase() == 'FBDE320E-6619-4F25-9E7F-2FCC94D2879E'){
       this.userid = this.userid       
     } else if(this.userTypeId.toLowerCase()== "c6156716-6d16-4e75-9660-056a59b7b546" || this.userTypeId.toLowerCase() == '2d2e4aec-d852-417a-8a54-fe80504d83eb'){

@@ -44,7 +44,7 @@ dataSource: MatTableDataSource<any>;
     constructor(private spinner:NgxSpinnerService,private employeeService:EmployeeService, private bookService:BookService,private toaster:ToastrService, private _router: Router) { }
 
   ngOnInit() {
-    debugger
+
     this.companydetails = JSON.parse(localStorage.getItem("companyDetails"))
     this.userid = this.companydetails.userId;
     this.companyid = this.companydetails.companyId
@@ -86,7 +86,7 @@ this.spinner.show()
   }
 
   GetStudents() {
-    debugger
+  
     this.employeeService.GetEmployeeByMentorID(this.mentorID).subscribe(res => {
       console.log(res)
       this.employeeList = []
@@ -100,7 +100,7 @@ this.spinner.show()
   }
 
   // SelecteStudent(e, type){
-  //     debugger
+
   //     this.value = e
   //     if (e != null) {
   //      this.userid = e

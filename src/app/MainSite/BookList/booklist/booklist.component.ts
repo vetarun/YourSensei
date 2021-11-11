@@ -167,7 +167,7 @@ export class BooklistComponent implements OnInit {
         
         var imageUrl = environment.baseUrl + 'Images/' + value.coverImageUrl;
         value.coverImageUrl = imageUrl;
-        debugger
+    
         if(value.trackCategory != null){
           if(value.trackCategory != '')
           value.trackCategory = value.trackCategory.split("-")[0] +  value.trackCategory.split("-")[1]

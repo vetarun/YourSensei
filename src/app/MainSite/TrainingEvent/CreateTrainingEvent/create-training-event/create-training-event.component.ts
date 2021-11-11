@@ -151,16 +151,19 @@ export class CreateTrainingEventComponent implements OnInit {
     })
 
     this.GetEventFormat()
-   debugger
-    if (this.eventId != undefined && this.eventId != null) {
 
+    if (this.eventId != undefined && this.eventId != null) {
+      // edit event
       this.GetEventById(this.eventId)
       this.getemployeelistforcreditlog();
     }
     else {
+      // new event
       if (this.individual == false) {
+        debugger;
         if (this.BookModel.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194") {
           this.GetMentor("individual");
+          debugger;
           this.GetEmployeeForA3()
         }
         else {
@@ -200,6 +203,7 @@ export class CreateTrainingEventComponent implements OnInit {
 
   }
   GetMentor(user) {
+    debugger;
     let empobj: any = {};
     empobj.id = this.companydetails.employeeID;
     var name = this.companydetails.name.split(" ");
@@ -224,7 +228,7 @@ export class CreateTrainingEventComponent implements OnInit {
 
     if (user == "individual") {
       this.mentorService.GetMentorByEmployeeID(this.companydetails.employeeID).subscribe(res => {
-
+        debugger;
         this.mentorObj = res;
         if (this.mentorObj != null) {
           var found = this.empList.some(a => a.id === this.mentorObj.id);
@@ -259,9 +263,9 @@ export class CreateTrainingEventComponent implements OnInit {
       });
     }
     if (user == "Company") {
-      debugger
-      this.mentorService.GetMentorsByIsActive(this.companydetails.companyId, true).subscribe(res => {
 
+      this.mentorService.GetMentorsByIsActive(this.companydetails.companyId, true).subscribe(res => {
+        debugger;
         this.mentorObj = res;
         if (this.mentorObj != null) {
           this.mentorObj.forEach(element => {
@@ -275,11 +279,11 @@ export class CreateTrainingEventComponent implements OnInit {
               empobj1.email = element.email
 
               this.empList.push(empobj1);
-              debugger
+        
               if (this.eventId != undefined && this.eventId != null) {
                 this.isMentorSelected(element.id, empobj1.firstName, empobj1.lastName, empobj1.email);
               }
-
+              debugger;
             }
           });
 
@@ -295,7 +299,7 @@ export class CreateTrainingEventComponent implements OnInit {
   isMentorSelected(id, firstname, lastname, email) {
 
     this.TrainEventService.IsInvitedToTrainingEvent(this.eventId, id).subscribe(res => {
-      debugger
+      debugger;
       var foundmentor = this.employeelist.some(a => a.empId === id);
       if (foundmentor == false) {
         if(this.companydetails.mentorID == id){
@@ -330,6 +334,7 @@ export class CreateTrainingEventComponent implements OnInit {
   getemployeelist() {
     this.TrainEventService.GetSelectEmployeeToAttendTrainingEvent(this.eventId, this.companydetails.companyId).subscribe(res => {
 
+      debugger
       this.employeelist = []
       for (var i = 0; i < res.length; i++) {
         if (res[i].empId == this.companydetails.employeeID) {
@@ -340,8 +345,8 @@ export class CreateTrainingEventComponent implements OnInit {
           'employeeName': res[i].employeeName, 'Time': res[i].time, 'Test': res[i].test
         })
       }
+
       console.log('Employee list', this.employeelist);
-debugger
 
     })
   }
@@ -375,6 +380,7 @@ debugger
 
   }
   GetEmployeeForA3() {
+    debugger;
     this.empservice.GetAllEmployee(this.companydetails.companyId).subscribe(res => {
 
       this.empListForA3 = []
@@ -384,7 +390,7 @@ debugger
         this.A3model.assignedTo = this.companydetails.employeeID
       }
 
-
+      debugger;
     })
 
   }
@@ -492,7 +498,7 @@ debugger
   }
   GetEventById(id) {
     this.TrainEventService.GetEventById(id).subscribe(res => {
- debugger
+
       this.BookModel = res
 
       this.BookModel.trainingformat = res.trainingformat
