@@ -132,7 +132,6 @@ if(this.companydetails.userTypeName=='Company User' || this.companydetails.userT
 
   searchbyemployee() {
 
-    
     this.creditService.GetCreditLogsByLoggedInUser(this.searchuserid, true).subscribe(res => {
       if (res.listOflogs.length) {
         this.isListAvailabe = true

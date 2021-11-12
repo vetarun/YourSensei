@@ -101,7 +101,7 @@ export class A3TrainingEventListComponent implements OnInit {
           this.trainingEventList.push(element);
         }
       });
-      console.log(this.trainingEventList);
+      console.log('a3 event list',this.trainingEventList);
       this.dataSource = new MatTableDataSource(this.trainingEventList)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

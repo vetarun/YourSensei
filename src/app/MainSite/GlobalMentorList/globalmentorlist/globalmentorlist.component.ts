@@ -44,7 +44,7 @@ export class GlobalmentorlistComponent implements OnInit {
   getGlobalMentorlist() {
     this.mentorservice.GetAllMentor(this.companyid).subscribe(res => {
       this.mentorlist = res;    
-      console.log(this.mentorlist) 
+      console.log('global mentor list',this.mentorlist) 
        this.dataSource = new MatTableDataSource(res)
        this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

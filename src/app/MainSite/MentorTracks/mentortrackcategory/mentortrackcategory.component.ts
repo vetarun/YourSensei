@@ -88,7 +88,7 @@ this.spinner.show()
   GetStudents() {
   
     this.employeeService.GetEmployeeByMentorID(this.mentorID).subscribe(res => {
-      console.log(res)
+      console.log('employee by mentor id',res)
       this.employeeList = []
       this.employeeList = res;
       this.selectdefault = this.employeeList[0];

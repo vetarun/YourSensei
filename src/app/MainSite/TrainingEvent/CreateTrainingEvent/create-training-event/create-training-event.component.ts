@@ -536,8 +536,9 @@ export class CreateTrainingEventComponent implements OnInit {
       }
       else {
         if (this.isSelectedAttenddeSelect) {
-          this.ActiveSelectionTab = true
-
+          this.ActiveSelectionTab = true;
+          this.getemployeelist();
+          this.GetEmployee()
         }
         else if (this.individual == false ) {
           this.getemployeelist();
@@ -578,6 +579,7 @@ export class CreateTrainingEventComponent implements OnInit {
 
           })
       }
+      console.log('employee list',this.employeelist);
       this.saveattendeelist();
     }
     else {
