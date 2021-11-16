@@ -46,6 +46,7 @@ export class SignupComponent implements OnInit {
     this.mentorService.GetAllMentorAnms("00000000-0000-0000-0000-000000000000").subscribe(res => {
       
       this.AllMentor = res;
+      console.log('All mentor list', this.AllMentor);
     });
   }
   signUp(form:NgForm){

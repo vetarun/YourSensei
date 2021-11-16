@@ -308,7 +308,7 @@ export class BooklistComponent implements OnInit {
     }
   }
   getQuizQuestionList(openQuiz, bookid) {
-    
+    debugger;
     this.showQuiz = openQuiz;
     this.bookID = bookid;
     this.quizService.GetQuestionListByBookID(this.bookID, this.userid).subscribe(res => {
@@ -621,6 +621,7 @@ this.instructions = res[0].instruction
 
 
   submit() {
+    debugger;
     this.SpinnerService.show()
     this.quizService.SaveQuizAnswerAssessment(this.anslist,this.TotalPercentage).subscribe(res => {
       this.SpinnerService.hide();
@@ -638,6 +639,7 @@ this.instructions = res[0].instruction
 
 
   quizClosed() {
+    debugger;
     this.modalService.dismissAll();
     window.location.reload();
   }
@@ -656,6 +658,7 @@ this.instructions = res[0].instruction
   }
 
   startQuiz(){
+    debugger;
     this.showQuiz = true;
   }
   addquizBtn(content,bookid){

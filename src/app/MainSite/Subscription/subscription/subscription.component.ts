@@ -99,6 +99,7 @@ export class SubscriptionComponent implements OnInit {
   }
 
   subscribePlan(planID, numberOfDays, isChangePlan,price) {
+    debugger;
     this.Planprice=price
     this.paymentmode=true    
     this.newPlanID=planID

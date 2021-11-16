@@ -193,7 +193,7 @@ uploadBookFileToActivity() {
 }
 
   Addbook(form:NgForm){
-  
+  debugger;
 
     this.btnclick=true
     if(form.valid){      
