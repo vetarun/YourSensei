@@ -226,16 +226,19 @@ uploadBookFileToActivity() {
       this.BookModel.Author=res.author
       this.BookModel.SubTitle=res.subTitle
       this.BookModel.Publisher=res.publisher
-      this.BookModel.TrackCategory = res.trackCategory.split('-')[0]
       this.BookModel.Year=res.year
       this.BookModel.CoverImageUrl=res.coverImageUrl
       this.BookModel.parentBookId=res.parentBookID
+      if (this.BookModel.TrackCategory!= null) {
+        this.BookModel.TrackCategory = res.trackCategory.split('-')[0]
+      }
       if(this.BookModel.CoverImageUrl!=null){
         var imageUrl = environment.baseUrl + 'Images/' + res.coverImageUrl;
         this.bookimage = imageUrl;
       }
+
      
-      //this.buttontext='Update'
+      //this.buttontext='Update'  
     })
   }
   removeimage(){

@@ -542,8 +542,7 @@ export class CreateTrainingEventComponent implements OnInit {
         }
         else if (this.individual == false ) {
           this.getemployeelist();
-          this.GetEmployee()
-          
+          this.GetEmployee()          
         }
         else {
           this.GetMentor("individual");
