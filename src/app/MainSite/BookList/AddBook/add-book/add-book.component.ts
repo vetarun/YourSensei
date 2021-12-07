@@ -55,8 +55,8 @@ export class AddBookComponent implements OnInit {
     ,private _router:Router,private router: ActivatedRoute,private toastr:ToastrService, private http: HttpClient) { }
 
   ngOnInit() {
-    
-this.companydetails = JSON.parse(localStorage.getItem("companyDetails"))
+
+   this.companydetails = JSON.parse(localStorage.getItem("companyDetails"))
    this.userid = this.companydetails.userId;
    this.userRole = this.companydetails.roles;
    this.companyid = this.companydetails.companyId;
@@ -64,32 +64,32 @@ this.companydetails = JSON.parse(localStorage.getItem("companyDetails"))
    
    if (this.usertypeid == '5c37cf64-f617-4399-bb68-645b0c3969a2') {
     this.companyuser = true;
-  }
-  else if (this.usertypeid == '99f9aeb1-9be6-4e82-8671-ca3df4df16cb') {
-    this.companyadmin = true;
-  }
-  else if (this.usertypeid == 'fbde320e-6619-4f25-9e7f-2fcc94d2879e') {
-    this.individual = true;
-    console.log(this.individual )
-  }
-  else if (this.usertypeid == '4ba19173-94cd-4222-af7c-60c91d446f8e') {
-    this.superadmin = true;
-  }
-  this.fullname = this.companydetails.name;
-if(this.fullname != ""){
-this.first_name = this.fullname.split(' ')[0];
-this.last_name =  this.fullname.split(' ')[1];
-}
-this.getGlobalBooks()
-  this.getBookCategory()
-  this.bookid = this.router.snapshot.paramMap.get('id');
-  this.buttonname = (this.bookid != null) ? "Update" : "Create";
-  if(this.bookid!=undefined && this.bookid!=null && this.bookid!=''){
-    this.GetBookById(this.bookid)
+    }
+    else if (this.usertypeid == '99f9aeb1-9be6-4e82-8671-ca3df4df16cb') {
+      this.companyadmin = true;
+    }
+    else if (this.usertypeid == 'fbde320e-6619-4f25-9e7f-2fcc94d2879e') {
+      this.individual = true;
+      console.log(this.individual )
+    }
+    else if (this.usertypeid == '4ba19173-94cd-4222-af7c-60c91d446f8e') {
+      this.superadmin = true;
+    }
+    this.fullname = this.companydetails.name;
+    if(this.fullname != ""){
+      this.first_name = this.fullname.split(' ')[0];
+      this.last_name =  this.fullname.split(' ')[1];
+    }
+    this.getGlobalBooks()
+    this.getBookCategory()
+    this.bookid = this.router.snapshot.paramMap.get('id');
+    this.buttonname = (this.bookid != null) ? "Update" : "Create";
+    if(this.bookid!=undefined && this.bookid!=null && this.bookid!=''){
+      this.GetBookById(this.bookid)
     
+      }
 }
-  }
-  getGlobalBooks() {
+    getGlobalBooks() {
     this.bookService.GetGlobalBook().subscribe(res => {
       this.globalBooks = res
     });
@@ -193,8 +193,8 @@ uploadBookFileToActivity() {
 }
 
   Addbook(form:NgForm){
-  debugger;
 
+    debugger;
     this.btnclick=true
     if(form.valid){      
       this.BookModel.companyID=this.companyid 
@@ -215,7 +215,6 @@ uploadBookFileToActivity() {
 
   GetBookById(id){
 
-
     this.getbookid= id;
     this.bookService.GetBookById(id).subscribe(res=>{
       
@@ -229,6 +228,7 @@ uploadBookFileToActivity() {
       this.BookModel.Year=res.year
       this.BookModel.CoverImageUrl=res.coverImageUrl
       this.BookModel.parentBookId=res.parentBookID
+      this.BookModel.TrackCategory=res.trackCategory
       if (this.BookModel.TrackCategory!= null) {
         this.BookModel.TrackCategory = res.trackCategory.split('-')[0]
       }
