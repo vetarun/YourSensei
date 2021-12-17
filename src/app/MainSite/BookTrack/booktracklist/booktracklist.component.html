@@ -10,7 +10,7 @@
           <div class="col-sm-7" *ngIf="companyadmin">
             <form class="form-inline">
               <label for="Company" class="mr-2">Employee</label>
-              <select class="form-control mr-2" id="searchuserid" name="searchuserid" [(ngModel)]="userid">
+              <select class="form-control mr-2" id="searchuserid" name="searchuserid" [(ngModel)]="selecteduserId">
                 <option disabled>Select Employee</option>
                 <option *ngFor="let mentor of employeeslist" value={{mentor.userDetialID}}>
                   {{mentor.firstName + " " + mentor.lastName}}

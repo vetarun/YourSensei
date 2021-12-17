@@ -33,6 +33,8 @@ dataSource: MatTableDataSource<any>;
   mentor : boolean = false;
   employeeList: any;
   mentorID: any;
+  employeeID: any;
+  selecteduserId: any;
   value: any;
   searchKey: any;
   search_width: string;
@@ -45,11 +47,14 @@ dataSource: MatTableDataSource<any>;
 
   ngOnInit() {
 
+    debugger;
     this.companydetails = JSON.parse(localStorage.getItem("companyDetails"))
     this.userid = this.companydetails.userId;
     this.companyid = this.companydetails.companyId
     this.usertypeid = this.companydetails.usertypeid;
     this.mentorID = this.companydetails.mentorID;
+    this.employeeID = this.companydetails.employeeID;
+
     this.searchBar_Width = "search-div col-sm-10";
     this.search_width = "col-sm-5";
    if (this.usertypeid == 'fbde320e-6619-4f25-9e7f-2fcc94d2879e') {
@@ -64,13 +69,12 @@ dataSource: MatTableDataSource<any>;
       this.mentor = true;
      // this.searchBar_Width = "search-div col-sm-12";
     }
-    this.getBookTrackLIst();
     this.GetStudents();
   }
   getBookTrackLIst() {
-this.spinner.show()
-   this.bookService.GetTrackList(this.userid,this.companyid,this.individual).subscribe(res=>{
-     this.spinner.hide()
+      this.spinner.show()
+      this.bookService.GetTrackList(this.selecteduserId,this.companyid,this.individual).subscribe(res=>{
+      this.spinner.hide()
     res.forEach(function (value) {
         
      
@@ -87,15 +91,17 @@ this.spinner.show()
 
   GetStudents() {
   
-    this.employeeService.GetEmployeeByMentorID(this.mentorID).subscribe(res => {
+    this.employeeService.GetEmployeeByMentorID(this.employeeID).subscribe(res => {
       console.log('employee by mentor id',res)
       this.employeeList = []
       this.employeeList = res;
+      this.selecteduserId = this.employeeList[0].userId;
       this.selectdefault = this.employeeList[0];
       if(this.selectdefault.userId != null){
         this.defaultstudent = this.selectdefault.firstName + " " + this.selectdefault.lastName;
         console.log(this.selectdefault.firstName + "" + this.selectdefault.lastName)
       }
+      this.getBookTrackLIst();
     })
   }
 

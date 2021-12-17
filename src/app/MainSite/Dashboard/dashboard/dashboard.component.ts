@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit {
 
     
     this.DashboardService.GetDashboardBeltDetails(this.companyid, this.userid, this.employeeid,this.ismentor).subscribe(res => {
-      // console.log(res)
+      // console.log(res)  
       this.data = res;
       this.youarehere = this.data.indexofyouarehere;
       this.totalcredit = this.data.totalcredit
@@ -94,6 +94,7 @@ export class DashboardComponent implements OnInit {
       
       this.dataSource = new MatTableDataSource();
       this.dataSource.data = res;
+      debugger;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })

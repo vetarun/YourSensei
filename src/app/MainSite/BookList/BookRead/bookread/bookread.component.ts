@@ -15,8 +15,10 @@ export class BookreadComponent implements OnInit {
   userID: any;
   userTypeID: any;
   mentor: boolean = false;
+  selectedemployeeid: any
   employeeList: any;
   mentorID: any;
+  userasmentor: any;
   employeeId: any;
   searchKey: any;
   bookReadEventList: any;
@@ -34,8 +36,17 @@ export class BookreadComponent implements OnInit {
     this.userID = this.loggedInUserDetails.userId;
     this.userTypeID = this.loggedInUserDetails.usertypeid;
     this.mentorID = this.loggedInUserDetails.mentorID;
-    this.employeeId = "00000000-0000-0000-0000-000000000000";
+    this.employeeId = this.loggedInUserDetails.employeeID;
+    // this.employeeId = "00000000-0000-0000-0000-000000000000";
     this.isInternalMentor = this.loggedInUserDetails.isInternalMentor;
+
+    debugger;
+    if(this.employeeId == null || this.employeeId == "00000000-0000-0000-0000-000000000000" || this.employeeId == undefined){
+      this.userasmentor = this.mentorID;
+    }
+    else {
+      this.userasmentor = this.employeeId;
+    }
     
     if(this.isInternalMentor){
       this.displayedColumns = ['employeeName', 'title', 'completeddate', 'rating'];
@@ -46,7 +57,8 @@ export class BookreadComponent implements OnInit {
   }
 
   getEmployeeByMentorID(){
-    this.employeeService.GetEmployeeByMentorID(this.mentorID).subscribe(res => {
+    debugger;
+    this.employeeService.GetEmployeeByMentorID(this.userasmentor).subscribe(res => {
       this.employeeList = res;
     })
   }
@@ -65,11 +77,11 @@ export class BookreadComponent implements OnInit {
   }
 
   getBookReadEventByMentorIDAndEmployeeID(){
-    if(this.employeeId === null || this.employeeId === undefined){
-      this.employeeId = "00000000-0000-0000-0000-000000000000";
+    if(this.selectedemployeeid === null || this.selectedemployeeid === undefined){
+      this.selectedemployeeid = "00000000-0000-0000-0000-000000000000";
     }
 
-    this.bookService.GetBookReadEventByMentorIDAndEmployeeID(this.mentorID, true, this.employeeId).subscribe(res => {
+    this.bookService.GetBookReadEventByMentorIDAndEmployeeID(this.userasmentor, true, this.selectedemployeeid).subscribe(res => {
       
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;

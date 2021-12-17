@@ -9,8 +9,8 @@
             <div class="col-sm-7">
               <form class="form-inline">
                 <label for="Company" class="mr-2">Student</label>
-                <select class="form-control mr-2" style="width: 50%;" id="searchuserid" name="searchuserid" [(ngModel)]="userid">
-                  <option disabled>Select Student</option>
+                <select class="form-control mr-2" style="width: 50%;" id="searchuserid" name="searchuserid" [(ngModel)]="selecteduserId">
+                  
                   <!-- <option value="00000000-0000-0000-0000-000000000000">All</option> -->
 
                   <option *ngFor="let emp of employeeList" selected value={{emp.userId}}>

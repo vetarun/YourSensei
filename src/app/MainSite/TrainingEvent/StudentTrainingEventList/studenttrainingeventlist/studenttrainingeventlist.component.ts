@@ -20,6 +20,7 @@ export class StudenttrainingeventlistComponent implements OnInit {
   mentorID: any;
   employeeId: any;
   searchKey: any;
+  userasmentor: any;
   trainingEventList: any = [];
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatSort, { static: true }) sort: MatSort
@@ -34,8 +35,15 @@ export class StudenttrainingeventlistComponent implements OnInit {
     this.userID = this.loggedInUserDetails.userId;
     this.userTypeID = this.loggedInUserDetails.usertypeid;
     this.mentorID = this.loggedInUserDetails.mentorID;
-    this.employeeId = "00000000-0000-0000-0000-000000000000";
-    
+    this.employeeId = this.loggedInUserDetails.employeeID;
+    // this.employeeId = "00000000-0000-0000-0000-000000000000";
+
+    if(this.employeeId == null || this.employeeId == "00000000-0000-0000-0000-000000000000" || this.employeeId == undefined){
+      this.userasmentor = this.mentorID;
+    }
+    else {
+      this.userasmentor = this.employeeId;
+    }
     //this.getEmployeeByMentorID();
     this.getTrainingEventAttendeeByMentorIDAndEmployeeID();
   }
@@ -60,7 +68,7 @@ export class StudenttrainingeventlistComponent implements OnInit {
   // }
 
   getTrainingEventAttendeeByMentorIDAndEmployeeID(){
-    this.trainingEventService.GetTrainingEventAttendeeByMentorIDAndEmployeeID(this.mentorID, true, this.employeeId).subscribe(res => {
+    this.trainingEventService.GetTrainingEventAttendeeByMentorIDAndEmployeeID(this.userasmentor, true, this.employeeId).subscribe(res => {
       res.forEach(element => {
         if(this.trainingEventList !== null){
           var found = this.trainingEventList.some(a => a.trainingEventID === element.trainingEventID);

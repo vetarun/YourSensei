@@ -37,6 +37,7 @@ dataSource: MatTableDataSource<any>;
   searchKey;
   employeeslist: any=[];
   search_width: string;
+  selecteduserId: any;
   constructor(private SpinnerService: NgxSpinnerService,private empservice:EmployeeService,private bookService:BookService,private toaster:ToastrService, private _router: Router) { }
 
   ngOnInit() {
@@ -66,12 +67,12 @@ dataSource: MatTableDataSource<any>;
       this.search_width = "col-sm-10";
       this.searchBar_Width = "search-div col-sm-10";
     }
-    this.getBookTrackLIst();
+    
     this.GetEmployee();
   }
   getBookTrackLIst() {
-this.SpinnerService.show();
-   this.bookService.GetTrackList(this.userid,this.companyid,this.individual).subscribe(res=>{
+   this.SpinnerService.show();
+   this.bookService.GetTrackList(this.selecteduserId,this.companyid,this.individual).subscribe(res=>{
     this.SpinnerService.hide()
     res.forEach(function (value) {
         
@@ -93,7 +94,9 @@ this.SpinnerService.show();
 
       this.employeeslist = []
       this.employeeslist = res;
-      console.log(this.employeeslist)
+      this.selecteduserId = this.employeeslist[0].userDetialID;
+      console.log(this.employeeslist);
+      this.getBookTrackLIst();
     })
 
   }

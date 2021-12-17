@@ -17,6 +17,8 @@ export class QuizanswerassessmentComponent implements OnInit {
   mentor: boolean = false;
   employeeList: any;
   mentorID: any;
+  userasmentor: any;
+  selectedemployeeid: any;
   employeeId: any;
   searchKey: any;
   bookReadEventList: any;
@@ -36,10 +38,19 @@ export class QuizanswerassessmentComponent implements OnInit {
     this.userTypeID = this.loggedInUserDetails.usertypeid;
     this.mentorID = this.loggedInUserDetails.mentorID;
     this.isInternalMentor = this.loggedInUserDetails.isInternalMentor;
-    this.employeeId = "00000000-0000-0000-0000-000000000000";
+    // this.employeeId = "00000000-0000-0000-0000-000000000000";
+    this.employeeId = this.loggedInUserDetails.employeeID;
     
     if(this.isInternalMentor){
       this.displayedColumns = ['employeeName', 'quiz', 'title', 'answeredDate', 'action'];
+    }
+
+
+    if(this.employeeId == null || this.employeeId == "00000000-0000-0000-0000-000000000000" || this.employeeId == undefined){
+      this.userasmentor = this.mentorID;
+    }
+    else {
+      this.userasmentor = this.employeeId;
     }
 
     this.getEmployeeByMentorID();
@@ -47,7 +58,8 @@ export class QuizanswerassessmentComponent implements OnInit {
   }
 
   getEmployeeByMentorID(){
-    this.employeeService.GetEmployeeByMentorID(this.mentorID).subscribe(res => {
+    debugger;
+    this.employeeService.GetEmployeeByMentorID(this.userasmentor).subscribe(res => {
       this.employeeList = res;
     })
   }
@@ -66,11 +78,11 @@ export class QuizanswerassessmentComponent implements OnInit {
   }
 
   getQuizByMentorIDAndEmployeeID(){
-    if(this.employeeId === null || this.employeeId === undefined){
-      this.employeeId = "00000000-0000-0000-0000-000000000000";
+    if(this.selectedemployeeid === null || this.selectedemployeeid === undefined){
+      this.selectedemployeeid = "00000000-0000-0000-0000-000000000000";
     }
 
-    this.quizService.GetQuizByMentorIDAndEmployeeID(this.mentorID, true, this.employeeId).subscribe(res => {
+    this.quizService.GetQuizByMentorIDAndEmployeeID(this.userasmentor, true, this.selectedemployeeid).subscribe(res => {
       
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;
