@@ -108,6 +108,8 @@ export class CreateTrainingEventComponent implements OnInit {
   showKiazenTab: boolean = false;
   mentorname: string;
   commtabname: string;
+  selectedeventcreatorid: any;
+  selectedeventcreatorname: any;
   ActiveKaizenTab: boolean;
   constructor(private SpinnerService: NgxSpinnerService, private empservice: EmployeeService, public activatedRoute: ActivatedRoute,
     private TrainEventService: TrainingEventService, private toaster: ToastrService, private router: ActivatedRoute, private _router: Router,
@@ -205,29 +207,31 @@ export class CreateTrainingEventComponent implements OnInit {
   GetMentor(user) {
     debugger;
     let empobj: any = {};
-    empobj.id = this.companydetails.employeeID;
-    var name = this.companydetails.name.split(" ");
-    empobj.firstName = name[0]
-    empobj.lastName = name[1]
+    console.log(this.BookModel);
+    empobj.id = this.BookModel.id;
+    this.selectedeventcreatorid = this.BookModel.instructor;
+    this.selectedeventcreatorname = this.BookModel.instructorName.split(" ");
+    empobj.firstName = this.selectedeventcreatorname[0]
+    empobj.lastName = this.selectedeventcreatorname[1]
     var foundinEmpList = this.empList.some(a => a.id === empobj.id);
     if (!foundinEmpList) {
       this.empList.push(empobj);
       if (this.eventId == undefined && this.eventId == null) {
-        this.BookModel.instructor = this.companydetails.employeeID
+        this.BookModel.instructor = this.selectedeventcreatorid;
       }
     }
 
 
-    var foundinEmployeeList = this.employeelist.some(a => a.empId === this.companydetails.employeeID);
+    var foundinEmployeeList = this.employeelist.some(a => a.empId === this.selectedeventcreatorid);
     if (!foundinEmployeeList) {
       this.employeelist.push({
-        'index': 0, 'IsSelected': true, 'empId': this.companydetails.employeeID,
-        'employeeName': this.companydetails.name, 'Time': 0, 'Test': 0
+        'index': 0, 'IsSelected': true, 'empId': this.selectedeventcreatorid,
+        'employeeName': this.BookModel.instructorName, 'Time': 0, 'Test': 0
       })
     }
 
     if (user == "individual") {
-      this.mentorService.GetMentorByEmployeeID(this.companydetails.employeeID).subscribe(res => {
+      this.mentorService.GetMentorByEmployeeID(this.selectedeventcreatorid).subscribe(res => {
         debugger;
         this.mentorObj = res;
         if (this.mentorObj != null) {
