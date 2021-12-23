@@ -88,6 +88,7 @@ export class CreateTrainingEventComponent implements OnInit {
   individual: boolean = false;
   superadmin: boolean = false;
   mentorObj: any = {};
+  resObj: any ={};
   eventFormatName: any;
   isA3FFormat: boolean;
   A3model: any = {}
@@ -164,7 +165,7 @@ export class CreateTrainingEventComponent implements OnInit {
       if (this.individual == false) {
         debugger;
         if (this.BookModel.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194") {
-          this.GetMentor("individual");
+          this.GetMentor("Company");
           debugger;
           this.GetEmployeeForA3()
         }
@@ -183,13 +184,23 @@ export class CreateTrainingEventComponent implements OnInit {
   }
   formatChange() {
 
+    debugger;
     if (this.BookModel.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194") {
       this.empList = []
       this.BookModel.location = "Online"
       this.BookModel.duration = "2"
-      this.GetMentor("individual");
+      if(this.individual == true){
+        this.GetMentor("individual");
+      }
+      else {
+        this.GetMentor("Company");
+      }
+    }
+    else {
+      this.ngOnInit();
     }
   }
+
   getA3formdata() {
     this.TrainEventService.GetA3FormDataById(this.eventId).subscribe(res => {
       if (res != null) {
@@ -201,26 +212,28 @@ export class CreateTrainingEventComponent implements OnInit {
       }
     })
   }
-  getEmployee() {
 
-  }
   GetMentor(user) {
     debugger;
     let empobj: any = {};
-    console.log(this.BookModel);
+    console.log('book model',this.BookModel);
     empobj.id = this.BookModel.id;
     this.selectedeventcreatorid = this.BookModel.instructor;
+    this.selectedeventcreatorname = this.BookModel.instructorName;
+    if(this.selectedeventcreatorname != null){
     this.selectedeventcreatorname = this.BookModel.instructorName.split(" ");
     empobj.firstName = this.selectedeventcreatorname[0]
     empobj.lastName = this.selectedeventcreatorname[1]
+    }
     var foundinEmpList = this.empList.some(a => a.id === empobj.id);
     if (!foundinEmpList) {
-      this.empList.push(empobj);
+      if(empobj.id != undefined){
+        this.empList.push(empobj);
+      }
       if (this.eventId == undefined && this.eventId == null) {
         this.BookModel.instructor = this.selectedeventcreatorid;
       }
     }
-
 
     var foundinEmployeeList = this.employeelist.some(a => a.empId === this.selectedeventcreatorid);
     if (!foundinEmployeeList) {
@@ -243,6 +256,7 @@ export class CreateTrainingEventComponent implements OnInit {
             empobj1.lastName = this.mentorObj.lastName;
             empobj1.email = this.mentorObj.email;
             this.empList.push(empobj1);
+            
 
             if (this.eventId != undefined && !this.showa3tab && !this.showKiazenTab) {
               this.isMentorSelected(empobj1.id, empobj1.firstName, empobj1.lastName, empobj1.eamil);
@@ -272,6 +286,35 @@ export class CreateTrainingEventComponent implements OnInit {
         debugger;
         this.mentorObj = res;
         if (this.mentorObj != null) {
+          if(this.BookModel.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194"){
+            debugger;
+            if (this.eventId == undefined && this.eventId == null) {
+            let empobj: any = {};
+            var name = this.companydetails.name;
+            empobj.firstName = name.split(' ')[0]
+            empobj.lastName = name.split(' ')[1];
+            empobj.id = this.companydetails.employeeID;
+            var found = this.empList.some(a => a.empId === empobj.id);
+            if (found== false){
+            this.empList.push(empobj);
+            }
+            this.selectedeventcreatorid = empobj.id;
+            }
+
+            this.mentorService.GetMentorByEmployeeID(this.selectedeventcreatorid).subscribe(res => {
+              debugger;  
+              this.resObj = res;           
+              let empobj1: any = {};
+              empobj1.id = this.resObj.id;
+              empobj1.firstName = this.resObj.firstName;
+              empobj1.lastName = this.resObj.lastName;
+              var found = this.empList.some(a => a.empId === empobj1.id);
+              if(found == false){
+              this.empList.push(empobj1);
+              }
+            })
+          }
+          else {
           this.mentorObj.forEach(element => {
             var found = this.empList.some(a => a.id === element.id);
             if (!found) {
@@ -279,10 +322,12 @@ export class CreateTrainingEventComponent implements OnInit {
               empobj1.id = element.id;
               var fullname = element.employeeName;
               empobj1.firstName = fullname.split(' ')[0]
-              empobj1.lastName = fullname.split(' ')[1] + fullname.split(' ')[2];
+              empobj1.lastName = fullname.split(' ')[1];
               empobj1.email = element.email
-
+              var found = this.empList.some(a => a.empId === empobj1.id);
+              if(found == false){
               this.empList.push(empobj1);
+              }
         
               if (this.eventId != undefined && this.eventId != null) {
                 this.isMentorSelected(element.id, empobj1.firstName, empobj1.lastName, empobj1.email);
@@ -293,7 +338,7 @@ export class CreateTrainingEventComponent implements OnInit {
 
 
         }
-
+      }
       });
     }
 
@@ -372,7 +417,7 @@ export class CreateTrainingEventComponent implements OnInit {
   }
   GetEmployee() {
     this.empservice.GetAllEmployee(this.companydetails.companyId).subscribe(res => {
-
+      debugger;
       this.empList = []
       this.empList = res;
       if (this.eventId == undefined && this.eventId == null) {
