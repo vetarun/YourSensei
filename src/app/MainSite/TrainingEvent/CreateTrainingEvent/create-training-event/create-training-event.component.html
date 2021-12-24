@@ -33,7 +33,7 @@
                             *ngIf="Heading=='Update' && (showa3tab|| showKiazenTab)  && userid == BookModel.responsibletrainer&& A3CommModel.length "
                             name="tabset" id="tab6" aria-controls="chatroom">
                         <label for="tab6"
-                            *ngIf="Heading=='Update' && (showa3tab|| showKiazenTab)  && userid == BookModel.responsibletrainer && A3CommModel.length">{{commtabname}} Comminication</label>
+                            *ngIf="Heading=='Update' && (showa3tab|| showKiazenTab)  && userid == BookModel.responsibletrainer && A3CommModel.length">{{commtabname}} Communication</label>
                         
 
 
@@ -213,7 +213,7 @@
 
 
                                                                 <div class="col-lg-12 text-center"
-                                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+                                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed' && BookModel.status != 'Approved'">
                                                                     <button type="submit" class="default-btn"
                                                                         (click)="CreateEvent(eventform)"
                                                                         style="pointer-events: all; cursor: pointer;">
@@ -398,7 +398,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12 text-center"
-                                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+                                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed' && BookModel.status != 'Approved'">
 
                                                                     <a class="default-btn"
                                                                         (click)="savea3form(A3Form)">Submit</a>
@@ -573,7 +573,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-12 text-center"
-                                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+                                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'  && BookModel.status != 'Approved'">
 
                                                                     <a class="default-btn"
                                                                         (click)="savekaizenform(KaizenForm)">Submit</a>
@@ -634,7 +634,7 @@
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 " style="text-align: center;">
                                                 <button type="submit"
-                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'"
+                                                    *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed' && BookModel.status != 'Approved'"
                                                     (click)="SubmitList('attendee')" class="default-btn">
                                                     Add Attendee
                                                 </button>
@@ -734,7 +734,7 @@
                                                                 </button>
                                                             </div> -->
                                                             <div class="col-lg-12 text-center"
-                                                                *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+                                                                *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed' && BookModel.status != 'Approved'">
                                                                 <button type="submit" class="default-btn"
                                                                     (click)="CloseEvent(closeeventform)">
                                                                     {{logButtonText}}
@@ -791,7 +791,7 @@
                                                     <input id="btn-input" type="text" [(ngModel)]="message"
                                                         class="form-control input-sm message-textfield"
                                                         placeholder="Type your message here..." />
-                                                    <span class="input-group-btn message-span" *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed'">
+                                                    <span class="input-group-btn message-span" *ngIf="BookModel.status != 'Pending Approval' && BookModel.status != 'Closed' && BookModel.status != 'Approved'">
                                                         <button class="btn btn-warning btn-sm message-button" (click)="savechat()"
                                                             id="btn-chat">
                                                             Send</button>
