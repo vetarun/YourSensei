@@ -228,6 +228,7 @@ export class CreateTrainingEventComponent implements OnInit {
     var foundinEmpList = this.empList.some(a => a.id === empobj.id);
     if (!foundinEmpList) {
       if(empobj.id != undefined){
+        this.BookModel.instructor = empobj.id;
         this.empList.push(empobj);
       }
       if (this.eventId == undefined && this.eventId == null) {

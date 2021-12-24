@@ -197,6 +197,7 @@ export class StudenttrainingeventComponent implements OnInit {
   ApproveEventByMentor() {
     this.spinnerService.show()
     this.trainingEventService.ApproveEventbyMentorFromEventId(this.trainingEventID).subscribe(res => {
+      debugger;
       if (res.code == 200) {
         this.spinnerService.hide()
         this.isApprovedByMentor = true;
@@ -214,6 +215,7 @@ export class StudenttrainingeventComponent implements OnInit {
   ApproveEventByDollarApproval() {
     this.spinnerService.show()
     this.trainingEventService.ApproveEventbyDollarApproverFromEventId(this.trainingEventID).subscribe(res => {
+      debugger;
       if (res.code == 200) {
         this.spinnerService.hide()
         this.isApprovedByDollarApproval = true;
@@ -266,21 +268,22 @@ export class StudenttrainingeventComponent implements OnInit {
     })
   }
 
-  Approve() {
+  // Approve() {
 
-    if ((this.mentor || this.isInternalMentor) && !this.isDollarApprover) {
-      this.ApproveEventByMentor();
-    }
-    else if (this.isDollarApprover && (!this.mentor && !this.isInternalMentor)) {
-      this.ApproveEventByDollarApproval();
-    }
-    else if (this.isDollarApprover && this.isInternalMentor) {
-      this.ApproveEventByMentor();
-      if (this.isApprovedByMentor) {
-        this.ApproveEventByDollarApproval()
-      }
-    }
-  }
+  //   debugger;
+  //   if ((this.mentor || this.isInternalMentor) && !this.isDollarApprover) {
+  //     this.ApproveEventByMentor();
+  //   }
+  //   else if (this.isDollarApprover && (!this.mentor && !this.isInternalMentor)) {
+  //     this.ApproveEventByDollarApproval();
+  //   }
+  //   else if (this.isDollarApprover && this.isInternalMentor) {
+  //     this.ApproveEventByMentor();
+  //     if (this.isApprovedByMentor) {
+  //       this.ApproveEventByDollarApproval()
+  //     }
+  //   }
+  // }
   //   getTimeDifference(sendtime){
   // alert(sendtime)
   //   }

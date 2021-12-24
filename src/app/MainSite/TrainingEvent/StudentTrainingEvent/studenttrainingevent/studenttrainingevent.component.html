@@ -302,16 +302,16 @@
                     </mat-paginator>
                     <div class="row">
                       <div class="col-md-7">
-                        <button type="submit" style="margin-top: 15px;float: right;" (click)="Approve()"
+                        <button type="submit" style="margin-top: 15px;float: right;" (click)="ApproveEventByMentor()"
                           class="default-btn learn-btn-2"
                           *ngIf="(isA3Event || isKaizenEvent)  && (mentor || isInternalMentor) && (this.trainingEvent.status == 'Submitted')">
-                          Approve
+                          Approve by mentor
                         </button>
-                        <button type="submit" style="margin-top: 15px;float: right;" (click)="Approve()"
+                        <!-- <button type="submit" style="margin-top: 15px;float: right;" (click)="ApproveEventByDollarApproval()"
                           class="default-btn learn-btn-2"
                           *ngIf="(isA3Event || isKaizenEvent)  && (isDollarApprover) && (this.trainingEvent.status == 'Pending Approval')">
-                          Approve
-                        </button>
+                          Approve 
+                        </button> -->
                       </div>
                     </div>
 
@@ -464,6 +464,11 @@
                                                            class="default-btn learn-btn-2"
                                                            *ngIf="(isKaizenEvent)  && (mentor || isInternalMentor) && (this.trainingEvent.status == 'Submitted')">
                                                             Submit
+                                                        </button>
+                                                        <button type="submit" style="margin: 15px 15px 0 0; float: right;" (click)="ApproveEventByDollarApproval()"
+                                                          class="default-btn learn-btn-2"
+                                                          *ngIf="isKaizenEvent  && isDollarApprover && (this.trainingEvent.status == 'Pending Approval')">
+                                                          Approve 
                                                         </button>
                                                   </div>
 
@@ -629,7 +634,11 @@
                                                          *ngIf="(isA3Event)  && (mentor || isInternalMentor) && (this.trainingEvent.status == 'Submitted')">
                                                           Submit
                                                       </button>    
-
+                                                      <button type="submit" style="margin: 15px 15px 0 0; float: right;" (click)="ApproveEventByDollarApproval()"
+                                                        class="default-btn learn-btn-2"
+                                                        *ngIf="isA3Event  && isDollarApprover && (this.trainingEvent.status == 'Pending Approval')">
+                                                        Approve
+                                                      </button>
                                                 </div>
                                                
 
