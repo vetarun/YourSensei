@@ -81,8 +81,12 @@
                     <ng-container matColumnDef="action">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header  style="font-weight: bolder;"> Action </th>
                       <td mat-cell *matCellDef="let element">
-                          <button mat-icon-button color="primary" (click)="EditEvent(element.id)"><mat-icon>edit</mat-icon></button> 
-                          <button mat-icon-button color="warn" (click)="DeleteEvent(element.id)"><mat-icon>delete_outline</mat-icon></button>                         
+                          <button mat-icon-button color="primary" (click)="EditEvent(element.id)"><mat-icon matTooltip="Edit">edit</mat-icon></button> 
+                          <button mat-icon-button color="warn" (click)="DeleteEvent(element.id)"><mat-icon matTooltip="Delete">delete_outline</mat-icon></button>  
+                          
+                          <!-- <button mat-icon-button (click)="Approval(element.id)" *ngIf="mentor || isInternalMentor"><mat-icon matTooltip="Mentor Approval" fontSet="material-icons-outlined">preview</mat-icon></button> -->
+                          <button mat-icon-button (click)="Approval(element.id)" *ngIf="isDollarApprover"><mat-icon matTooltip="Approve & Close" fontSet="material-icons-outlined">preview</mat-icon></button>
+                          
                       </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

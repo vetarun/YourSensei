@@ -431,7 +431,7 @@
                                 <i class="fas fa-calendar-day"></i>
                                 <a [routerLink]="['/Main/create-event']" (click)="closerightmenu()">Add Training Events</a>
                             </li>
-                            <li *ngIf="companyadmin || companyuser || individual ">
+                            <li *ngIf="companyadmin || companyuser || individual || isDollarApprover">
                                 <i class="fas fa-chalkboard-teacher"></i>
                                 <a [routerLink]="['/Main/event-list']" (click)="closerightmenu()">Training Event List</a>
                             </li>
@@ -439,7 +439,7 @@
                                 <i class="fas fa-user-graduate"></i>
                                 <a [routerLink]="['/Main/studenteventlist']" (click)="closerightmenu()">Student Training Event
                                     List</a>
-                            </li>
+                            <!-- </li>
                             <li *ngIf="isDollarApprover">
                                 <i class="fas fa-user-graduate"></i>
                                 <a [routerLink]="['/Main/a3-training-event-list']" (click)="closerightmenu()" [queryParams]="{eventformat:'6f9f04cc-198e-479c-a93f-6c3c0a359194'}">A3 Training Event
@@ -449,7 +449,7 @@
                                 <i class="fas fa-user-graduate"></i>
                                 <a [routerLink]="['/Main/Kaizen-training-event-list']" (click)="closerightmenu()" [queryParams]="{eventformat: '5518993a-efc0-4ad0-bcd7-beaea42cc2ce'}">Kaizen Training Event
                                     List</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                 </div>

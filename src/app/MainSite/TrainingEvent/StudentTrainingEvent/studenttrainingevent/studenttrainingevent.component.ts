@@ -121,14 +121,15 @@ export class StudenttrainingeventComponent implements OnInit {
   }
 
   getEventByID() {
-    debugger;
+    
     this.trainingEventService.GetEventById(this.trainingEventID).subscribe(res => {
+      debugger;
       this.trainingEvent = res;
       if (this.trainingEvent.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194") {
         this.isA3Event = true
         this.eventFormat = "A3";
         this.getA3formdata();
-        if (this.isA3Event && (this.mentor || this.isInternalMentor) && (this.trainingEvent.status != "Pending Approval" && this.trainingEvent.status != "Approved")) {
+        if (this.isA3Event && (this.mentor || this.isInternalMentor) && (this.trainingEvent.status != "Pending Approval" && this.trainingEvent.status != "Approved" && this.trainingEvent.status != "Closed")) {
           this.displayedColumns = ['studentName', 'time', 'test', 'ciCredits', 'action'];
         } else if (this.isA3Event && this.isDollarApprover) {
           this.displayedColumns = ['studentName', 'time', 'test', 'ciCredits'];
@@ -138,7 +139,7 @@ export class StudenttrainingeventComponent implements OnInit {
         this.isKaizenEvent = true
         this.eventFormat = "Kaizen";
         this.getKaizenformdata();
-        if (this.isKaizenEvent && (this.mentor || this.isInternalMentor) && (this.trainingEvent.status != "Pending Approval" && this.trainingEvent.status != "Approved")) {
+        if (this.isKaizenEvent && (this.mentor || this.isInternalMentor) && (this.trainingEvent.status != "Pending Approval" && this.trainingEvent.status != "Approved" && this.trainingEvent.status != "Closed")) {
           this.displayedColumns = ['studentName', 'time', 'test', 'ciCredits', 'action'];
         } else if (this.isKaizenEvent && this.isDollarApprover) {
           this.displayedColumns = ['studentName', 'time', 'test', 'ciCredits'];
@@ -155,7 +156,7 @@ export class StudenttrainingeventComponent implements OnInit {
   }
   getA3formdata() {
     this.trainingEventService.GetA3FormDataById(this.trainingEventID).subscribe(res => {
-
+      debugger;
       if (res != null) {
         this.A3model = res;
       }
@@ -175,7 +176,7 @@ export class StudenttrainingeventComponent implements OnInit {
   getCommdata() {
 
     this.trainingEventService.GetA3TrainingEventsCommData(this.trainingEventID).subscribe(res => {
-
+      debugger;
       this.A3CommModel = []
       if (res != null) {
         this.A3CommModel = res;
@@ -189,6 +190,7 @@ export class StudenttrainingeventComponent implements OnInit {
         element.ciCredits = (element.time * element.test) / 100;
       });
 
+      debugger;
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

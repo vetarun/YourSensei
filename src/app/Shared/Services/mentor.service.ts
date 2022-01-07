@@ -62,4 +62,8 @@ export class MentorService {
   GetMentorByEmployeeID(employeeID):Observable<any>{
     return this._http.get(this.Url + "GetMentorByEmployeeID?employeeID=" + employeeID, { headers: this.header});
   }
+
+  GetAllMentorsByCompanyID(companyId):Observable<any>{
+    return this._http.get(this.Url+"GetAllMentors?companyID="+companyId,  { headers: this.header });
+  }
 }

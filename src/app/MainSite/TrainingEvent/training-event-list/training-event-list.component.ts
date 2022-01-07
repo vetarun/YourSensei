@@ -26,16 +26,24 @@ export class TrainingEventListComponent implements OnInit {
   companyadmin: boolean = false;
   individual: boolean = false;
   superadmin: boolean = false;
+
+    mentor: boolean = false;
+    isInternalMentor: boolean = false;
+    isDollarApprover: boolean = false;
+
   constructor(private TrainEventService: TrainingEventService, private _router: Router) { }
 
   ngOnInit() {
-    
+    debugger;
     this.companydetails = JSON.parse(localStorage.getItem("companyDetails"))
 
     this.CompanyId = this.companydetails.companyId
     this.userDetailID = this.companydetails.userId
     this.usertypeid = this.companydetails.usertypeid;
     
+    this.mentor = false;
+    this.isInternalMentor = this.companydetails.isInternalMentor;
+    this.isDollarApprover = this.companydetails.isDollarApprover;
 
     if (this.usertypeid == '5c37cf64-f617-4399-bb68-645b0c3969a2') {
       this.companyuser = true;
@@ -49,12 +57,22 @@ export class TrainingEventListComponent implements OnInit {
     else if (this.usertypeid == '4ba19173-94cd-4222-af7c-60c91d446f8e') {
       this.superadmin = true;
     }
+    else if (this.usertypeid == "c6156716-6d16-4e75-9660-056a59b7b546" || this.usertypeid == "2d2e4aec-d852-417a-8a54-fe80504d83eb") {
+      this.mentor = true;
+    }
     this.getEvents();
+
   }
   getEvents() {
     
     this.TrainEventService.GetEvent(this.CompanyId,this.userDetailID,this.individual).subscribe(res => {
-
+      debugger;
+      for(var i=0; i<res.length; i++){
+        if(res[i].status == "Approved"){
+          res[i].status = "Closed";
+        }
+      }
+      debugger;
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -73,6 +91,7 @@ export class TrainingEventListComponent implements OnInit {
     this.searchKey = ""
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
+
   DeleteEvent(id) {
     if (confirm('Are you sure to delete this event?')) {
       this.TrainEventService.DeleteEvent(id).subscribe(res => {
@@ -84,5 +103,9 @@ export class TrainingEventListComponent implements OnInit {
       })
     }
 
+  }
+
+  Approval(id) {
+    this._router.navigate(['/Main/studentevent'], { queryParams: { id: id } });
   }
 }
