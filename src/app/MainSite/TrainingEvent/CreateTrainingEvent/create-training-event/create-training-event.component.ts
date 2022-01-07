@@ -166,7 +166,7 @@ export class CreateTrainingEventComponent implements OnInit {
       }
     })
     debugger;
-    this.getattendeelist();
+    //this.getattendeelist();
     this.GetEventFormat()
     
     if (this.eventId != undefined && this.eventId != null) {
@@ -264,6 +264,11 @@ export class CreateTrainingEventComponent implements OnInit {
         'employeeName': this.BookModel.instructorName, 'Time': 0, 'Test': 0
       })
     }
+    else if(foundinEmployeeList){
+      var indexInEmployeeList = this.employeelist.findIndex(e => e.empId === this.selectedeventcreatorid);
+      this.employeelist[indexInEmployeeList].IsSelected = true;
+      this.employeelist[indexInEmployeeList].IsDisabled = true;
+    }
 
     if(this.eventId!= undefined && this.eventId!= null){
     this.TrainEventService.GetA3FormDataById(this.eventId).subscribe((data: any)=> {
@@ -282,6 +287,11 @@ export class CreateTrainingEventComponent implements OnInit {
             'employeeName': this.assignname, 'Time': 0, 'Test': 0
           })
           
+        }
+        else if(foundmentor){
+          var indexInEmployeeList = this.employeelist.findIndex(e => e.empId === this.assignid);
+          this.employeelist[indexInEmployeeList].IsSelected = true;
+          this.employeelist[indexInEmployeeList].IsDisabled = true;
         }
       })
     })
@@ -315,7 +325,7 @@ export class CreateTrainingEventComponent implements OnInit {
                 debugger;
                 this.employeelist.push({
 
-                  'index': 1, 'IsSelected': true,'IsDisabled': true, 'empId': empobj1.id,
+                  'index': 1, 'IsSelected': false,'IsDisabled': false, 'empId': empobj1.id,
                   'employeeName': empobj1.firstName + " " + empobj1.lastName, 'Time': 0, 'Test': 0
                 })
               }
@@ -405,9 +415,13 @@ export class CreateTrainingEventComponent implements OnInit {
         }
        debugger;
         this.employeelist.push({
-          'index': 1, 'IsSelected': res,'IsDisabled': res, 'empId': id,
+          'index': 1, 'IsSelected': res,'IsDisabled': false, 'empId': id,
           'employeeName': firstname + " " + lastname, 'Time': 0, 'Test': 0
         })
+      }
+      else if(foundmentor){
+        var indexInEmployeeList = this.employeelist.findIndex(e => e.empId === id);
+        this.employeelist[indexInEmployeeList].IsSelected = res;
       }
 
     });
@@ -429,32 +443,47 @@ export class CreateTrainingEventComponent implements OnInit {
   }
   getemployeelist() {
     this.TrainEventService.GetSelectEmployeeToAttendTrainingEvent(this.eventId, this.companydetails.companyId).subscribe(res => {
-
-      this.TrainEventService.GetKaizenFormDataById(this.eventId).subscribe((data: any)=> {
-        
-          this.eventassignedto = data.assignedTo;
-          console.log('inside get emp', this.eventassignedto)
+debugger;
+for (var i = 0; i < res.length; i++) {
+  var foundinEmployeeList = this.employeelist.some(a => a.empId === res[i].empId);
+  if (!foundinEmployeeList) {
+    debugger;
+  this.employeelist.push({
+    'index': i, 'IsSelected': res[i].isselected,'IsDisabled': res[i].isdisabled, 'empId': res[i].empId,
+    'employeeName': res[i].employeeName, 'Time': res[i].time, 'Test': res[i].test
+  })
+}
+else if(foundinEmployeeList){
+  var indexInEmployeeList = this.employeelist.findIndex(e => e.empId === res[i].empId);
+  this.employeelist[indexInEmployeeList].IsSelected = res[i].isselected;
+  this.employeelist[indexInEmployeeList].IsDisabled = res[i].isdisabled;
+}
+}
+    //   this.TrainEventService.GetKaizenFormDataById(this.eventId).subscribe((data: any)=> {
+    //     debugger;
+    //       this.eventassignedto = data.assignedTo;
+    //       console.log('inside get emp', this.eventassignedto)
       
-        debugger;
-      this.employeelist = []
-      for (var i = 0; i < res.length; i++) {
-        if (res[i].empId == this.EventData.instructor || res[i].empId == this.eventassignedto) {
-          res[i].isselected = true
-          res[i].isdisabled = true
-        }
-        var foundinEmployeeList = this.employeelist.some(a => a.empId === res[i].empId);
-        if (!foundinEmployeeList) {
-          debugger;
-        this.employeelist.push({
-          'index': i, 'IsSelected': res[i].isselected,'IsDisabled': res[i].isdisabled, 'empId': res[i].empId,
-          'employeeName': res[i].employeeName, 'Time': res[i].time, 'Test': res[i].test
-        })
-      }
-      }
+    //     debugger;
+    //   //this.employeelist = []
+    //   for (var i = 0; i < res.length; i++) {
+    //     if (res[i].empId == this.EventData.instructor || res[i].empId == this.eventassignedto) {
+    //       res[i].isselected = true
+    //       res[i].isdisabled = true
+    //     }
+    //     var foundinEmployeeList = this.employeelist.some(a => a.empId === res[i].empId);
+    //     if (!foundinEmployeeList) {
+    //       debugger;
+    //     this.employeelist.push({
+    //       'index': i, 'IsSelected': res[i].isselected,'IsDisabled': res[i].isdisabled, 'empId': res[i].empId,
+    //       'employeeName': res[i].employeeName, 'Time': res[i].time, 'Test': res[i].test
+    //     })
+    //   }
+    //   }
 
-      console.log('Employee list', this.employeelist);
+    //   console.log('Employee list', this.employeelist);
 
-    })
+    // })
     })
   }
   CalculateCICredits(i, e, fieldname) {
@@ -777,6 +806,11 @@ export class CreateTrainingEventComponent implements OnInit {
         'employeeName': this.assignedtoname, 'Time': 0, 'Test': 0
       })
     }
+    else if(foundinEmployeeList){
+      var indexInEmployeeList = this.employeelist.findIndex(e => e.empId === this.A3model.assignedTo);
+      this.employeelist[indexInEmployeeList].IsSelected = true;
+      this.employeelist[indexInEmployeeList].IsDisabled = true;
+    }
     })
   }
   saveattendeelist() {
@@ -855,6 +889,22 @@ export class CreateTrainingEventComponent implements OnInit {
           this.toaster.success(res.message);
           this.getKaizenformdata()
           this.ActiveSelectionTab = true
+
+            debugger;
+        var foundinEmployeeList = this.employeelist.some(a => a.empId === this.Kaizenmodel.assignedTo);
+        if (!foundinEmployeeList) {
+          debugger;
+          var assignedToObject = this.empList.some(a => a.id === this.Kaizenmodel.assignedTo);
+        this.employeelist.push({
+          'index': 0, 'IsSelected': true,'IsDisabled': true, 'empId': this.Kaizenmodel.assignedTo,
+          'employeeName': assignedToObject.firstName + " " + assignedToObject.lastName, 'Time': 0, 'Test': 0
+        })
+      }
+      else if(foundinEmployeeList){
+        var indexInEmployeeList = this.employeelist.findIndex(e => e.empId === this.Kaizenmodel.assignedTo);
+        this.employeelist[indexInEmployeeList].IsSelected = true;
+        this.employeelist[indexInEmployeeList].IsDisabled = true;
+      }
         }
         else if (res.code == 404) {
           this.SpinnerService.hide()
@@ -875,162 +925,167 @@ export class CreateTrainingEventComponent implements OnInit {
         'employeeName': this.assignedtoname, 'Time': 0, 'Test': 0
       })
     }
+    else if(foundinEmployeeList){
+      var indexInEmployeeList = this.employeelist.findIndex(e => e.empId === this.Kaizenmodel.assignedTo);
+      this.employeelist[indexInEmployeeList].IsSelected = true;
+      this.employeelist[indexInEmployeeList].IsDisabled = true;
+    }
     })
   }
 
 
   //===============New code starts here=========================
 
-  attendeelist : any = [];
-  eventID: any;
-  eventData: any = {};
-  TEid: any;
-  TEname: any;
-  TEcompId: any;
-  allEmpObj: any = {};
-  allMentorObj1: any = {};
-  allMentorObj2: any = {};
+  // attendeelist : any = [];
+  // eventID: any;
+  // eventData: any = {};
+  // TEid: any;
+  // TEname: any;
+  // TEcompId: any;
+  // allEmpObj: any = {};
+  // allMentorObj1: any = {};
+  // allMentorObj2: any = {};
 
-  getattendeelist(){
+  // getattendeelist(){
 
-    this.router.queryParams.subscribe((params: Params) => {
-      this.eventID = this.activatedRoute.snapshot.queryParams['id'];
-    })
-    debugger;
+  //   this.router.queryParams.subscribe((params: Params) => {
+  //     this.eventID = this.activatedRoute.snapshot.queryParams['id'];
+  //   })
+  //   debugger;
 
-    if (this.eventID != undefined && this.eventID != null) {
-      // edit
-      this.TrainEventService.GetEventById(this.eventID).subscribe((data: any)=> {
-      this.eventData = data;
-      console.log('TE Data', this.eventData);
+  //   if (this.eventID != undefined && this.eventID != null) {
+  //     // edit
+  //     this.TrainEventService.GetEventById(this.eventID).subscribe((data: any)=> {
+  //     this.eventData = data;
+  //     console.log('TE Data', this.eventData);
 
-   debugger;
-    if(this.eventData.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194"){
-        this.geta3attendee();
-    }
-    else {
-        this.getotherattendee();
-    }
-    })
-    }
-    else {
-      // new
-      if(this.eventData.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194"){
-        this.geta3attendee();
-    }
-    else {
-        this.getotherattendee();
-    }
-    }
+  //  debugger;
+  //   if(this.eventData.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194"){
+  //       this.geta3attendee();
+  //   }
+  //   else {
+  //       this.getotherattendee();
+  //   }
+  //   })
+  //   }
+  //   else {
+  //     // new
+  //     if(this.eventData.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194"){
+  //       this.geta3attendee();
+  //   }
+  //   else {
+  //       this.getotherattendee();
+  //   }
+  //   }
     
-  }
+  // }
 
-  geta3attendee(){
-    debugger;
+  // geta3attendee(){
+  //   debugger;
 
-    if (this.eventID != undefined && this.eventID != null) {
-      // edit
-      this.TEid = this.eventData.responsibleTrainerEmployeeID;
-      this.TEname = this.eventData.responsibleTrainerName;
-    }
-    else {
-      // new
-      this.TEid = this.companydetails.employeeID;
-      this.TEname = this.companydetails.name;
-    }
+  //   if (this.eventID != undefined && this.eventID != null) {
+  //     // edit
+  //     this.TEid = this.eventData.responsibleTrainerEmployeeID;
+  //     this.TEname = this.eventData.responsibleTrainerName;
+  //   }
+  //   else {
+  //     // new
+  //     this.TEid = this.companydetails.employeeID;
+  //     this.TEname = this.companydetails.name;
+  //   }
 
-    var found = this.attendeelist.some(a => a.empId == this.TEid);
-    if(!found){
-      this.attendeelist.push({
-        'index': 0, 'IsSelected': true,'IsDisabled': true, empId: this.TEid,
-        'employeeName': this.TEname, 'Time': 0, 'Test': 0
-      })
-    }
+  //   var found = this.attendeelist.some(a => a.empId == this.TEid);
+  //   if(!found){
+  //     this.attendeelist.push({
+  //       'index': 0, 'IsSelected': true,'IsDisabled': true, empId: this.TEid,
+  //       'employeeName': this.TEname, 'Time': 0, 'Test': 0
+  //     })
+  //   }
 
-      this.mentorService.GetMentorByEmployeeID(this.TEid).subscribe((data: any)=>{
-        debugger;
-        console.log('Mentor info', data);
+  //     this.mentorService.GetMentorByEmployeeID(this.TEid).subscribe((data: any)=>{
+  //       debugger;
+  //       console.log('Mentor info', data);
 
-        var found = this.attendeelist.some(a => a.empId == data.id);
-        if(!found){
-        this.attendeelist.push({
-          'index': 0, 'IsSelected': true,'IsDisabled': true, empId: data.id,
-          'employeeName': data.firstName + " " + data.lastName, 'Time': 0, 'Test': 0
-        })
-      }
-        console.log('Attendee List', this.attendeelist);
-      })
-  }
+  //       var found = this.attendeelist.some(a => a.empId == data.id);
+  //       if(!found){
+  //       this.attendeelist.push({
+  //         'index': 0, 'IsSelected': true,'IsDisabled': true, empId: data.id,
+  //         'employeeName': data.firstName + " " + data.lastName, 'Time': 0, 'Test': 0
+  //       })
+  //     }
+  //       console.log('Attendee List', this.attendeelist);
+  //     })
+  // }
 
-  getotherattendee(){
-    if (this.eventID != undefined && this.eventID != null) {
-      // edit
-      this.TEid = this.eventData.responsibleTrainerEmployeeID;
-      this.TEname = this.eventData.responsibleTrainerName;
-      this.TEcompId = this.eventData.companyid;
-    }
-    else {
-      // new
-      this.TEid = this.companydetails.employeeID;
-      this.TEname = this.companydetails.name;
-      this.TEcompId = this.companydetails.companyId;
-    }
+  // getotherattendee(){
+  //   if (this.eventID != undefined && this.eventID != null) {
+  //     // edit
+  //     this.TEid = this.eventData.responsibleTrainerEmployeeID;
+  //     this.TEname = this.eventData.responsibleTrainerName;
+  //     this.TEcompId = this.eventData.companyid;
+  //   }
+  //   else {
+  //     // new
+  //     this.TEid = this.companydetails.employeeID;
+  //     this.TEname = this.companydetails.name;
+  //     this.TEcompId = this.companydetails.companyId;
+  //   }
 
-    var found = this.attendeelist.some(a => a.empId == this.TEid);
-    if(!found){
-      this.attendeelist.push({
-        'index': 0, 'IsSelected': true,'IsDisabled': true, empId: this.TEid,
-        'employeeName': this.TEname, 'Time': 0, 'Test': 0
-      })
-    }
+  //   var found = this.attendeelist.some(a => a.empId == this.TEid);
+  //   if(!found){
+  //     this.attendeelist.push({
+  //       'index': 0, 'IsSelected': true,'IsDisabled': true, empId: this.TEid,
+  //       'employeeName': this.TEname, 'Time': 0, 'Test': 0
+  //     })
+  //   }
     
-    this.empservice.GetAllEmployee(this.TEcompId).subscribe((data: any)=> {
-      this.allEmpObj = data;
-      console.log('all emp list', this.allEmpObj);
+  //   this.empservice.GetAllEmployee(this.TEcompId).subscribe((data: any)=> {
+  //     this.allEmpObj = data;
+  //     console.log('all emp list', this.allEmpObj);
 
-      for(var i=0; i<this.allEmpObj.length; i++){
-        var found = this.attendeelist.some(a => a.empId == this.allEmpObj[i].id);
-        if(!found){
-          this.attendeelist.push({
-            'index': 0, empId: this.allEmpObj[i].id,
-            'employeeName': this.allEmpObj[i].firstName + " " + this.allEmpObj[i].lastName, 'Time': 0, 'Test': 0
-          })
-        }
-      }
-      console.log('Employees Attendee List', this.attendeelist);
-    })
+  //     for(var i=0; i<this.allEmpObj.length; i++){
+  //       var found = this.attendeelist.some(a => a.empId == this.allEmpObj[i].id);
+  //       if(!found){
+  //         this.attendeelist.push({
+  //           'index': 0, empId: this.allEmpObj[i].id,
+  //           'employeeName': this.allEmpObj[i].firstName + " " + this.allEmpObj[i].lastName, 'Time': 0, 'Test': 0
+  //         })
+  //       }
+  //     }
+  //     console.log('Employees Attendee List', this.attendeelist);
+  //   })
 
-    this.empservice.GetAllMentor(this.TEcompId).subscribe((data: any)=> {
-      this.allMentorObj2 = data;
-      console.log('Mentor List', this.allMentorObj2);
+  //   this.empservice.GetAllMentor(this.TEcompId).subscribe((data: any)=> {
+  //     this.allMentorObj2 = data;
+  //     console.log('Mentor List', this.allMentorObj2);
 
-      for(var i=0; i<this.allMentorObj2.length; i++){
-        var found = this.attendeelist.some(a => a.empId == this.allMentorObj2[i].id);
-        if(!found){
-          this.attendeelist.push({
-            'index': 0, empId: this.allMentorObj2[i].id,
-            'employeeName': this.allMentorObj2[i].firstName + " " + this.allMentorObj2[i].lastName, 'Time': 0, 'Test': 0
-          })
-        }
-      }
-      console.log('Mentors Attendee List', this.attendeelist);
-    })
-    debugger;
-    this.mentorService.GetAllMentorsByCompanyID(this.TEcompId).subscribe((data: any)=> {
-      debugger;
-      this.allMentorObj1 = data;
+  //     for(var i=0; i<this.allMentorObj2.length; i++){
+  //       var found = this.attendeelist.some(a => a.empId == this.allMentorObj2[i].id);
+  //       if(!found){
+  //         this.attendeelist.push({
+  //           'index': 0, empId: this.allMentorObj2[i].id,
+  //           'employeeName': this.allMentorObj2[i].firstName + " " + this.allMentorObj2[i].lastName, 'Time': 0, 'Test': 0
+  //         })
+  //       }
+  //     }
+  //     console.log('Mentors Attendee List', this.attendeelist);
+  //   })
+  //   debugger;
+  //   this.mentorService.GetAllMentorsByCompanyID(this.TEcompId).subscribe((data: any)=> {
+  //     debugger;
+  //     this.allMentorObj1 = data;
 
-      for(var i=0; i<this.allMentorObj1.length; i++){
-        var found = this.attendeelist.some(a => a.empId == this.allMentorObj1[i].id);
-        if(!found){
-          this.attendeelist.push({
-            'index': 0, empId: this.allMentorObj1[i].id,
-            'employeeName': this.allMentorObj1[i].firstName + " " + this.allMentorObj1[i].lastName, 'Time': 0, 'Test': 0
-          })
-        }
-      }
-      console.log('External Mentor Attendee List', this.allMentorObj1);
-    })
-    console.log('Final Attendee List', this.attendeelist);
-  }
+  //     for(var i=0; i<this.allMentorObj1.length; i++){
+  //       var found = this.attendeelist.some(a => a.empId == this.allMentorObj1[i].id);
+  //       if(!found){
+  //         this.attendeelist.push({
+  //           'index': 0, empId: this.allMentorObj1[i].id,
+  //           'employeeName': this.allMentorObj1[i].firstName + " " + this.allMentorObj1[i].lastName, 'Time': 0, 'Test': 0
+  //         })
+  //       }
+  //     }
+  //     console.log('External Mentor Attendee List', this.allMentorObj1);
+  //   })
+  //   console.log('Final Attendee List', this.attendeelist);
+  // }
 }
