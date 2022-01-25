@@ -46,6 +46,7 @@ export class QuizlistComponent implements OnInit {
       this.superadmin = true;
     }
     this.quizService.GetQuizList(this.companyid,this.userid,this.individual).subscribe(res => {
+      console.log(res)
       this.dataSource = new MatTableDataSource();
       this.dataSource.data = res
       this.dataSource.sort = this.sort;

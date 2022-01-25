@@ -28,7 +28,6 @@ export class BookService {
  
 
   GetBooks(companyID,userid,isIndividual):Observable<any>{
-    
      return this._http.get(this.Url+"GetBook?companyID="+companyID+"&userID="+userid+"&isIndividual="+isIndividual, { headers: this.header });
   }
   AddBookFromGlobalBook( booktoadd):Observable<any>{

@@ -309,6 +309,7 @@ export class CreateTrainingEventComponent implements OnInit {
             empobj1.firstName = this.mentorObj.firstName;
             empobj1.lastName = this.mentorObj.lastName;
             empobj1.email = this.mentorObj.email;
+            
             this.empList.push(empobj1);
             
 
@@ -338,7 +339,7 @@ export class CreateTrainingEventComponent implements OnInit {
     if (user == "Company") {
 
       this.mentorService.GetMentorsByIsActive(this.companydetails.companyId, true).subscribe(res => {
-        debugger;
+        
         this.mentorObj = res;
         if (this.mentorObj != null) {
           if(this.BookModel.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194"){
@@ -352,6 +353,7 @@ export class CreateTrainingEventComponent implements OnInit {
             var found = this.empList.some(a => a.empId === empobj.id);
 
             if (found== false){
+              
             this.empList.push(empobj);
             }
             ;
@@ -359,7 +361,7 @@ export class CreateTrainingEventComponent implements OnInit {
             }
 
             this.mentorService.GetMentorByEmployeeID(this.selectedeventcreatorid).subscribe(res => {
-              debugger;
+              
               this.resObj = res;          
               let empobj1: any = {};
               empobj1.id = this.resObj.id;
@@ -367,6 +369,7 @@ export class CreateTrainingEventComponent implements OnInit {
               empobj1.lastName = this.resObj.lastName;
               var found = this.empList.some(a => a.empId === empobj1.id);
               if(found == false){
+                
               this.empList.push(empobj1);
               }
             })
@@ -374,6 +377,7 @@ export class CreateTrainingEventComponent implements OnInit {
           else {
           
           this.mentorObj.forEach(element => {
+            
             var found = this.empList.some(a => a.id === element.id);
             if (!found) {
               let empobj1: any = {};
@@ -382,9 +386,10 @@ export class CreateTrainingEventComponent implements OnInit {
               empobj1.firstName = fullname.split(' ')[0]
               empobj1.lastName = fullname.split(' ')[1];
               empobj1.email = element.email
-              debugger;
+              
               var found = this.empList.some(a => a.empId === empobj1.id);
               if(found == false){
+                
               this.empList.push(empobj1);
               }
         
@@ -489,7 +494,9 @@ else if(foundinEmployeeList){
     })
   }
   CalculateCICredits(i, e, fieldname) {
+    debugger;
     if (fieldname == 'Time') {
+      if(this.BookModel.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194"){
       if (Number(this.BookModel.duration) >= Number(e)) {
         this.employeelistforcreditlog[i].Time = e
       }
@@ -497,7 +504,10 @@ else if(foundinEmployeeList){
         (<HTMLInputElement>document.getElementById("logtime-" + i)).value = this.employeelistforcreditlog[i].Time;
         this.toaster.error("You cannot exceed from " + this.BookModel.duration + " Hours")
       }
-
+    }
+    else {
+      this.employeelistforcreditlog[i].Time = e
+    }
     } else if (fieldname == 'Test') {
       this.employeelistforcreditlog[i].Test = e
     }
@@ -508,6 +518,7 @@ else if(foundinEmployeeList){
     this.empservice.GetAllEmployee(this.companydetails.companyId).subscribe(res => {
       
       this.empList = []
+      
       this.empList = res;
 
       if (this.eventId == undefined && this.eventId == null) {
@@ -897,6 +908,7 @@ else if(foundinEmployeeList){
         if (!foundinEmployeeList) {
           
           var assignedToObject = this.empList.some(a => a.id === this.Kaizenmodel.assignedTo);
+          
         this.employeelist.push({
           'index': 0, 'IsSelected': true,'IsDisabled': true, 'empId': this.Kaizenmodel.assignedTo,
           'employeeName': assignedToObject.firstName + " " + assignedToObject.lastName, 'Time': 0, 'Test': 0

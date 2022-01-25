@@ -1,0 +1,59 @@
+<div class="sign-in-area pt-50 pb-70">
+    <br>
+    <div class="container">
+        <h3>Reset Quiz Assessment</h3>
+
+<div class="col-lg-4">
+    <div class="form-group">
+        <span style="color: gray;font-size:14px;">Select Company Name</span>
+        <select name="CompanyName" class="form-control" [(ngModel)]="CompanyID" (change)="getemployees()">
+            <option *ngFor="let comp of companylist" value="{{comp.id}}">{{comp.companyname}}</option> 
+        </select>
+    </div>
+</div>
+
+<div class="col-lg-4">
+    <div class="form-group">
+        <span style="color: gray;font-size:14px;">Select Employee Name</span>
+        <select name="EmployeeName" class="form-control" [(ngModel)]="EmployeeID" (change)="getquizlistbyUserIDandCompID()">
+            <option *ngFor="let emp of employeelist" value="{{emp.userDetialID}}">{{emp.firstName}} {{emp.lastName}}</option> 
+        </select>
+    </div>
+</div>
+<br>
+
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 bg-y2" multiTemplateDataRows>
+
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="quizname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Quiz Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.quizName}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="bookname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder; "> Book Name </th>
+        <td mat-cell *matCellDef="let element"> {{ element.bookName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: bolder;"> Action </th>
+        <td mat-cell *matCellDef="let element">
+            
+        <a mat-button href="javascript:void(0)">
+            <mat-icon matTooltip="Delete" (click)="DeleteQuiz(element.id)">delete_outline</mat-icon>
+        </a>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="student-element-row"></tr>
+
+</table>
+<mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+</div>
+</div>
+
+

@@ -30,6 +30,10 @@ export class BooklistComponent implements OnInit {
   first_name: any;
   last_name: any;
   bookID: any;
+  QuizStartObject : any ={};
+  QuizStartStatusID: any;
+  selectedBookID: any;
+  selectedQuizID: any;
   btnclick: boolean;
   NewbookaddedbySuperAdmin: any = [];
   bookaddedtosend: any = {};
@@ -162,7 +166,8 @@ export class BooklistComponent implements OnInit {
   getBooks() {
     this.dataSource = new MatTableDataSource();
     this.bookService.GetBooks(this.companyid, this.userid,this.individual).subscribe(res => {
-      console.log(res)
+      debugger
+      console.log('Book Data', res);
       res.forEach(function (value) {
         
         var imageUrl = environment.baseUrl + 'Images/' + value.coverImageUrl;
@@ -172,6 +177,7 @@ export class BooklistComponent implements OnInit {
           if(value.trackCategory != '')
           value.trackCategory = value.trackCategory.split("-")[0] +  value.trackCategory.split("-")[1]
         }
+
       });
       this.getNotAcceptedCompanyLibraryBookLogs();
       // for (var i = 0; i < res.listOfNewBooks.length; i++) {
@@ -182,6 +188,7 @@ export class BooklistComponent implements OnInit {
       //   })
 
       // }
+  
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -311,14 +318,17 @@ export class BooklistComponent implements OnInit {
     debugger;
     this.showQuiz = openQuiz;
     this.bookID = bookid;
+    this.selectedBookID = bookid;
     this.quizService.GetQuestionListByBookID(this.bookID, this.userid).subscribe(res => {
       
+      this.lstquestion = res;
+      this.selectedQuizID = this.lstquestion[0].quizid;
       this.totalnoOFQues = res.length
       if (this.totalnoOFQues > 0) {
-        this.lstquestion = res;
+        
         this.active = this.lstquestion[0].questionid;
         this.queanswer = this.lstquestion[0].useranswer;
-this.instructions = res[0].instruction
+        this.instructions = res[0].instruction
         if (this.queanswer != null) {
           this.buttonDisabled = false;
         }
@@ -625,6 +635,9 @@ this.instructions = res[0].instruction
     this.SpinnerService.show()
     this.quizService.SaveQuizAnswerAssessment(this.anslist,this.TotalPercentage).subscribe(res => {
       this.SpinnerService.hide();
+      this.quizService.SaveQuizFinishStatus(this.QuizStartStatusID).subscribe((data: any)=> {
+        console.log('Quiz Finish Status Saved', data);
+      
       if (res.code == 200) {
         
         this.showPercentage = true;
@@ -634,6 +647,7 @@ this.instructions = res[0].instruction
       else{
         this.toastr.success(res.message)
       }
+    })
     })
   }
 
@@ -645,6 +659,7 @@ this.instructions = res[0].instruction
   }
   instructionhide(){
     this.instructionread = true;
+    this.setQuizStatus();
   }
   // mark the correct answer regardless of which option is selected once answered
   isCorrect(option: string): boolean {
@@ -666,5 +681,15 @@ this.instructions = res[0].instruction
     this.modalService.open(content, { backdrop: "static", size: "lg", ariaLabelledBy: 'modal-basic-title' });
   }
 
-
+  setQuizStatus(){
+    this.QuizStartObject.userDetailID = this.userid;
+    this.QuizStartObject.CompanyID = this.companyid;
+    this.QuizStartObject.companyLibraryBookID = this.selectedBookID;
+    this.QuizStartObject.quizID = this.selectedQuizID
+    console.log('Quiz Started ', this.QuizStartObject);
+    this.quizService.SaveQuizStartStatus(this.QuizStartObject).subscribe((data: any)=> {
+      this.QuizStartStatusID = data;
+      console.log('Quiz Start Saved', this.QuizStartStatusID);
+    })
+  }
 }

@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-sm-6">
         <b>Time (Hr):</b>
-        <input type="text" class="form-control" [(ngModel)]="modalData.Time" id="Time" name="Time" #Time="ngModel">
+        <input type="text" class="form-control" [(ngModel)]="modalData.Time" (change)="edittime()" id="Time" name="Time" #Time="ngModel">
       </div>
       <div class="col-sm-6">
         <b>Test:</b>

@@ -15,6 +15,7 @@ import { NgForm } from '@angular/forms';
 })
 export class StudenttrainingeventComponent implements OnInit {
 
+  savedTime: any;
   companyDetails : any = [];
   ActiveSelectionTab: boolean = false;
   trainingEventID: any;
@@ -123,7 +124,7 @@ export class StudenttrainingeventComponent implements OnInit {
   getEventByID() {
     
     this.trainingEventService.GetEventById(this.trainingEventID).subscribe(res => {
-      debugger;
+      
       this.trainingEvent = res;
       if (this.trainingEvent.trainingformat == "6f9f04cc-198e-479c-a93f-6c3c0a359194") {
         this.isA3Event = true
@@ -156,7 +157,7 @@ export class StudenttrainingeventComponent implements OnInit {
   }
   getA3formdata() {
     this.trainingEventService.GetA3FormDataById(this.trainingEventID).subscribe(res => {
-      debugger;
+      
       if (res != null) {
         this.A3model = res;
       }
@@ -176,7 +177,7 @@ export class StudenttrainingeventComponent implements OnInit {
   getCommdata() {
 
     this.trainingEventService.GetA3TrainingEventsCommData(this.trainingEventID).subscribe(res => {
-      debugger;
+      
       this.A3CommModel = []
       if (res != null) {
         this.A3CommModel = res;
@@ -190,7 +191,7 @@ export class StudenttrainingeventComponent implements OnInit {
         element.ciCredits = (element.time * element.test) / 100;
       });
 
-      debugger;
+      
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -199,7 +200,7 @@ export class StudenttrainingeventComponent implements OnInit {
   ApproveEventByMentor() {
     this.spinnerService.show()
     this.trainingEventService.ApproveEventbyMentorFromEventId(this.trainingEventID).subscribe(res => {
-      debugger;
+      
       if (res.code == 200) {
         this.spinnerService.hide()
         this.isApprovedByMentor = true;
@@ -217,7 +218,7 @@ export class StudenttrainingeventComponent implements OnInit {
   ApproveEventByDollarApproval() {
     this.spinnerService.show()
     this.trainingEventService.ApproveEventbyDollarApproverFromEventId(this.trainingEventID).subscribe(res => {
-      debugger;
+      
       if (res.code == 200) {
         this.spinnerService.hide()
         this.isApprovedByDollarApproval = true;
@@ -242,7 +243,17 @@ export class StudenttrainingeventComponent implements OnInit {
     }
   }
 
+  edittime(){
+    var edited = (<HTMLInputElement>document.getElementById('Time')).value;
+    if(this.trainingEvent.trainingformat== "6f9f04cc-198e-479c-a93f-6c3c0a359194" && Number(edited)>this.savedTime){
+      this.toaster.error("You cannot exceed from " + this.savedTime + " Hours")
+      this.modalData.Time = " ";
+    }
+  }
+
   editTestAndCredit(content, StudentName, Time, Test, CICredits, trainingEventAttendeeID, empId) {
+    debugger;
+    this.savedTime = Time
     this.modalData.StudentName = StudentName
     this.modalData.Time = Time
     this.modalData.Test = Test
@@ -250,10 +261,12 @@ export class StudenttrainingeventComponent implements OnInit {
     this.modalData.empId = empId
     this.modalData.trainingEventAttendeeID = trainingEventAttendeeID
     this.trainingEventAttendeeInput = []
-
     this.modalService.open(content, { backdrop: "static", size: "lg", ariaLabelledBy: 'modal-basic-title' });
   }
   updateTestAndTime() {
+    debugger;
+    console.log('before change', this.savedTime + 'after change', this.modalData.Time + 'TE', this.trainingEvent)
+    
     this.trainingEventAttendeeInput.push(
       {
         'TrainigEventID': this.trainingEventID, 'trainingEventAttendeeID': this.modalData.trainingEventAttendeeID,
@@ -272,7 +285,7 @@ export class StudenttrainingeventComponent implements OnInit {
 
   // Approve() {
 
-  //   debugger;
+  //   
   //   if ((this.mentor || this.isInternalMentor) && !this.isDollarApprover) {
   //     this.ApproveEventByMentor();
   //   }

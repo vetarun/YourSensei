@@ -23,6 +23,9 @@ const routes: Routes = [
           {path:'registeration',loadChildren:() => import('../../Admin/AdminLayout/Registeration/pendingapproval.module').then(m => m.PendingapprovalModule)},
           {path:'quiz',loadChildren:() => import('../../Admin/Quiz/QuizList/quizlist.module').then(m => m.QuizlistModule)},
           {path:'addquiz',loadChildren:() => import('../../Admin/Quiz/AddQuiz/addquiz.module').then(m => m.AddquizModule)},
+
+          {path:'resetquizassessment',loadChildren:() => import('../../Admin/Quiz/ResetQuizAssessment/resetquizassessment.module').then(m => m.ResetquizassessmentModule)},
+
           {path:'reviewinitialassessment',loadChildren:() => import('../../Admin/ReviewInitialAssessment/reviewinitialassessment.module').then(m => m.ReviewinitialassessmentModule)},
           {path:'subscription-plan',loadChildren:() => import('../../Admin/SubscriptionPlan/subscriptionplan.module').then(m => m.SubscriptionplanModule)},
           {path:'subscription',loadChildren:() => import('../../Admin/SubscriptionList/subscriptionlist.module').then(m => m.SubscriptionlistModule)},

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {  NgModule } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { BeltrulesComponent } from './Admin/BeltRules/beltrules/beltrules.compon
 import { StructureofyoursenseiComponent } from './MainSite/StructureOfYourSensei/structureofyoursensei/structureofyoursensei.component';
 import { TrackComponent } from './MainSite/Tracks/track/track.component';
 import { MentortrackcategoryComponent } from './MainSite/MentorTracks/mentortrackcategory/mentortrackcategory.component';
+import { ResetquizassessmentComponent } from './Admin/Quiz/ResetQuizAssessment/resetquizassessment/resetquizassessment.component';
 
 
 
@@ -23,11 +24,13 @@ import { MentortrackcategoryComponent } from './MainSite/MentorTracks/mentortrac
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
+    //FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(), // ToastrModule added    
-    MaterialModule
+    MaterialModule,
+    //CommonModule,
+    BrowserModule
   ],
   entryComponents:[],
   declarations: [AppComponent],

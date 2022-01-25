@@ -48,6 +48,9 @@ const routes: Routes = [{
      {path: 'studentevent',loadChildren:() => import('../TrainingEvent/StudentTrainingEvent/studenttrainingevent.module').then(m => m.StudenttrainingeventModule)  ,canActivate:[AuthGuard]},
      {path:'quiz',loadChildren:() => import('../../Admin/Quiz/QuizList/quizlist.module').then(m => m.QuizlistModule),canActivate:[AuthGuard]},
      {path:'addquiz',loadChildren:() => import('../../Admin/Quiz/AddQuiz/addquiz.module').then(m => m.AddquizModule),canActivate:[AuthGuard]},
+
+     {path:'resetquizassessment',loadChildren:() => import('../../Admin/Quiz/ResetQuizAssessment/resetquizassessment.module').then(m => m.ResetquizassessmentModule),canActivate:[AuthGuard]},
+
      {path:'powerofsensei',loadChildren:() => import('../PowerOfSensei/powerofsensei.module').then(m => m.PowerofsenseiModule),canActivate:[AuthGuard]},
       {path:'structureofsensei',loadChildren:() => import('../StructureOfYourSensei/structureofyoursensei.module').then(m => m.StructureofyoursenseiModule),canActivate:[AuthGuard]},
      {path:'assessment',loadChildren:() => import('../InitialAssessment/initialassessment.module').then(m => m.InitialassessmentModule),canActivate:[AuthGuard]},

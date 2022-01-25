@@ -64,4 +64,19 @@ export class QuizService {
   GetQuizAnswerAssessmentByQuizIDAndEmployeeID(quizID, isActive, employeeID): Observable<any>{
     return this._http.get(this.Url + "GetQuizAnswerAssessmentByQuizIDAndEmployeeID?quizID=" + quizID + "&isActive=" + isActive + "&employeeID=" + employeeID, { headers: this.header });
   }
+  GetIncompleteQuiz():Observable<any>{
+    return this._http.get(this.Url+"GetIncompleteQuiz", { headers: this.header });
+  }
+  GetIncompleteQuizByUserIDandCompID(userID, CompanyID): Observable<any>{
+    return this._http.get(this.Url + "GetIncompleteQuizByUserIDandCompID?userID=" + userID + "&CompanyID=" + CompanyID, { headers: this.header });
+  }
+  SaveQuizStartStatus(quizstartstatus): Observable<any>{
+    return this._http.post(this.Url + "SaveQuizStartStatus", quizstartstatus, { headers: this.header });
+  }
+  DeleteQuizStatus(quizStatusID): Observable<any>{
+    return this._http.post(this.Url + "DeleteQuizStatus?quizStatusID="+quizStatusID,null, { headers: this.header });
+  }
+  SaveQuizFinishStatus(quizStatusID): Observable<any>{
+    return this._http.post(this.Url + "SaveQuizFinishStatus?quizStatusID="+quizStatusID,null, { headers: this.header });
+  }
 }
