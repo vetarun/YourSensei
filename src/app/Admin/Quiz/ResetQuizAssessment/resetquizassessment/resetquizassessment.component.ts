@@ -61,11 +61,15 @@ export class ResetquizassessmentComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.quizList = data;
       console.log('Specific Data', this.quizList);
+
+      if(this.quizList.length == 0){
+        console.log("no record")
+      }
     })
   }
 
   DeleteQuiz(id){
-    if (confirm("Are you sure you want to Delete ?")) {
+    if (confirm("Are you sure you want to reset the quiz progress ?")) {
       this.QuizService.DeleteQuizStatus(id).subscribe((data: any)=> {
         console.log('Record Status Deleted', data);
         this.getquizlistbyUserIDandCompID();
