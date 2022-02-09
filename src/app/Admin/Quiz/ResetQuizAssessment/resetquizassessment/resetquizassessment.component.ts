@@ -63,7 +63,7 @@ export class ResetquizassessmentComponent implements OnInit {
       console.log('Specific Data', this.quizList);
 
       if(this.quizList.length == 0){
-        console.log("no record")
+        console.log("no record found");
       }
     })
   }
