@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // "strict": true, //written by rahul sharma
     "skipLibCheck": true,
     "downlevelIteration": true,
     "importHelpers": true,

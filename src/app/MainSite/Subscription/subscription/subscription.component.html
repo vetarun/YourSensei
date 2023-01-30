@@ -1,34 +1,30 @@
-
-
-
-
 <div id="generic_price_table">
 	<section>
-		
-		<app-your-sensei-modal [openModal]="paymentmode" (messageEvent)="messageEvent($event)" [showCloseButton]="IsPmntCmtd==false" modalHeading="{{modelHeading}}">
-			<ngx-paypal *ngIf="IsPmntCmtd==false"  [config]="payPalConfig"></ngx-paypal>
+
+		<app-your-sensei-modal [openModal]="paymentmode" (messageEvent)="messageEvent($event)"
+			[showCloseButton]="IsPmntCmtd==false" modalHeading="{{modelHeading}}">
+			<ngx-paypal *ngIf="IsPmntCmtd==false" [config]="payPalConfig"></ngx-paypal>
 			<div *ngIf="IsPmntCmtd==true">
 				<h3>
-					Payment confirmation 
+					Payment confirmation
 				</h3>
 				<h6 style="font-weight: 100;">
-					Your transaction has been completed successfully! 
+					Your transaction has been completed successfully!
 					<br>Transaction ID: <span style="color: #3b7bbf;font-weight: 600;">{{TransactionID}}</span>
 				</h6>
-				<h6  style="font-weight: 100;">Please note transaction Id for future reference.</h6>
-				<h1 class="text-center" style="color: green;"><i style="margin-right:10px" class="fa fa-check" aria-hidden="true"></i>Thank You!</h1>
+				<h6 style="font-weight: 100;">Please note transaction Id for future reference.</h6>
+				<h1 class="text-center" style="color: green;"><i style="margin-right:10px" class="fa fa-check"
+						aria-hidden="true"></i>Thank You!</h1>
 				<div *ngIf="newPlanID!=planid" class="col-md-12">
 					<span style="color: red;">Logged-out in {{timeLeft}} seconds!</span>
-					<a class="default-btn" style="text-align: center;float:right;" 
-				mat-raised-button (click)="logout()"
-				>Back to Login </a>
+					<a class="default-btn" style="text-align: center;float:right;" mat-raised-button
+						(click)="logout()">Back to Login </a>
 				</div>
 				<div *ngIf="newPlanID==planid" class="col-md-12">
-					<a class="default-btn" style="text-align: center;float:right;" 
-				mat-raised-button (click)="close($event)"
-				>Close </a>
+					<a class="default-btn" style="text-align: center;float:right;" mat-raised-button
+						(click)="close($event)">Close </a>
 				</div>
-				</div>
+			</div>
 		</app-your-sensei-modal>
 		<div class="container">
 			<h3>Subscription</h3>
@@ -40,11 +36,12 @@
 							<tr>
 								<th colspan="7">Your current plan <span *ngIf="subscriptionExpired">is <span
 											style="color: #fba311">EXPIRED</span></span>
-											<span *ngIf="subscriptionExpired==false">will be <span
-												style="color: #fba311">expired 
-												<span *ngIf="leftDaysToExpired>0">in {{leftDaysToExpired}} days.</span>
-												<span *ngIf="1>leftDaysToExpired">today.</span> </span></span>
-									<button *ngIf="8>leftDaysToExpired" class="default-btn" style="float: right!important" mat-raised-button
+									<span *ngIf="subscriptionExpired==false">will be <span
+											style="color: #fba311">expired
+											<span *ngIf="leftDaysToExpired>0">in {{leftDaysToExpired}} days.</span>
+											<span *ngIf="1>leftDaysToExpired">today.</span> </span></span>
+									<button *ngIf="8>leftDaysToExpired" class="default-btn"
+										style="float: right!important" mat-raised-button
 										(click)="subscribePlan(planid, numberOfDays, !isChangePlan,price)">
 										<mat-icon>autorenew</mat-icon> Renew
 									</button>
@@ -122,7 +119,7 @@
 										done
 									</span> -->
 									<i class="fa fa-check"></i>
-									 {{feature === 'Employee' ? plan.numberOfEmployees + ' Employee' : feature
+									{{feature === 'Employee' ? plan.numberOfEmployees + ' Employee' : feature
 									=== 'External Mentor' ? plan.numberOfExternalMentors + ' External Mentor' :
 									feature}}
 								</li>
@@ -134,8 +131,8 @@
 						<div class="generic_price_btn clearfix">
 							<a (click)="subscribePlan(plan.id, plan.numberOfDays, isChangePlan,plan.price)"
 								style="cursor: pointer;">Subscribe </a>
-								
-							
+
+
 						</div>
 						<!--//BUTTON END-->
 
